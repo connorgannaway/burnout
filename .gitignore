@@ -1,6 +1,7 @@
 # Text files
 *.txt
 !.gitkeep
+!requirements.txt
 
 # Xcode
 !**/*.xcodeproj
