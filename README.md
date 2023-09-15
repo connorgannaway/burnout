@@ -12,7 +12,7 @@ A mobile app that aggregates info from different motorsport competitions. Basica
 - Caleb Kornegay - CalebKornegay
 - Connor Gannaway - connorgannaway
 - Peyton Davis - peytonad
-
+- Andrew Lindstrom - aglindstrom
 
 ### Group Size
- This group [is/is not] full.
+ This group is full.
