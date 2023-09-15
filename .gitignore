@@ -3,6 +3,8 @@
 !.gitkeep
 !requirements.txt
 
+/__pycache__
+*.pyc
 # Xcode
 !**/*.xcodeproj
 !**/*.pbxproj
