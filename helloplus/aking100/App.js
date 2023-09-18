@@ -71,32 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-{/* if(isShowingImage) {
-        <View style={styles.container}>
-        <Button
-          title="Close Image"
-          color="#ff0000"
-          onPress={() => setShowingImage(false)}
-        />
-        <Image
-          source={{
-          uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/The_Blue_Marble_%28remastered%29.jpg/320px-The_Blue_Marble_%28remastered%29.jpg',
-          method: 'POST',
-          headers: {
-          Pragma: 'no-cache',
-         },
-          body: 'TEST',
-         }}
-         style={{width: 400, height: 400}}
-        />
-        </View>
-      } else {
-        <View style={styles.container}>
-        <Button
-          title="View Image"
-          color="#ff0000"
-          onPress={() => setShowingImage(true)}
-        />
-       </View>
-      } */}
       
