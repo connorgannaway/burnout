@@ -8,16 +8,6 @@ export default function App() {
 
   const [isShowingImage, setShowingImage] = React.useState(false)
 
-  // function ShowImage() {
-  //     <View style={styles.container}>
-        
-  //     </View>
-  // }
-
-  // function HideImage() {
-    
-  // }
-
   return (
     <View style={styles.container}>
       <Text style={styles.bigFont}>Hello World!</Text>
@@ -31,6 +21,19 @@ export default function App() {
       {
         isShowingImage ?
         (
+          <Button
+            title="Close World"
+            color="#ff0000"
+            onPress={() =>setShowingImage(false)}
+          />
+        ) : (
+          null
+        )
+      }
+      {
+        isShowingImage ?
+        (
+          <Text>TEST</Text>,
          <Image
            source={{
            uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/The_Blue_Marble_%28remastered%29.jpg/320px-The_Blue_Marble_%28remastered%29.jpg',
@@ -44,16 +47,11 @@ export default function App() {
           />
          ) : (
       <Button
-        title="View Image"
+        title="View World"
         color="#ff0000"
         onPress={() => setShowingImage(true)}
       /> )
-         }
-      <Button
-          title="Close Image"
-          color="#ff0000"
-          onPress={() => setShowingImage(false)}
-      />    
+         }   
       <StatusBar style="auto" />
     </View>
   );
