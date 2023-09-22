@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "racemob_test_page",
+    "slug": "racemob_test_page",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
