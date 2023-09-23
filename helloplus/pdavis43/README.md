@@ -15,6 +15,7 @@ a true consumer perspective.
  - download 'expogo' app on your phone and login with the same account as the expo server
  - scan the QR code from the expo server to open the app on your phone
  - you can now edit the code in the project_test/racemob_test_page/App.js file and see the changes live on your phone
+ - 'ctrl+c' will stop the expo server
 
 ### Sources
  - https://www.youtube.com/watch?v=f6TXEnHT_Mk&t=657s
