@@ -16,3 +16,6 @@ a true consumer perspective.
  - scan the QR code from the expo server to open the app on your phone
  - you can now edit the code in the project_test/racemob_test_page/App.js file and see the changes live on your phone
 
+### Sources
+ - https://www.youtube.com/watch?v=f6TXEnHT_Mk&t=657s
+ - https://docs.expo.dev/get-started/expo-go/
