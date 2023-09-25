@@ -41,4 +41,10 @@ class ConstructorStandings(models.Model):
     position = models.IntegerField()
     positionText = models.CharField(max_length=255)
     wins = models.IntegerField()
-    
+
+class ConstructorResults(models.Model):
+    constructorResultsId = models.IntegerField(primary_key=True)
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    points = models.FloatField()
+    status = models.CharField(max_length=255)
