@@ -23,4 +23,12 @@ class LapTimes(models.Model):
 class Status(models.Model):
     statusId = models.IntegerField(primary_key=True)
     status = models.CharField(max_length=255)
-    
+
+class DriverStandings(models.Model):
+    driverStandingsId = models.IntegerField(primary_key=True)
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    points = models.FloatField()
+    position = models.IntegerField()
+    positionText = models.CharField(max_length=255)
+    wins = models.IntegerField()
