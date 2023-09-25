@@ -10,4 +10,12 @@ class PitStops(models.Model):
     time = models.TimeField()
     duration = models.FloatField()
     milliseconds = models.IntegerField()
-    
+
+
+class LapTimes(models.Model):
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    lap = models.IntegerField()
+    position = models.IntegerField()
+    time = models.FloatField()
+    milliseconds = models.IntegerField()
