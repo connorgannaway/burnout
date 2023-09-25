@@ -32,3 +32,13 @@ class DriverStandings(models.Model):
     position = models.IntegerField()
     positionText = models.CharField(max_length=255)
     wins = models.IntegerField()
+
+class ConstructorStandings(models.Model):
+    constructorStandingsId = models.IntegerField(primary_key=True)
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    points = models.FloatField()
+    position = models.IntegerField()
+    positionText = models.CharField(max_length=255)
+    wins = models.IntegerField()
+    
