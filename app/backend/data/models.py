@@ -48,3 +48,7 @@ class ConstructorResults(models.Model):
     constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
     points = models.FloatField()
     status = models.CharField(max_length=255)
+    
+class Disciplines(models.Model):
+    disciplineId = models.Integer_field(primary_key=True)
+    name = models.Char_Field(max_length=255)
