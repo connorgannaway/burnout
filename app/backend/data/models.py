@@ -50,5 +50,10 @@ class ConstructorResults(models.Model):
     status = models.CharField(max_length=255)
     
 class Disciplines(models.Model):
-    disciplineId = models.Integer_field(primary_key=True)
-    name = models.Char_Field(max_length=255)
+    disciplineId = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=255)
+    
+class Seasons(models.Model):
+    year = models.IntegerField(primar_key=True)
+    url = models.CharField(max_length=255)
+    disciplineId = models.ForeignKey(Disciplines, on_delete=models.CASCADE)
