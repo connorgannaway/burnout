@@ -89,3 +89,14 @@ class Races(models.Model):
     sprint_date = models.DateField()
     sprint_time = models.TimeField()
     
+class Drivers(models.Model):
+    driverId = models.IntegerField(primary_key=True)
+    driverRef = models.BigIntegerField()
+    number = models.IntegerField()
+    code = models.CharField(max_length=3)
+    firstname = models.CharField(max_length=255)
+    surname = models.CharField(max_length=255)
+    dob = models.DateField()
+    nationality = models.CharField(max_length=255)
+    url = models.CharField(max_length=255)
+    
