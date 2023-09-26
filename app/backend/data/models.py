@@ -57,3 +57,14 @@ class Seasons(models.Model):
     year = models.IntegerField(primar_key=True)
     url = models.CharField(max_length=255)
     disciplineId = models.ForeignKey(Disciplines, on_delete=models.CASCADE)
+
+class Circuits(models.Model):
+    circuitId = models.IntegerField(primary_key=True)
+    circuitRef = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    lat = models.FloatField()
+    lng = models.FloatField()
+    alt = models.IntegerField()
+    url = models.CharField(max_length=255)
