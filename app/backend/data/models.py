@@ -106,6 +106,35 @@ class ConstructorResults(models.Model):
     points = models.FloatField()
     status = models.CharField(max_length=255)
 
+class Qualifying(models.Model):
+    qualifyid = models.IntegerField(primary_key=True)
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    position = models.IntegerField()
+    q1 = models.IntegerField()
+    q2 = models.IntegerField()
+    q3 = models.IntegerField()
+    
+class SprintResults(models.Model):
+    sprintResultId = models.IntegerField(primary_key=True)
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    grid = models.IntegerField()
+    position = models.IntegerField()
+    positionText = models.CharField(max_length=255)
+    positionOrder = models.IntegerField()
+    points = models.FloatField()
+    laps = models.IntegerField()
+    time = models.CharField(max_length=255)
+    milliseconds = models.IntegerField()
+    fastestLap = models.IntegerField()
+    fastestLapTime = models.CharField(max_length=255)
+    statusId = models.IntegerField()
+
 class Results(models.Model):
     resultId = models.IntegerField(primary_key=True)
     raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
@@ -121,7 +150,7 @@ class Results(models.Model):
     time = models.CharField(max_length=255)
     milliseconds = models.IntegerField()
     fastestLap = models.IntegerField()
-    rank = models.IntegerField()
+    rank = models.IntegerField()  # This is specific to Results model from pit26-results-model branch
     fastestLapTime = models.CharField(max_length=255)
-    fastestLapSpeed = models.CharField(max_length=255)
+    fastestLapSpeed = models.CharField(max_length=255)  # This is specific to Results model from pit26-results-model branch
     statusId = models.IntegerField()
