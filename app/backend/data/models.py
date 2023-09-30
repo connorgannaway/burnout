@@ -150,7 +150,7 @@ class Results(models.Model):
     time = models.CharField(max_length=255)
     milliseconds = models.IntegerField()
     fastestLap = models.IntegerField()
-    rank = models.IntegerField()  # This is specific to Results model from pit26-results-model branch
+    rank = models.IntegerField()
     fastestLapTime = models.CharField(max_length=255)
-    fastestLapSpeed = models.CharField(max_length=255)  # This is specific to Results model from pit26-results-model branch
+    fastestLapSpeed = models.CharField(max_length=255)
     statusId = models.IntegerField()
