@@ -105,6 +105,17 @@ class ConstructorResults(models.Model):
     constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
     points = models.FloatField()
     status = models.CharField(max_length=255)
+
+class Qualifying(models.Model):
+    qualifyid = models.IntegerField(primary_key=True)
+    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    position = models.IntegerField()
+    q1 = models.IntegerField()
+    q2 = models.IntegerField()
+    q3 = models.IntegerField()
     
 class SprintResults(models.Model):
     sprintResultId = models.IntegerField(primary_key=True)
