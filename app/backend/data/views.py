@@ -24,20 +24,25 @@ def get_version(package):
 
 '''
 Return current backend version and git commit information
-Credit: Pranab
+Git command credit: Pranab
 '''
 class Version(APIView):
     def get(self, request, format=None):
+        try:
+            version = get_version('pitwallapi')
+        except Exception as e:
+            print(f"[Version Endpoint] Error: {e}")
+            return Response(status=400)
         try:
             file_dir = os.path.dirname(os.path.abspath(__file__))
             git_command = ['git', 'log', '-1', '--pretty={"commit_hash": "%h", "full_commit_hash": "%H", "author_name": "%an", "commit_date": "%aD", "comment": "%s"}']
             git_identifier = subprocess.check_output(git_command, cwd=file_dir).decode('utf-8').strip()
             git_identifier = json.loads(git_identifier)
-            return Response({
-                "version": get_version('pitwallapi'),
-                "git_commit": git_identifier
-            }, status=200)
         except Exception as e:
             print(f"[Version Endpoint] Error: {e}")
-            return Response(status=400)
+            return Response({"version":version}, status=200)
 
+        return Response({
+            "version": version,
+            "git_commit": git_identifier
+        }, status=200)
