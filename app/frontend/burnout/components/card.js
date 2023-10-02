@@ -12,7 +12,7 @@ export default class BaseCard extends React.Component{
     render () {
         if(this.state.showComponent) {
             return (
-                <Card style={styles.card_container}>
+                <Card style={styles.card_container} onPress={() => alert("You pressed the card")}>
                     <Card.Title subtitleStyle={styles.card_container} titleStyle={styles.card_container} title="This is the actual card" subtitle="I hate frontend"></Card.Title>
                     <Card.Content style={styles.card_container}>
                         <Text variant="bodyMedium">This is wild</Text>
