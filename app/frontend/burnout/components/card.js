@@ -1,6 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { Card, Button } from 'react-native-paper';
 import { StyleSheet, Text, View, Image } from 'react-native';
+
+
 export default class BaseCard extends React.Component{
     constructor(){
         super()
@@ -10,11 +12,14 @@ export default class BaseCard extends React.Component{
         this.GoHere = this.GoHere.bind(this);
     }
     render () {
+        const {navigation} = this.props;
+        const {name} = this.props;
         if(this.state.showComponent) {
             return (
-                <Card style={styles.card_container} onPress={() => alert("You pressed the card")}>
-                    <Card.Title subtitleStyle={styles.card_container} titleStyle={styles.card_container} title="This is the actual card" subtitle="I hate frontend"></Card.Title>
-                    <Card.Content style={styles.card_container}>
+                <View>
+                <Card style={styles.container} onPress={() => navigation.navigate('TestScreen')}>
+                    <Card.Title subtitleStyle={styles.container} titleStyle={styles.container} title={name} subtitle="I hate frontend"></Card.Title>
+                    <Card.Content style={styles.container}>
                         <Text variant="bodyMedium">This is wild</Text>
                     </Card.Content>
                     <Card.Actions>
@@ -23,6 +28,7 @@ export default class BaseCard extends React.Component{
                         <Button onPress={this.GoHere}>Kill react</Button>
                     </Card.Actions>
                 </Card>
+                </View>
             );
         } else {
             alert("Check this sweet burnout ONG");
@@ -38,7 +44,7 @@ export default class BaseCard extends React.Component{
     }
 
 
-    GoHere = () => {
+    GoHere () {
         const { showComponent } = this.state;
         this.setState({
             showComponent: !showComponent,
@@ -48,15 +54,9 @@ export default class BaseCard extends React.Component{
 }
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+        backgroundColor: '#f0f',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
     },
-    card_container: {
-    backgroundColor: '#f0f',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    }
 });
