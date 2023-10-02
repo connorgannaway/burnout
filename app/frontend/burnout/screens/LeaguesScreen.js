@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import BaseCard from '../components/card';
 
-// import TestScreen from "./TestScreen";
-// const Stack = createNativeStackNavigator();
 
 
 export default function LeaguesScreen({ navigation }) {
@@ -25,13 +21,17 @@ export default function LeaguesScreen({ navigation }) {
   );
 }
 
+
+const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexGrow: 0.25,
+    height: screen.height,
+    width: screen.width,
+    flexGrow: 1,
     flexShrink: 1,
   },
 });
