@@ -96,6 +96,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
+            'OPTIONS': {
+                'options': '-c search_path=appdata'
+            },
             'NAME': 'pitwall',
             'USER': os.environ.get('DBUSER'),
             'PASSWORD': os.environ.get('DBPASS'),
