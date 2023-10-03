@@ -32,6 +32,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    '10.0.0.48',
     'pitwall.connorgannaway.net',
 ]
 
