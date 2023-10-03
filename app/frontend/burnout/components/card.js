@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, Button } from 'react-native-paper';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, PixelRatio } from 'react-native';
 
 
 export default class BaseCard extends React.Component{
@@ -18,11 +18,11 @@ export default class BaseCard extends React.Component{
             return (
                 <View>
                 <Card style={styles.container} onPress={() => navigation.navigate('TestScreen')}>
-                    <Card.Title subtitleStyle={styles.container} titleStyle={styles.container} title={name} subtitle="I hate frontend"></Card.Title>
-                    <Card.Content style={styles.container}>
+                    <Card.Title subtitleStyle={styles.title} titleStyle={styles.title} title={name} subtitle="I hate frontend"></Card.Title>
+                    <Card.Content style={styles.title}>
                         <Text variant="bodyMedium">This is wild</Text>
                     </Card.Content>
-                    <Card.Actions>
+                    <Card.Actions justifyContent='center'>
                         <Button onPress={() => alert("You don't wanna do that")}>Cancel</Button>
                         <Button onPress={() => console.log('I\'M PRESSED FRFR')}>Ok</Button>
                         <Button onPress={this.GoHere}>Kill react</Button>
@@ -52,11 +52,23 @@ export default class BaseCard extends React.Component{
     }
 
 }
+
+const window = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f0f',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        width: window.width/1.1,
+        marginHorizontal: window.width/12,
+        marginVertical: window.height/24,
+        borderRadius: 15,
     },
+    title:{
+        backgroundColor: '#f0f',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+    }
 });
