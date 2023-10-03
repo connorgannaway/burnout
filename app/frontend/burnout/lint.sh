@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ -f "./errors.txt" ]; then
     echo -n "Would you like me to delete errors.txt (y|n)? "
     read yn
