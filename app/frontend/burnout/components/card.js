@@ -53,18 +53,16 @@ export default class BaseCard extends React.Component{
 
 }
 
-const screen = Dimensions.get('screen');
+const window = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f0f',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        width: screen.width/1.1,
-        marginLeft: screen.width/12,
-        marginRight: screen.width/12,
-        marginTop: screen.height/24,
-        marginBottom: screen.height/24,
+        width: window.width/1.1,
+        marginHorizontal: window.width/12,
+        marginVertical: window.height/24,
         borderRadius: 15,
     },
     title:{
