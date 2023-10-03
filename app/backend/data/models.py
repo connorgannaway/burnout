@@ -7,7 +7,7 @@ class Disciplines(models.Model):
     name = models.CharField(max_length=255)
     
 class Seasons(models.Model):
-    year = models.IntegerField(primar_key=True)
+    year = models.IntegerField()
     url = models.CharField(max_length=255)
     disciplineId = models.ForeignKey(Disciplines, on_delete=models.CASCADE)
     
@@ -55,8 +55,8 @@ class Races(models.Model):
     fp2_time = models.TimeField()
     fp3_date = models.DateField()
     fp3_time = models.TimeField()
-    quall_date = models.DateField()
-    quall_time = models.TimeField()
+    quali_date = models.DateField()
+    quali_time = models.TimeField()
     sprint_date = models.DateField()
     sprint_time = models.TimeField()
     
