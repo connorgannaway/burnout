@@ -7,9 +7,10 @@ class Disciplines(models.Model):
     name = models.CharField(max_length=255)
     
 class Seasons(models.Model):
+    seasonId = models.IntegerField(primary_key=True)
     year = models.IntegerField()
     url = models.CharField(max_length=255)
-    disciplineId = models.ForeignKey(Disciplines, on_delete=models.CASCADE)
+    disciplineId = models.ForeignKey(Disciplines, db_column='disciplineId', on_delete=models.CASCADE)
     
 class Constructors(models.Model):
     contructorId = models.IntegerField(primary_key=True)
@@ -42,9 +43,9 @@ class Circuits(models.Model):
     
 class Races(models.Model):
     raceId = models.IntegerField(primary_key=True)
-    year = models.ForeignKey(Seasons, on_delete=models.CASCADE)
+    seasonId = models.ForeignKey(Seasons, db_column='seasonId', on_delete=models.CASCADE)
     round = models.IntegerField()
-    circuitId = models.ForeignKey(Circuits, on_delete=models.CASCADE)
+    circuitId = models.ForeignKey(Circuits,db_column='circuitId', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     date = models.DateField()
     time = models.TimeField()
@@ -61,8 +62,8 @@ class Races(models.Model):
     sprint_time = models.TimeField()
     
 class PitStops(models.Model):
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
     stop = models.IntegerField()
     lap = models.IntegerField()
     time = models.TimeField()
@@ -70,8 +71,8 @@ class PitStops(models.Model):
     milliseconds = models.IntegerField()
 
 class LapTimes(models.Model):
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
     lap = models.IntegerField()
     position = models.IntegerField()
     time = models.FloatField()
@@ -83,8 +84,8 @@ class Status(models.Model):
 
 class DriverStandings(models.Model):
     driverStandingsId = models.IntegerField(primary_key=True)
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
     points = models.FloatField()
     position = models.IntegerField()
     positionText = models.CharField(max_length=255)
@@ -92,8 +93,8 @@ class DriverStandings(models.Model):
 
 class ConstructorStandings(models.Model):
     constructorStandingsId = models.IntegerField(primary_key=True)
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
     points = models.FloatField()
     position = models.IntegerField()
     positionText = models.CharField(max_length=255)
@@ -101,16 +102,16 @@ class ConstructorStandings(models.Model):
 
 class ConstructorResults(models.Model):
     constructorResultsId = models.IntegerField(primary_key=True)
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
     points = models.FloatField()
     status = models.CharField(max_length=255)
 
 class Qualifying(models.Model):
     qualifyid = models.IntegerField(primary_key=True)
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
-    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
     number = models.IntegerField()
     position = models.IntegerField()
     q1 = models.IntegerField()
@@ -119,9 +120,9 @@ class Qualifying(models.Model):
     
 class SprintResults(models.Model):
     sprintResultId = models.IntegerField(primary_key=True)
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
-    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
     number = models.IntegerField()
     grid = models.IntegerField()
     position = models.IntegerField()
@@ -137,9 +138,9 @@ class SprintResults(models.Model):
 
 class Results(models.Model):
     resultId = models.IntegerField(primary_key=True)
-    raceId = models.ForeignKey(Races, on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers, on_delete=models.CASCADE)
-    constructorId = models.ForeignKey(Constructors, on_delete=models.CASCADE)
+    raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
     number = models.IntegerField()
     grid = models.IntegerField()
     position = models.IntegerField()
