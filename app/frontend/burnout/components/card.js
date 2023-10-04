@@ -57,6 +57,17 @@ export default class BaseCard extends React.Component{
 
 }
 
+/*
+ * Takes a navigation prop and list of data and turns them into a list of BaseCard components
+ *      navigation: navigation prop created by React Navigation
+ *            data: a list of objects containting the necessary data to fill out a BaseCard component
+ */
+export function buildCardsFromData(navigation, data){
+
+    return data.map((data) => <BaseCard key={data.name + data.where} navigation={navigation} name={data.name} subName={data.subName} body={data.body} bgcolor={data.bgcolor} where={data.where}/>);
+
+}
+
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
     container: {
