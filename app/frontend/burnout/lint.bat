@@ -22,9 +22,9 @@ set dirs=components screens .
     for %%i in (%%a\*.js) do (
         if not "%%i" == ".\babel.config.js" (
             if "%fix%"=="--fix" (
-                call npx eslint --fix %cd%\%%i >> errors.txt 2>&1
+                call npx eslint --fix %cd%\%%i
             ) else (
-                call npx eslint --fix %cd%\%%i >> errors.txt 2>&1
+                call npx eslint %cd%\%%i >> errors.txt 2>&1
             )     
             echo %cd%\%%i
             echo: >> errors.txt
