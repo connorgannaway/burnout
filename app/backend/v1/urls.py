@@ -12,5 +12,8 @@ Including another URLconf
 """
 
 from django.urls import path
-
-urlpatterns = []
+from . import views
+urlpatterns = [
+    path('messages/', views.Message.as_view()),
+    path('messages/<int:pk>/', views.MessageDetail.as_view()),
+]
