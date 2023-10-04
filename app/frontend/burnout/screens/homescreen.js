@@ -60,7 +60,7 @@ export default function HomeScreen({ navigation }) {
                     />
 				</ScrollView>
 				<StatusBar style="auto" />
-                <BottomBar />
+                <BottomBar navigation={navigation}/>
 			</View>
 		</SafeAreaView>
 	);
