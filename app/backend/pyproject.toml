@@ -20,7 +20,8 @@ py_version = 3
 skip_glob = [ 
     "v1/*",
     ".venv/*",
-    "__pycache__/*"
+    "__pycache__/*",
+    "csv/*"
 ]
 only_modified = true
 line_length = 80
