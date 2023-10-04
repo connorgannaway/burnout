@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, Button } from 'react-native-paper';
-import { StyleSheet, Text, View, Image, Dimensions, PixelRatio } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 
 
 export default class BaseCard extends React.Component{
@@ -12,35 +12,39 @@ export default class BaseCard extends React.Component{
         this.GoHere = this.GoHere.bind(this);
     }
     render () {
-        const {navigation} = this.props;
-        const {name} = this.props;
-        if(this.state.showComponent) {
-            return (
-                <View>
-                <Card style={styles.container} onPress={() => navigation.navigate('TestScreen')}>
-                    <Card.Title subtitleStyle={styles.title} titleStyle={styles.title} title={name} subtitle="I hate frontend"></Card.Title>
-                    <Card.Content style={styles.title}>
-                        <Text variant="bodyMedium">This is wild</Text>
-                    </Card.Content>
-                    <Card.Actions justifyContent='center'>
-                        <Button onPress={() => alert("You don't wanna do that")}>Cancel</Button>
-                        <Button onPress={() => console.log('I\'M PRESSED FRFR')}>Ok</Button>
-                        <Button onPress={this.GoHere}>Kill react</Button>
-                    </Card.Actions>
-                </Card>
-                </View>
-            );
-        } else {
-            alert("Check this sweet burnout ONG");
-            return (
-                <View>
-                    <Text>You want the card back?</Text>
-                    <Button onPress={this.GoHere}>Yes</Button>
-                    <Button onPress={() => alert("You really don't want it back?")}>No</Button>
-                    <Image source={require('../images/mustangburnout.jpg')}></Image>
-                </View>
-            );
-        }
+        const {navigation, name, subName, body, bgcolor, where} = this.props;
+
+        return (
+            <View style={styles.cardStyle}>
+            <Card 
+                style={[styles.container, {backgroundColor: bgcolor}]} 
+                onPress={() => navigation.navigate({name: where})}>
+
+                <Card.Title  
+                    subtitleStyle={styles.title} 
+                    titleStyle={styles.title} 
+                    title={name} 
+                    subtitle={subName}>
+                </Card.Title>
+                <Card.Content style={styles.title}>
+                    <Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>
+                </Card.Content>
+                {/* Currently this is not needed but keeping it in case
+                    it is needed later */}
+                {/* <Card.Actions justifyContent='center'>
+                    <Button 
+                        onPress={() => alert("You don't wanna do that")}>
+                    Cancel</Button>
+                    <Button 
+                        onPress={() => console.log('I\'M PRESSED FRFR')}>
+                    Ok</Button>
+                    <Button 
+                        onPress={this.GoHere}>
+                    Kill react</Button>
+                </Card.Actions> */}
+            </Card>
+            </View>
+        );
     }
 
 
@@ -53,22 +57,22 @@ export default class BaseCard extends React.Component{
 
 }
 
-const window = Dimensions.get('window');
+const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#f0f',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        width: window.width/1.1,
-        marginHorizontal: window.width/12,
-        marginVertical: window.height/24,
+        width: screen.width/1.15,
+        padding: screen.width/24,
+        marginTop: screen.height/96,
+        marginBottom: screen.height/96,
         borderRadius: 15,
     },
     title:{
-        backgroundColor: '#f0f',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
+        color: 'white',
     }
 });
