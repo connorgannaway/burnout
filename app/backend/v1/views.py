@@ -8,13 +8,21 @@ from .serializers import *
 # Create your views here.
 
 # /v1/messages
-# GET: Return all enabled messages
+# GET: Return all enabled messages, or all messages if /?all=true
 # POST: Create a new message
 class Message(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request, format=None):
-        messages = Messages.objects.filter(enabled=True)
+        # this if has to be in a try block. exception thrown if the param doesn't exist.
+        try:
+            if request.query_params['all'].lower() == "true":
+                messages = Messages.objects.all().order_by('-enabled')
+            else:
+                messages = Messages.objects.filter(enabled=True)
+        except:
+            messages = Messages.objects.filter(enabled=True)
+
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
