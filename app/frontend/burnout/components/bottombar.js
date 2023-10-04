@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-export default function BottomBar() {
+export default function BottomBar({navigation}) {
   const [selected, setSelected] = useState(0);
   const buttons = ["Home", "Leagues", "Race", "Stuff"];
+  const pages = ["HomeScreen", "LeaguesScreen", "TestScreen", "TestScreen"];
 
   return (
     <View style={styles.container}>
@@ -11,7 +12,7 @@ export default function BottomBar() {
         <TouchableOpacity
           key={index}
           style={[styles.button, selected === index && styles.selectedButton]}
-          onPress={() => setSelected(index)}
+          onPress={() => {setSelected(index); navigation.navigate(pages[index]);}}
         >
           <Text style={[styles.label, selected === index && styles.selectedLabel]}>
             {label}

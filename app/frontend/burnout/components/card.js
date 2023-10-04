@@ -17,7 +17,7 @@ export default class BaseCard extends React.Component{
         if(this.state.showComponent) {
             return (
                 <View>
-                <Card style={styles.container} onPress={() => navigation.navigate('TestScreen')}>
+                <Card style={styles.container} onPress={() => navigation.navigate('LeaguesScreen')}>
                     <Card.Title subtitleStyle={styles.title} titleStyle={styles.title} title={name} subtitle="I hate frontend"></Card.Title>
                     <Card.Content style={styles.title}>
                         <Text variant="bodyMedium">This is wild</Text>
