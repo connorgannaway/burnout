@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
 # Models that don't have a primary_key=true statement use the standard django id field
@@ -155,3 +157,16 @@ class Results(models.Model):
     fastestLapTime = models.CharField(max_length=255,blank=True, null=True)
     fastestLapSpeed = models.CharField(max_length=255,blank=True, null=True)
     statusId = models.IntegerField(blank=True, null=True)
+
+class Messages(models.Model):
+    enabled = models.BooleanField()
+    title = models.CharField(max_length=100)
+    message = models.CharField(max_length=255)
+
+    # django will handle these fields since auto_now(_add) is true.
+    # anything passed will be ignored upon Model.save()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
