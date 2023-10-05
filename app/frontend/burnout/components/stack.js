@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TestScreen from '../screens/testscreen';
 import LeaguesScreen from '../screens/leaguesscreen';
 import HomeScreen from '../screens/homescreen';
+import LeagueMasterScreen from '../screens/leaguemasterscreen';
+import DriverMasterScreen from '../screens/drivermasterscreen';
 
 const Stack = createNativeStackNavigator();
 
