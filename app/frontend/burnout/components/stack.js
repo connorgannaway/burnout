@@ -1,6 +1,5 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 import TestScreen from '../screens/testscreen';
 import LeaguesScreen from '../screens/leaguesscreen';
 import HomeScreen from '../screens/homescreen';
@@ -9,38 +8,61 @@ import DriverMasterScreen from '../screens/drivermasterscreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function MyStack(){
+function LeagueStack(){
 	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName='HomeScreen'>
-				<Stack.Screen
-					name="TestScreen"
-					component={TestScreen}
-					options={{
-						title: 'Testing Page'
-					}}>
-				</Stack.Screen>
-				<Stack.Screen
-					name="LeaguesScreen"
-					component={LeaguesScreen}
-					options={{
-						title: 'Leagues Page'
-					}}>
-				</Stack.Screen>
-				<Stack.Screen
-					name='HomeScreen'
-					component={HomeScreen}
-				>
-				</Stack.Screen>
-				<Stack.Screen
-					name="leaguemasterscreen"
-					component={LeagueMasterScreen}
-				/>
-				<Stack.Screen
-					name="drivermasterscreen"
-					component={DriverMasterScreen}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
+        <Stack.Navigator initialRouteName='LeaguesScren'> 
+            <Stack.Screen
+                name='LeaguesScreen'
+                component={LeaguesScreen}
+                options={{
+                    title: 'Leagues Page',
+                    // headerShown: false
+                }}
+            ></Stack.Screen>
+            <Stack.Screen
+                name='TestScreen'
+                component={TestScreen}
+                options={{
+                    title: 'Testing Page',
+                    // headerShown: false
+                }}
+            >
+            </Stack.Screen>
+        </Stack.Navigator>
 	);
 }
+
+export {LeagueStack}
+
+function HomeStack(){
+    return (
+        <Stack.Navigator initialRouteName='HomeScreen'>
+            <Stack.Screen
+                name='TestScreen'
+                component={TestScreen}
+                options={{
+                    title: 'Testing Page',
+                    // headerShown: false
+                }}
+            ></Stack.Screen>
+            <Stack.Screen
+                name='LeaguesScreen'
+                component={LeaguesScreen}
+                options={{
+                    title: 'Leagues Page',
+                    // headerShown: false
+                }}
+            ></Stack.Screen>
+            <Stack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
+                options={{
+                    title: 'Home Page',
+                    // headerShown: false
+                }}
+            ></Stack.Screen>
+        </Stack.Navigator>
+    );
+}
+
+export {HomeStack}

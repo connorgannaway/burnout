@@ -42,7 +42,7 @@ export default function HomeScreen({ navigation }) {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
 			<View style={styles.container}>
-				<TopBar />
+				{/* <TopBar /> */}
 				{/* Put things that should be rendered into the ScrolLView element */}
 				<ScrollView style={styles.content}>
 					<Text>Body Text</Text>
@@ -56,11 +56,11 @@ export default function HomeScreen({ navigation }) {
                         name={"Formula 1"}
                         body={"Click to view the Formula 1 League Page"}
                         bgcolor={'#ff00ff'}
-                        where={'TestScreen'}
+                        where={'LeaguesScreen'}
                     />
 				</ScrollView>
 				<StatusBar style="auto" />
-                <BottomBar navigation={navigation}/>
+                {/* <BottomBar navigation={navigation}/> */}
 			</View>
 		</SafeAreaView>
 	);
