@@ -16,7 +16,7 @@ export default function LeaguesScreen({ navigation }) {
           name={"Formula 1"}
           body={"Click to view the Formula 1 League Page"}
           bgcolor={'#ff1801'}
-          where={'leaguemasterscreen'}
+          where={'TestScreen'}
         />
         <BaseCard 
           navigation={navigation} 

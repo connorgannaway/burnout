@@ -15,6 +15,7 @@ export default function MyTab(){
                         name='HomeStack'
                         component={HomeStack}
                         options={{
+                            title: 'Home',
                             headerShown: false,
                             tabBarIcon: ({size}) => (
                                 <MaterialCommunityIcons name='home' color='#f0f' size={size}/>
@@ -26,6 +27,7 @@ export default function MyTab(){
                         name='LeaguesStack'
                         component={LeagueStack}
                         options={{
+                            title: 'Leagues',
                             headerShown: false,
                             tabBarIcon: ({ size }) => (
                                 <MaterialCommunityIcons name='racing-helmet' color={"black"} size={size} />
@@ -37,9 +39,13 @@ export default function MyTab(){
                         name='Test'
                         component={TestScreen}
                         options={{
+                            title: 'Test',
                             headerShown: false,
                             tabBarActiveTintColor: '#000',
-                            tabBarInactiveTintColor: '#f0f'
+                            tabBarInactiveTintColor: '#f0f',
+                            tabBarIcon: ({ size }) => (
+                                <MaterialCommunityIcons name='calendar-today' color={"black"} size={size} />
+                              )
                     }}></Tab.Screen>
                 </Tab.Navigator>
             </NavigationContainer>
