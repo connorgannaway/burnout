@@ -22,19 +22,23 @@ export default class LeagueMasterScreen extends React.Component{
 	render() {
 		const {navigation} = this.props;
 		/*TODO: swap test data with an API call to retrieve real data*/
-		const drivers = [{name: "Driver 1", subName: "Constructor 1", body: "Race Data", bgcolor: "#5f5f5f", where: "drivermasterscreen"},
-						 {name: "Driver 2", subName: "Constructor 2", body: "Race Data", bgcolor: "#5f5f5f", where: "drivermasterscreen"},
-						 {name: "Driver 3", subName: "Constructor 3", body: "Race Data", bgcolor: "#5f5f5f", where: "drivermasterscreen"}];
+		
+		const raceRecap = [{name: "Last Race", body:"1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man", bgcolor: '#ff1801', where:'TestScreen'}];
+		const raceRecapCard = buildCardsFromData(navigation, raceRecap);
 
-		const driverCards = buildCardsFromData(navigation, drivers);
+		const schedule = [{name: "Schedule", body:"10/8     Next Race\n10/15   Nexter Race\n10/22   Nextest Race", bgcolor: '#ff1801', where:'TestScreen'}];
+		const scheduleCard = buildCardsFromData(navigation, schedule);
+
+		const standings = [{name: "Standings", body:"1. Driver 1 - X Points\n1. Driver 2 - X Points\n1. Driver 3 - X Points", bgcolor: '#ff1801', where:'TestScreen'}];
+		const standingsCard = buildCardsFromData(navigation, standings);
 
 		return(
 			<View style={styles.container}>
-				<Topbar />
 				<ScrollView>
-					{driverCards}
+					{raceRecapCard}
+					{scheduleCard}
+					{standingsCard}
 				</ScrollView>
-				<BottomBar navigation={navigation}/>
 			</View>
 		);
 	}
@@ -48,5 +52,6 @@ const styles = StyleSheet.create({
 		height: screen.height-250,
 		width: screen.width,
 		backgroundColor: "#efefef",
+		alignItems: 'center',
 	},
 })

@@ -78,6 +78,35 @@ function LeagueStack({navigation}){
                 }}
             >
             </Stack.Screen>
+			<Stack.Screen
+				name='LeagueMasterScreen'
+				component={LeagueMasterScreen}
+				options={{
+					title: 'League Master Screen',
+					headerBackTitleVisible: false,
+					headerTitleAlign: 'center',
+					headerTintColor: '#fff',
+					headerStyle: {
+						backgroundColor: '#ff0000',
+					},
+					headerRight: () => (
+						<View style={{flexDirection:"row"}}>
+							<MaterialCommunityIcons 
+								name='magnify' 
+								color={"black"} 
+								size={25} 
+								style={{paddingRight: 25}}
+								onPress={() => {alert('This has not been implemented yet')}}/>
+							<MaterialCommunityIcons 
+								name='calendar-today' 
+								color={"black"} 
+								size={25} 
+								onPress={() => {alert("Test")}}/>
+						</View>
+					),
+				}}
+			>
+			</Stack.Screen>
         </Stack.Navigator>
 	);
 }
