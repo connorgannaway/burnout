@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from django.utils import timezone
+import datetime
 
 from .serializers import *
 
@@ -56,3 +58,28 @@ class MessageDetail(APIView):
             serializer.save()
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# This returns the nearest races from the current date, or date given.
+class RaceIds(APIView):
+    def get(self, request, format=None):
+        try:
+            targetdate = request.query_params['date']
+        except:
+            targetdate = datetime.date.today()
+
+        today = Races.objects.filter(date=targetdate).values_list('raceId', flat=True)
+        greater = Races.objects.filter(date__gt=targetdate).order_by('date')[:10].values_list('raceId', flat=True)
+        less = Races.objects.filter(date__lt=targetdate).order_by('-date')[:10].values_list('raceId', flat=True)
+
+        data = {
+            "today": today,
+            "future": greater,
+            "past": less
+        }
+        print(targetdate)
+        return Response(data=data, status=status.HTTP_200_OK)
+
+        
+
+
