@@ -2,7 +2,6 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from datetime import datetime
 from django.utils import timezone
 from django.db.models import F
 
@@ -124,7 +123,7 @@ class RaceIds(APIView):
         try:
             targetdate = request.query_params['date']
         except:
-            targetdate = datetime.date.today()
+            targetdate = timezone.now().date()
 
         today = Races.objects.filter(date=targetdate).values_list('raceId', flat=True)
         greater = Races.objects.filter(date__gt=targetdate).order_by('date')[:10].values_list('raceId', flat=True)
