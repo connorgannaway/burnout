@@ -16,28 +16,28 @@ export default function LeaguesScreen({ navigation }) {
           name={"Formula 1"}
           body={"Click to view the Formula 1 League Page"}
           bgcolor={'#ff1801'}
-          where={'TestScreen'}
+          where={'LeagueMasterScreen'}
         />
         <BaseCard 
           navigation={navigation} 
           name={"NASCAR"}
           body={"Click to view the NASCAR League Page"}
           bgcolor={'#e4002b'}
-          where={'TestScreen'}
+          where={'LeagueMasterScreen'}
         />
         <BaseCard 
           navigation={navigation} 
           name={"MotoGP"}
           body={"Click to view the MotoGP League Page"}
           bgcolor={'#E0144C'}
-          where={'TestScreen'}
+          where={'LeagueMasterScreen'}
         />
         <BaseCard 
           navigation={navigation} 
           name={"IndyCar"}
           body={"Click to view the IndyCar League Page"}
           bgcolor={'#b92a30'}
-          where={'TestScreen'}
+          where={'LeagueMasterScreen'}
         />
       <StatusBar style="auto" />
     </ScrollView>

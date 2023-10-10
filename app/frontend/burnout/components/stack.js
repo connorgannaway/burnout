@@ -18,36 +18,44 @@ iconContainer: {
 },
 });
 
+const ScreenOptions = {
+		lazy: false,
+		headerBackTitleVisible: false,
+		headerTitleAlign: 'center',
+		headerTintColor: '#fff',
+		headerStyle: {
+			backgroundColor: '#ff0000',
+		},
+		headerRight: () => (
+			<View style={{flexDirection:"row"}}>
+				<MaterialCommunityIcons 
+					name='magnify' 
+					color={'black'} 
+					size={25} 
+					style={{paddingRight: 25}}
+					onPress={() => 
+						{alert('This has not been implemented yet')}}/>
+				<MaterialCommunityIcons 
+					name='calendar-today' 
+					color={'black'} 
+					size={25} 
+					onPress={() => 
+						{alert('This has not been implemented yet')}}/>
+			</View>
+		),
+};
 
 function LeagueStack({navigation}){
 	return (
-        <Stack.Navigator initialRouteName='LeaguesScren'> 
+        <Stack.Navigator 
+			initialRouteName='LeaguesScreen'
+			screenOptions={ScreenOptions}
+		> 
             <Stack.Screen
                 name='LeaguesScreen'
                 component={LeaguesScreen}
                 options={{
                     title: 'Leagues Page',
-					headerBackTitleVisible: false,
-					headerTitleAlign: 'center',
-					headerTintColor: '#fff',
-					headerStyle: {
-						backgroundColor: '#ff0000',
-					},
-					headerRight: () => (
-						<View style={{flexDirection:"row"}}>
-							<MaterialCommunityIcons 
-								name='magnify' 
-								color={"black"} 
-								size={25} 
-								style={{paddingRight: 25}}
-								onPress={() => {alert('This has not been implemented yet')}}/>
-							<MaterialCommunityIcons 
-								name='calendar-today' 
-								color={"black"} 
-								size={25} 
-								onPress={() => {navigation.navigate('TestScreen')}}/>
-						</View>
-					),
                 }}
             ></Stack.Screen>
             <Stack.Screen
@@ -55,30 +63,17 @@ function LeagueStack({navigation}){
                 component={TestScreen}
                 options={{
                     title: 'Testing Page',
-					headerBackTitleVisible: false,
-					headerTitleAlign: 'center',
-					headerTintColor: '#fff',
-					headerStyle: {
-						backgroundColor: '#ff0000',
-					},
-					headerRight: () => (
-						<View style={{flexDirection:"row"}}>
-							<MaterialCommunityIcons 
-								name='magnify' 
-								color={"black"} 
-								size={25} 
-								style={{paddingRight: 25}}
-								onPress={() => {alert('This has not been implemented yet')}}/>
-							<MaterialCommunityIcons 
-								name='calendar-today' 
-								color={"black"} 
-								size={25} 
-								onPress={() => {alert("Test")}}/>
-						</View>
-					),
                 }}
             >
             </Stack.Screen>
+			<Stack.Screen
+				name='LeagueMasterScreen'
+				component={LeagueMasterScreen}
+				options={{
+					title: 'League Master Screen',
+				}}
+			>
+			</Stack.Screen>
         </Stack.Navigator>
 	);
 }
@@ -87,33 +82,15 @@ export {LeagueStack}
 
 function HomeStack({navigation}){
     return (
-        <Stack.Navigator initialRouteName='HomeScreen'>
+        <Stack.Navigator 
+			initialRouteName='HomeScreen'
+			screenOptions={ScreenOptions}
+		>
             <Stack.Screen
                 name='TestScreen'
                 component={TestScreen}
                 options={{
                     title: 'Testing Page',
-					headerBackTitleVisible: false,
-					headerTitleAlign: 'center',
-					headerTintColor: '#fff',
-					headerStyle: {
-						backgroundColor: '#ff0000',
-					},
-					headerRight: () => (
-						<View style={{flexDirection:"row"}}>
-							<MaterialCommunityIcons 
-								name='magnify' 
-								color={"black"} 
-								size={25} 
-								style={{paddingRight: 25}}
-								onPress={() => {alert('This has not been implemented yet')}}/>
-							<MaterialCommunityIcons 
-								name='calendar-today' 
-								color={"black"} 
-								size={25} 
-								onPress={() => {alert("Test")}}/>
-						</View>
-					),
                 }}
             ></Stack.Screen>
             <Stack.Screen
@@ -121,27 +98,6 @@ function HomeStack({navigation}){
                 component={LeaguesScreen}
                 options={{
                     title: 'Leagues Page',
-					headerBackTitleVisible: false,
-					headerTitleAlign: 'center',
-					headerTintColor: '#fff',
-					headerStyle: {
-						backgroundColor: '#ff0000',
-					},
-					headerRight: () => (
-						<View style={{flexDirection:"row"}}>
-							<MaterialCommunityIcons 
-								name='magnify' 
-								color={"black"} 
-								size={25} 
-								style={{paddingRight: 25}}
-								onPress={() => {alert('This has not been implemented yet')}}/>
-							<MaterialCommunityIcons 
-								name='calendar-today' 
-								color={"black"} 
-								size={25} 
-								onPress={() => {alert("Test")}}/>
-						</View>
-					),
                 }}
             ></Stack.Screen>
             <Stack.Screen
@@ -149,29 +105,16 @@ function HomeStack({navigation}){
                 component={HomeScreen}
                 options={{
                     title: 'Home Page',
-					headerBackTitleVisible: false,
-					headerTitleAlign: 'center',
-					headerTintColor: '#fff',
-					headerStyle: {
-						backgroundColor: '#ff0000',
-					},
-					headerRight: () => (
-						<View style={{flexDirection:"row"}}>
-							<MaterialCommunityIcons 
-								name='magnify' 
-								color={"black"} 
-								size={25} 
-								style={{paddingRight: 25}}
-								onPress={() => {alert('This has not been implemented yet')}}/>
-							<MaterialCommunityIcons 
-								name='calendar-today' 
-								color={"black"} 
-								size={25} 
-								onPress={() => {navigation.navigate('TestScreen')}}/>
-						</View>
-					),
                 }}
             ></Stack.Screen>
+			<Stack.Screen
+				name='LeagueMasterScreen'
+				component={LeagueMasterScreen}
+				options={{
+					title: 'League Master Screen',
+				}}
+			>
+			</Stack.Screen>
         </Stack.Navigator>
     );
 }

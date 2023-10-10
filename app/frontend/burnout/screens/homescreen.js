@@ -11,38 +11,37 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		justifyContent: 'space-between',
 	},
-	topBar: {
-		flexDirection: 'row',
-		width: '100%',
-		padding: 10,
-		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		borderBottomWidth: 1,
-		borderColor: '#eee',
-		backgroundColor: '#fff',
-	},
-	logo: {
-		width: 50,
-		height: 50,
-		resizeMode: 'contain',
-	},
-	headerText: {
-		fontSize: 20,
-		fontWeight: 'bold',
-	},
-	iconContainer: {
-		flexDirection: 'row',
-		width: 60,
-		justifyContent: 'space-between',
-	},
+	// topBar: {
+	// 	flexDirection: 'row',
+	// 	width: '100%',
+	// 	padding: 10,
+	// 	paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+	// 	justifyContent: 'space-between',
+	// 	alignItems: 'center',
+	// 	borderBottomWidth: 1,
+	// 	borderColor: '#eee',
+	// 	backgroundColor: '#fff',
+	// },
+	// logo: {
+	// 	width: 50,
+	// 	height: 50,
+	// 	resizeMode: 'contain',
+	// },
+	// headerText: {
+	// 	fontSize: 20,
+	// 	fontWeight: 'bold',
+	// },
+	// iconContainer: {
+	// 	flexDirection: 'row',
+	// 	width: 60,
+	// 	justifyContent: 'space-between',
+	// },
 });
 
 export default function HomeScreen({ navigation }) {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
 			<View style={styles.container}>
-				{/* <TopBar /> */}
 				{/* Put things that should be rendered into the ScrolLView element */}
 				<ScrollView style={styles.content}>
 					<Text>Body Text</Text>
@@ -60,7 +59,6 @@ export default function HomeScreen({ navigation }) {
                     />
 				</ScrollView>
 				<StatusBar style="auto" />
-                {/* <BottomBar navigation={navigation}/> */}
 			</View>
 		</SafeAreaView>
 	);
