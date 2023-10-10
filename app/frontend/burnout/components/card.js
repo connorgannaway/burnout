@@ -64,8 +64,17 @@ export default class BaseCard extends React.Component{
  */
 export function buildCardsFromData(navigation, data){
 
-    return data.map((data) => <BaseCard key={data.name + data.where} navigation={navigation} name={data.name} subName={data.subName} body={data.body} bgcolor={data.bgcolor} where={data.where}/>);
-
+    return data.map((data) => 
+        <BaseCard 
+            key={data.name + data.where} 
+            navigation={navigation} 
+            name={data.name} 
+            subName={data.subName} 
+            body={data.body} 
+            bgcolor={data.bgcolor} 
+            where={data.where}
+        />
+    );
 }
 
 const screen = Dimensions.get('screen');

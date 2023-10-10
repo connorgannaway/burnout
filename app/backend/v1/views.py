@@ -5,6 +5,7 @@ from rest_framework import status, permissions
 from datetime import datetime
 from django.utils import timezone
 from django.db.models import F
+
 from .serializers import *
 
 # Create your views here.
@@ -116,3 +117,25 @@ class RaceBrief(APIView):
             ]
 
         return Response(data, status=status.HTTP_200_OK)
+
+# This returns the nearest races from the current date, or date given.
+class RaceIds(APIView):
+    def get(self, request, format=None):
+        try:
+            targetdate = request.query_params['date']
+        except:
+            targetdate = datetime.date.today()
+
+        today = Races.objects.filter(date=targetdate).values_list('raceId', flat=True)
+        greater = Races.objects.filter(date__gt=targetdate).order_by('date')[:10].values_list('raceId', flat=True)
+        less = Races.objects.filter(date__lt=targetdate).order_by('-date')[:10].values_list('raceId', flat=True)
+
+        data = {
+            "today": today,
+            "future": greater,
+            "past": less
+        }
+        print(targetdate)
+        return Response(data=data, status=status.HTTP_200_OK)
+
+        
