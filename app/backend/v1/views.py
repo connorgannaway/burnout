@@ -90,7 +90,7 @@ class RaceBrief(APIView):
         elif date < race.date or (date == race.date and time < race.time):
             data["rstatus"] = "Qualified"
             finishers = race.qualifying_set.all().order_by(F('position').asc(nulls_last=True))[:3]
-            data["qualifying"] = [
+            data["grid"] = [
                 {
                     "position": finisher.position,
                     "number": finisher.number,
@@ -104,7 +104,7 @@ class RaceBrief(APIView):
         else:
             data["rstatus"] = "Completed"
             finishers = race.results_set.all().order_by(F('position').asc(nulls_last=True))[:3]
-            data["finishers"] = [
+            data["grid"] = [
                 {
                     "position": finisher.position,
                     "number": finisher.number,
