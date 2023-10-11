@@ -1,0 +1,638 @@
+models.py    (calebkornegay on 09/25/2023 at 21:29): class Disciplines(models.Model):
+models.py    (calebkornegay on 09/25/2023 at 21:29):     disciplineId = models.IntegerField(primary_key=True)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     name = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29): class Seasons(models.Model):
+models.py    (calebkornegay on 09/25/2023 at 21:29): class Constructors(models.Model):
+models.py    (calebkornegay on 09/25/2023 at 21:29):     contructorId = models.IntegerField(primary_key=True)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     name = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     nationality = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29): class Drivers(models.Model):
+models.py    (calebkornegay on 09/25/2023 at 21:29):     driverId = models.IntegerField(primary_key=True)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     firstname = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     surname = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     nationality = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29): class Circuits(models.Model):
+models.py    (calebkornegay on 09/25/2023 at 21:29):     circuitId = models.IntegerField(primary_key=True)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     name = models.CharField(max_length=255)
+models.py    (calebkornegay on 09/25/2023 at 21:29): class Races(models.Model):
+models.py    (calebkornegay on 09/25/2023 at 21:29):     raceId = models.IntegerField(primary_key=True)
+models.py    (calebkornegay on 09/25/2023 at 21:29):     name = models.CharField(max_length=255)
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): astroid==3.0.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): autoflake==2.2.1
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): colorama==0.4.6
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): dill==0.3.7
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): isort==5.12.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): mccabe==0.7.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): platformdirs==3.11.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): psycopg2==2.9.9
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): pyenchant==3.2.2
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): pyflakes==3.1.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): pylint==3.0.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): python-dotenv==1.0.0
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): tomli==2.0.1
+requirements.txt (calebkornegay on 10/04/2023 at 07:56): tomlkit==0.12.1
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): [tool.autoflake]
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): in-place = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): recursive = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): exclude = [ 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26):     "v1" 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): ]
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): imports = [ 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26):     "django", 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26):     "requests", 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26):     "rest_framework" 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): ]
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): remove-all-unused-imports = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): ignore-init-module-imports = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): remove-duplicate-keys = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): remove-unused-variables = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): verbose = "2"
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): [tool.isort]
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): py_version = 3
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): skip_glob = [ 
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26):     "v1/*",
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26):     ".venv/*",
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): ]
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): only_modified = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): line_length = 80
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): verbose = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): virtual_env = ".venv/"
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): ensure_newline_before_comments = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): honor_noqa = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): force_alphabetical_sort = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): group_by_package = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): float_to_top = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): color_output = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): dedup_headings = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): overwrite_in_place = true
+pyproject.toml (calebkornegay on 10/03/2023 at 21:26): star_first = true
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): import { buildCardsFromData } from '../components/card';
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		super();
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		};
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'TestScreen'}];
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const schedule = [{name: 'Schedule', body:'10/8     Next Race\n10/15   Nexter Race\n10/22   Nextest Race', bgcolor: '#ff1801', where:'TestScreen'}];
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const standings = [{name: 'Standings', body:'1. Max Verstappen - All the points\n1. Driver 2 - X Points\n1. Driver 3 - X Points', bgcolor: '#ff1801', where:'TestScreen'}];
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#efefef',
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): });
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): const uri = 'data:image/png;base64,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';
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): const styles = StyleSheet.create({
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	topBar: {
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		flexDirection: 'row',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		width: '100%',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		justifyContent: 'space-between',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		alignItems: 'center',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		borderBottomWidth: 1,
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		borderColor: '#eee',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		backgroundColor: '#fff',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	},
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	logo: {
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		width: 50,
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		height: 50,
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		resizeMode: 'contain',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	},
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	headerText: {
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		fontSize: 20,
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		fontWeight: 'bold',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	},
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	iconContainer: {
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		flexDirection: 'row',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		width: 60,
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		justifyContent: 'space-between',
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	},
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): });
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	return (
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		<View style={styles.topBar}>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 			<Image style={styles.logo} source={{ uri: uri }} />
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 			<Text style={styles.headerText}>Home Page</Text>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 			<View style={styles.iconContainer}>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 				<TouchableOpacity>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 					<MaterialIcons name="search" size={24} color="black" />
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 				</TouchableOpacity>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 				<TouchableOpacity>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 					<MaterialCommunityIcons name="calendar" size={24} color="black" />
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 				</TouchableOpacity>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 			</View>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 		</View>
+topbar.js    (calebkornegay on 10/04/2023 at 10:09): 	);
+card.js      (calebkornegay on 10/02/2023 at 10:35): import * as React from 'react';
+card.js      (calebkornegay on 10/01/2023 at 21:31): import { Card, Button } from 'react-native-paper';
+card.js      (calebkornegay on 10/04/2023 at 10:09): import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+card.js      (calebkornegay on 10/01/2023 at 21:31): export default class BaseCard extends React.Component{
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	constructor(){
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		super();
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		this.state = {
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			showComponent: true,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		};
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		this.GoHere = this.GoHere.bind(this);
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	render () {
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		const {navigation, name, subName, body, bgcolor, where} = this.props;
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		return (
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			<View style={styles.cardStyle}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 				<Card 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					style={[styles.container, {backgroundColor: bgcolor}]} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					onPress={() => navigation.navigate({name: where})}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					<Card.Title  
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						subtitleStyle={styles.title} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						titleStyle={styles.title} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						title={name} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						subtitle={subName}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					</Card.Title>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					<Card.Content style={styles.title}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						<Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					</Card.Content>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					{/* Currently this is not needed but keeping it in case
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     it is needed later */}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					{/* <Card.Actions justifyContent='center'>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     <Button 
+card.js      (calebkornegay on 10/04/2023 at 11:18):                         onPress={() => alert("You don't wanna do that")}>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     Cancel</Button>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     <Button 
+card.js      (calebkornegay on 10/04/2023 at 11:18):                         onPress={() => console.log('I\'M PRESSED FRFR')}>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     Ok</Button>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     <Button 
+card.js      (calebkornegay on 10/04/2023 at 11:18):                         onPress={this.GoHere}>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                     Kill react</Button>
+card.js      (calebkornegay on 10/04/2023 at 11:18):                 </Card.Actions> */}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 				</Card>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			</View>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		);
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	GoHere () {
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		const { showComponent } = this.state;
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		this.setState({
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			showComponent: !showComponent,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		});
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/01/2023 at 21:31): }
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	return data.map((data) => 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		<BaseCard 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			key={data.name + data.where} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			navigation={navigation} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			name={data.name} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			subName={data.subName} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			body={data.body} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			bgcolor={data.bgcolor} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			where={data.where}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		/>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	);
+card.js      (calebkornegay on 10/04/2023 at 11:18): const screen = Dimensions.get('screen');
+card.js      (calebkornegay on 10/04/2023 at 11:18): const styles = StyleSheet.create({
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	container: {
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		justifyContent: 'center',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		alignItems: 'center',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		textAlign: 'center',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		width: screen.width/1.15,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		padding: screen.width/24,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		marginTop: screen.height/96,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		marginBottom: screen.height/96,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		borderRadius: 15,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	},
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	title:{
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		justifyContent: 'center',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		alignItems: 'center',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		textAlign: 'center',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		color: 'white',
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/04/2023 at 11:18): });
+testscreen.js (calebkornegay on 10/02/2023 at 10:35): import { StatusBar } from 'expo-status-bar';
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): import { StyleSheet, Text, View } from 'react-native';
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): import React from 'react';
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): const styles = StyleSheet.create({
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 	container: {
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 		flex: 1,
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 		backgroundColor: '#fff',
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 		alignItems: 'center',
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 		justifyContent: 'center',
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 	},
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): });
+testscreen.js (calebkornegay on 10/02/2023 at 10:35): export default function TestScreen() {
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 	return (
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 		<View style={styles.container}>
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 			<Text>Test Screen!</Text>
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 			<StatusBar style="auto" />
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 		</View>
+testscreen.js (calebkornegay on 10/04/2023 at 10:09): 	);
+testscreen.js (calebkornegay on 10/02/2023 at 10:35): }
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): const styles = StyleSheet.create({
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	container: {
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		flexDirection: 'row',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		justifyContent: 'space-around',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		alignItems: 'center',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		paddingVertical: 0,
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		borderTopWidth: 1,
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		borderColor: '#eee',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		backgroundColor: '#fff',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		height: 60  
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	},
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	button: {
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		flex: 1,
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		height: '100%',  
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		alignItems: 'center',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		justifyContent: 'center',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	},
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	selectedButton: {
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		backgroundColor: '#e6e6e6',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	},
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	label: {
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		fontSize: 16,
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	},
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	selectedLabel: {
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		fontWeight: 'bold',
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	},
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): });
+bottombar.js (calebkornegay on 10/04/2023 at 09:54): export default function BottomBar({navigation}) {
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	const [selected, setSelected] = useState(0);
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	const buttons = ['Home', 'Leagues', 'Race', 'Stuff'];
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	const pages = ['HomeScreen', 'LeaguesScreen', 'TestScreen', 'TestScreen'];
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	return (
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		<View style={styles.container}>
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 			{buttons.map((label, index) => (
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 				<TouchableOpacity
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 					key={index}
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 					style={[styles.button, selected === index && styles.selectedButton]}
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 					onPress={() => {setSelected(index); navigation.navigate(pages[index]);}}
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 				>
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 					<Text style={[styles.label, selected === index && styles.selectedLabel]}>
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 						{label}
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 					</Text>
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 				</TouchableOpacity>
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 			))}
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 		</View>
+bottombar.js (calebkornegay on 10/04/2023 at 10:09): 	);
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): import { buildCardsFromData } from '../components/card';
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		super();
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		};
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const races = [{name: 'Race 1', subName: 'Location 1', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'},
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 					   {name: 'Race 2', subName: 'Location 2', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'},
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 					   {name: 'Race 3', subName: 'Location 3', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'}];
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#efefef',
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): });
+homescreen.js (calebkornegay on 10/04/2023 at 09:54): import TopBar  from '../components/topbar';
+homescreen.js (calebkornegay on 10/04/2023 at 09:54): import BottomBar  from '../components/bottombar';
+homescreen.js (calebkornegay on 10/04/2023 at 09:54): import BaseCard from '../components/card';
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): import React from 'react';
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform } from 'react-native';
+homescreen.js (calebkornegay on 10/04/2023 at 09:54): import { StatusBar } from 'expo-status-bar';
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): const styles = StyleSheet.create({
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 	container: {
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 		flex: 1,
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 		backgroundColor: '#fff',
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 		justifyContent: 'space-between',
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 	},
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): });
+homescreen.js (calebkornegay on 10/04/2023 at 09:54): export default function HomeScreen({ navigation }) {
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 	return (
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 			<View style={styles.container}>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 				{/* Put things that should be rendered into the ScrolLView element */}
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 				<ScrollView style={styles.content}>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 					<Text>Body Text</Text>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 					{Array.from({ length: 50 }).map((_, i) => (
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 						<Text key={i} style={styles.contentText}>
+homescreen.js (calebkornegay on 10/04/2023 at 09:54):                         Render stuff here {i + 1}
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 						</Text>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 					))}
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 					<BaseCard 
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 						navigation={navigation}
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 						name={'Formula 1'}
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 						body={'Click to view the Formula 1 League Page'}
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 						bgcolor={'#ff00ff'}
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 						where={'LeaguesScreen'}
+homescreen.js (calebkornegay on 10/11/2023 at 09:05): 					/>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 				</ScrollView>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 				<StatusBar style="auto" />
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 			</View>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 		</SafeAreaView>
+homescreen.js (calebkornegay on 10/04/2023 at 10:09): 	);
+homescreen.js (calebkornegay on 10/04/2023 at 09:54): }
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): import { buildCardsFromData } from '../components/card';
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		super();
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		};
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const drivers = [{name: 'Driver 1', subName: 'Constructor 1', body: 'Race Data', bgcolor: '#5f5f5f', where: 'drivermasterscreen'},
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 						 {name: 'Driver 2', subName: 'Constructor 2', body: 'Race Data', bgcolor: '#5f5f5f', where: 'drivermasterscreen'},
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 						 {name: 'Driver 3', subName: 'Constructor 3', body: 'Race Data', bgcolor: '#5f5f5f', where: 'drivermasterscreen'}];
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#efefef',
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): });
+stack.js     (calebkornegay on 10/02/2023 at 10:35): import React from 'react';
+stack.js     (calebkornegay on 10/02/2023 at 10:35): import { createNativeStackNavigator } from '@react-navigation/native-stack';
+stack.js     (calebkornegay on 10/04/2023 at 10:09): import TestScreen from '../screens/testscreen';
+stack.js     (calebkornegay on 10/04/2023 at 09:54): import LeaguesScreen from '../screens/leaguesscreen';
+stack.js     (calebkornegay on 10/04/2023 at 09:54): import HomeScreen from '../screens/homescreen';
+stack.js     (calebkornegay on 10/02/2023 at 10:35): const Stack = createNativeStackNavigator();
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	iconContainer: {
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		flexDirection: 'row',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		width: 60,
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		justifyContent: 'space-between',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	},
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	lazy: false,
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	headerBackTitleVisible: false,
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	headerTitleAlign: 'center',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	headerTintColor: '#fff',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	headerStyle: {
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#ff0000',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	},
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	headerRight: () => (
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		<View style={{flexDirection:'row'}}>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<MaterialCommunityIcons 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='magnify' 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				color={'black'} 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				size={25} 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				style={{paddingRight: 25}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				onPress={() => 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				{alert('This has not been implemented yet');}}/>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<MaterialCommunityIcons 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='calendar-today' 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				color={'black'} 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				size={25} 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				onPress={() => 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				{alert('This has not been implemented yet');}}/>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		</View>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	),
+stack.js     (calebkornegay on 10/04/2023 at 10:09): 	return (
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		<Stack.Navigator 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='LeaguesScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={LeaguesScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Leagues Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='TestScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={TestScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Testing Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			</Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		</Stack.Navigator>
+stack.js     (calebkornegay on 10/04/2023 at 10:09): 	);
+stack.js     (calebkornegay on 10/02/2023 at 10:35): }
+stack.js     (calebkornegay on 10/11/2023 at 09:05): export {LeagueStack};
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	return (
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		<Stack.Navigator 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='TestScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={TestScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Testing Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='LeaguesScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={LeaguesScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Leagues Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='HomeScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={HomeScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Home Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		</Stack.Navigator>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	);
+stack.js     (calebkornegay on 10/05/2023 at 09:53): }
+stack.js     (calebkornegay on 10/11/2023 at 09:05): export {HomeStack};
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): import * as React from 'react';
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): import { StatusBar } from 'expo-status-bar';
+leaguesscreen.js (calebkornegay on 10/04/2023 at 11:18): import { StyleSheet, Text, View, Button, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): import BaseCard from '../components/card';
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): export default function LeaguesScreen({ navigation }) {
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	return (
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		<SafeAreaView style={styles.container}>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 			<ScrollView style={styles.scrollView} >
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				{/* This is where the cards for the leagues will go
+leaguesscreen.js (calebkornegay on 10/04/2023 at 11:18):             currently we have cards for Formula 1, NASCAR, 
+leaguesscreen.js (calebkornegay on 10/04/2023 at 11:18):             MotoGP and IndyCar */}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'Formula 1'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the Formula 1 League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#ff1801'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation} 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'NASCAR'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the NASCAR League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#e4002b'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation} 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'MotoGP'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the MotoGP League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#E0144C'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation} 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'IndyCar'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the IndyCar League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#b92a30'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<StatusBar style="auto" />
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 			</ScrollView>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		</SafeAreaView>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	);
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): }
+leaguesscreen.js (calebkornegay on 10/02/2023 at 17:05): const screen = Dimensions.get('screen');
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): const styles = StyleSheet.create({
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	container: {
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		flex: 1,
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#d0d0d0',
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		alignItems: 'center',
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		height: screen.height,
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		width: screen.width,
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	},
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	scrollView: {
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#d0d0d0',
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	},
+leaguesscreen.js (calebkornegay on 10/02/2023 at 10:35): });
+tab.js       (calebkornegay on 10/05/2023 at 09:55): import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+tab.js       (calebkornegay on 10/05/2023 at 09:55): import { NavigationContainer } from '@react-navigation/native';
+tab.js       (calebkornegay on 10/05/2023 at 09:55): import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 	SafeAreaProvider,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 	useSafeAreaInsets,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): } from 'react-native-safe-area-context';
+tab.js       (calebkornegay on 10/05/2023 at 09:55): import TestScreen from '../screens/testscreen';
+tab.js       (calebkornegay on 10/05/2023 at 09:55): import { HomeStack, LeagueStack } from './stack';
+tab.js       (calebkornegay on 10/05/2023 at 09:55): const Tab = createBottomTabNavigator();
+tab.js       (calebkornegay on 10/05/2023 at 09:55): export default function MyTab(){
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 	return (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 		<SafeAreaProvider>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 			<NavigationContainer>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 				<Tab.Navigator initialRouteName='HomeStack'>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 					<Tab.Screen
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						name='HomeStack'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						component={HomeStack}
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						options={{
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							title: 'Home',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							headerShown: false,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarIcon: ({size}) => (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 								<MaterialCommunityIcons name='home' color='#f0f' size={size}/>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							),
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarActiveTintColor: '#000',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarInactiveTintColor: '#f0f'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						}}></Tab.Screen>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 					<Tab.Screen
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						name='LeaguesStack'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						component={LeagueStack}
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						options={{
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							title: 'Leagues',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							headerShown: false,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarIcon: ({ size }) => (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 								<MaterialCommunityIcons 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									name='racing-helmet' 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									color={'black'} 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									size={size} />
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							),
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarActiveTintColor: '#000',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarInactiveTintColor: '#f0f',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						}}></Tab.Screen>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 					<Tab.Screen
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						name='Test'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						component={TestScreen}
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						options={{
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							title: 'Test',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							headerShown: false,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarActiveTintColor: '#000',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarInactiveTintColor: '#f0f',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarIcon: ({ size }) => (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 								<MaterialCommunityIcons 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									name='calendar-today' 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									color={'black'} 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									size={size} />
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							)
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						}}></Tab.Screen>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 				</Tab.Navigator>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 			</NavigationContainer>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 		</SafeAreaProvider>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 	);
+tab.js       (calebkornegay on 10/05/2023 at 09:55): }
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25): {
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     "env": {
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "browser": true,
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "es2021": true,
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "react-native/react-native": true
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     },
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     "plugins": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "react", 
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "react-native"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     "settings": {
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "react":{
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "version": "detect"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         }
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     },
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     "extends": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "eslint:recommended", 
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "plugin:react/recommended"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     "parserOptions": {
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "ecmaVersion": "latest",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "sourceType": "module"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     },
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     "rules": {
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "indent": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "tab"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "linebreak-style": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "windows"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "quotes": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "single"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "semi": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "always"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "constructor-super": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "getter-return": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             {"allowImplicit": false}
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-const-assign": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-constructor-return": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "always"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-dupe-args": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-dupe-else-if": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "warn"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-fallthrough": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-self-assign": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-self-compare": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-this-before-super": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-unreachable": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "warn"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-unused-vars": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-use-before-define": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "default-case": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "default-case-last": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-inline-comments": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-empty": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-invalid-this": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-lonely-if": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-redeclare": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "no-var": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "prefer-const": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "warn"
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "max-classes-per-file": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error",
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             1
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ],
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         "max-len": [
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             "error", 
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             { 
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):                 "code": 80, 
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):                 "tabWidth": 4 
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):             }
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):         ]
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25):     }
+.eslintrc.json (calebkornegay on 10/03/2023 at 12:25): }

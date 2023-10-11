@@ -50,13 +50,13 @@ export default function HomeScreen({ navigation }) {
                         Render stuff here {i + 1}
 						</Text>
 					))}
-                    <BaseCard 
-                        navigation={navigation}
-                        name={"Formula 1"}
-                        body={"Click to view the Formula 1 League Page"}
-                        bgcolor={'#ff00ff'}
-                        where={'LeaguesScreen'}
-                    />
+					<BaseCard 
+						navigation={navigation}
+						name={'Formula 1'}
+						body={'Click to view the Formula 1 League Page'}
+						bgcolor={'#ff00ff'}
+						where={'LeaguesScreen'}
+					/>
 				</ScrollView>
 				<StatusBar style="auto" />
 			</View>

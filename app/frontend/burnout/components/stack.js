@@ -11,11 +11,11 @@ import Topbar from './topbar';
 
 const Stack = createNativeStackNavigator();
 const styles = StyleSheet.create({
-iconContainer: {
-	flexDirection: 'row',
-	width: 60,
-	justifyContent: 'space-between',
-},
+	iconContainer: {
+		flexDirection: 'row',
+		width: 60,
+		justifyContent: 'space-between',
+	},
 });
 
 const ScreenOptions = {
@@ -47,25 +47,25 @@ const ScreenOptions = {
 
 function LeagueStack({navigation}){
 	return (
-        <Stack.Navigator 
+		<Stack.Navigator 
 			initialRouteName='LeaguesScreen'
 			screenOptions={ScreenOptions}
 		> 
-            <Stack.Screen
-                name='LeaguesScreen'
-                component={LeaguesScreen}
-                options={{
-                    title: 'Leagues Page',
-                }}
-            ></Stack.Screen>
-            <Stack.Screen
-                name='TestScreen'
-                component={TestScreen}
-                options={{
-                    title: 'Testing Page',
-                }}
-            >
-            </Stack.Screen>
+			<Stack.Screen
+				name='LeaguesScreen'
+				component={LeaguesScreen}
+				options={{
+					title: 'Leagues Page',
+				}}
+			></Stack.Screen>
+			<Stack.Screen
+				name='TestScreen'
+				component={TestScreen}
+				options={{
+					title: 'Testing Page',
+				}}
+			>
+			</Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
@@ -74,39 +74,39 @@ function LeagueStack({navigation}){
 				}}
 			>
 			</Stack.Screen>
-        </Stack.Navigator>
+		</Stack.Navigator>
 	);
 }
 
-export {LeagueStack}
+export {LeagueStack};
 
 function HomeStack({navigation}){
-    return (
-        <Stack.Navigator 
+	return (
+		<Stack.Navigator 
 			initialRouteName='HomeScreen'
 			screenOptions={ScreenOptions}
 		>
-            <Stack.Screen
-                name='TestScreen'
-                component={TestScreen}
-                options={{
-                    title: 'Testing Page',
-                }}
-            ></Stack.Screen>
-            <Stack.Screen
-                name='LeaguesScreen'
-                component={LeaguesScreen}
-                options={{
-                    title: 'Leagues Page',
-                }}
-            ></Stack.Screen>
-            <Stack.Screen
-                name='HomeScreen'
-                component={HomeScreen}
-                options={{
-                    title: 'Home Page',
-                }}
-            ></Stack.Screen>
+			<Stack.Screen
+				name='TestScreen'
+				component={TestScreen}
+				options={{
+					title: 'Testing Page',
+				}}
+			></Stack.Screen>
+			<Stack.Screen
+				name='LeaguesScreen'
+				component={LeaguesScreen}
+				options={{
+					title: 'Leagues Page',
+				}}
+			></Stack.Screen>
+			<Stack.Screen
+				name='HomeScreen'
+				component={HomeScreen}
+				options={{
+					title: 'Home Page',
+				}}
+			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
@@ -115,8 +115,8 @@ function HomeStack({navigation}){
 				}}
 			>
 			</Stack.Screen>
-        </Stack.Navigator>
-    );
+		</Stack.Navigator>
+	);
 }
 
-export {HomeStack}
+export {HomeStack};

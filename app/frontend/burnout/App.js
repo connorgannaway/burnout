@@ -6,6 +6,6 @@ export const APIURL='https://pitwall.connorgannaway.net';
 
 export default function App() {
 	return (
-        <MyTab />
+		<MyTab />
 	);
 }
