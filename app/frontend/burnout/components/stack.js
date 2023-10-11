@@ -32,7 +32,7 @@ const ScreenOptions = {
 					name='magnify' 
 					color={'black'} 
 					size={25} 
-					style={{paddingRight: 25}}
+					style={{paddingRight: 20}}
 					onPress={() => 
 						{alert('This has not been implemented yet')}}/>
 				<MaterialCommunityIcons 
