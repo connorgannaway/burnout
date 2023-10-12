@@ -1,0 +1,172 @@
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // topBar: {
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      flexDirection: 'row',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      width: '100%',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      padding: 10,
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,       
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      justifyContent: 'space-between',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      alignItems: 'center',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      borderBottomWidth: 1,
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      borderColor: '#eee',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      backgroundColor: '#fff',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // },
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // logo: {
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      width: 50,
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      height: 50,
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      resizeMode: 'contain',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // },
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // headerText: {
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      fontSize: 20,
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      fontWeight: 'bold',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // },
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // iconContainer: {
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      flexDirection: 'row',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      width: 60,
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       //      justifyContent: 'space-between',
+homescreen.js (aaronpig9 on 10/10/2023 at 14:16):       // },
+
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37): import { StyleSheet, Text, View, Button, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):     <SafeAreaView style={styles.container}>
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 11:39):       <ScrollView style={styles.scrollView} >
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):         {/* This is where the cards for the leagues will go
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):             currently we have cards for Formula 1, NASCAR,
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):             MotoGP and IndyCar */}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         <BaseCard
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           navigation={navigation}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           name={"Formula 1"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           body={"Click to view the Formula 1 League Page"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           bgcolor={'#ff1801'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           where={'SettingsScreen'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         />
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         <BaseCard
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           navigation={navigation}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           name={"NASCAR"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           body={"Click to view the NASCAR League Page"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           bgcolor={'#e4002b'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           where={'testscreen'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         />
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         <BaseCard
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           navigation={navigation}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           name={"MotoGP"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           body={"Click to view the MotoGP League Page"}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           bgcolor={'#E0144C'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           where={'testscreen'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         />
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         <BaseCard
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           navigation={navigation}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           name={"IndyCar"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           body={"Click to view the IndyCar League Page"}
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):           bgcolor={'#b92a30'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):           where={'testscreen'}
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):         />
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):     </ScrollView>
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):     </SafeAreaView>
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):     backgroundColor: '#d0d0d0',
+leaguesscreen.js (aaronpig9 on 10/02/2023 at 19:37):   scrollView: {
+leaguesscreen.js (aaronpig9 on 10/03/2023 at 12:24):     backgroundColor: '#d0d0d0',
+
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons } from 'react-native';
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): import Topbar from './topbar';
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): const styles = StyleSheet.create({
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): });
+stack.js     (aaronpig9 on 10/10/2023 at 14:16): const ScreenOptions = {
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                lazy: false,
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                headerBackTitleVisible: false,
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                headerTitleAlign: 'center',
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                headerTintColor: '#fff',
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                headerStyle: {
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        backgroundColor: '#ff0000',
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                },
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                headerRight: () => (
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        <View style={{flexDirection:"row"}}>
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                <MaterialCommunityIcons
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        name='magnify'
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        color={'black'}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        size={25}
+stack.js     (aaronpig9 on 10/11/2023 at 19:08):                                        style={{paddingRight: 20}}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        onPress={() =>
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                                {alert('This has not been implemented yet')}}/>
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                <MaterialCommunityIcons
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        name='calendar-today'
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        color={'black'}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        size={25}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        onPress={() =>
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                                {alert('This has not been implemented yet')}}/>
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        </View>
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                ),
+stack.js     (aaronpig9 on 10/10/2023 at 14:16): };
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): function LeagueStack({navigation}){
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        initialRouteName='LeaguesScreen'
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        screenOptions={ScreenOptions}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                >
+stack.js     (aaronpig9 on 10/06/2023 at 18:39): function HomeStack({navigation}){
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        initialRouteName='HomeScreen'
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        screenOptions={ScreenOptions}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                >
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        <Stack.Screen
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                name='LeagueMasterScreen'
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                component={LeagueMasterScreen}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                options={{
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                        title: 'League Master Screen',
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                }}
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        >
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        </Stack.Screen>
+
+card.js      (aaronpig9 on 10/03/2023 at 12:24): import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+card.js      (aaronpig9 on 10/02/2023 at 19:37):         const {navigation, name, subName, body, bgcolor, where} = this.props;
+card.js      (aaronpig9 on 10/03/2023 at 12:24):         return (
+card.js      (aaronpig9 on 10/03/2023 at 12:24):             <View style={styles.cardStyle}>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):             <Card
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 style={[styles.container, {backgroundColor: bgcolor}]}
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 onPress={() => navigation.navigate({name: where})}>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 <Card.Title
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     subtitleStyle={styles.title}
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     titleStyle={styles.title}
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     title={name}
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     subtitle={subName}>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 </Card.Title>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 <Card.Content style={styles.title}>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     <Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>     
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 </Card.Content>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 {/* Currently this is not needed but keeping it in case
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     it is needed later */}
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 {/* <Card.Actions justifyContent='center'>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     <Button
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                         onPress={() => alert("You don't wanna do that")}>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     Cancel</Button>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     <Button
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     <Button
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                         onPress={this.GoHere}>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                     Kill react</Button>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):                 </Card.Actions> */}
+card.js      (aaronpig9 on 10/03/2023 at 12:24):             </Card>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):             </View>
+card.js      (aaronpig9 on 10/03/2023 at 12:24):         );
+card.js      (aaronpig9 on 10/03/2023 at 11:39):         width: screen.width/1.15,
+card.js      (aaronpig9 on 10/03/2023 at 12:24):         padding: screen.width/24,
+card.js      (aaronpig9 on 10/03/2023 at 12:24):         marginTop: screen.height/96,
+card.js      (aaronpig9 on 10/03/2023 at 12:24):         marginBottom: screen.height/96,
+card.js      (aaronpig9 on 10/03/2023 at 12:24):         color: 'white',
+
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): import { StatusBar } from 'expo-status-bar';
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): import { StyleSheet, Text, View, Button } from 'react-native';
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): import * as React from 'react';
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): import { NavigationContainer } from '@react-navigation/native';
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): import { createNativeStackNavigator } from '@react-navigation/native-stack';
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): const Stack = createNativeStackNavigator();
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): export default function testscreen() {
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):   return (
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):     <View style={styles.container}>
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):       <Text>Test Screen!</Text>
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):       <StatusBar style="auto" />
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):     </View>
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):   );
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): }
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): const styles = StyleSheet.create({
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):   container: {
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):     flex: 1,
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):     backgroundColor: '#fff',
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):     alignItems: 'center',
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):     justifyContent: 'center',
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37):   },
+testscreen.js (aaronpig9 on 09/29/2023 at 09:37): });
