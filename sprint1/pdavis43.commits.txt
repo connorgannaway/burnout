@@ -1,0 +1,174 @@
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  1) import React, { useState } from 'react';
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  1) import React, { useState } from 'react';
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400  2) import { StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  3) import BaseCard from './components/BaseCard.js';
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  4) import SearchBar from './components/SearchBar.js';
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  5) import DateRangePicker from './components/DateRangePicker.js';
+d550d5d0 (Peyton Davis 2023-09-22 18:38:54 -0400  6)
+d550d5d0 (Peyton Davis 2023-09-22 18:38:54 -0400  7) export default function App() {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  8)     const [searchTerm, setSearchTerm] = useState('');
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400  9)     const [isCalendarVisible, setIsCalendarVisible] = useState(false);
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 10)     const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 11)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 12)     const handleSearch = (term) => {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 13)         console.log('Searching for:', term);
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 14)         // Handle search logic here.
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 15)     };
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 16)
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 17)     const handleDateRangeSelected = (range) => {
+bd425d09 (Peyton Davis 2023-10-10 22:50:03 -0400 18)         console.log('Date range selected:', range);
+bd425d09 (Peyton Davis 2023-10-10 22:50:03 -0400 19)         // Handle date range logic here.
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 20)     };
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 21)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 22)     return (
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 23)         <ScrollView contentContainerStyle={styles.container}>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 24)
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 25)             {/* Icon to toggle DateRangePicker */}
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 26)             <TouchableOpacity onPress={() => setIsCalendarVisible(!isCalendarVisible)}>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 27)             <Text style={{fontSize: 24}}>📅</Text>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 28)             </TouchableOpacity>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 29)
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 30)             {/* Conditionally render DateRangePicker */}
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 31)             {isCalendarVisible && <DateRangePicker onRangeSelected={handleDateRangeSelected} />}
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 32)
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 33)             {/* Icon to toggle SearchBar */}
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 34)             <TouchableOpacity onPress={() => setIsSearchBarVisible(!isSearchBarVisible)}>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 35)             <Text style={{fontSize: 24}}>🔍</Text>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 36)             </TouchableOpacity>
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 37)
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 38)             {/* Conditionally render SearchBar */}
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 39)             {isSearchBarVisible && <SearchBar onSearch={handleSearch} />}
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 40)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 41)             <BaseCard
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 42)                 sportLogo={require('./assets/images/nick_profile.png')}
+bd425d09 (Peyton Davis 2023-10-10 22:50:03 -0400 43)                 athleteName="Nick L."
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 44)                 teamName="RaceMob"
+bd425d09 (Peyton Davis 2023-10-10 22:50:03 -0400 45)                 raceDate="October 4, 2023"
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 46)                 raceResult="0th Place"
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 47)             />
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 48)             <BaseCard
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 49)                 sportLogo={require('./assets/images/reid_profile.png')}
+bd425d09 (Peyton Davis 2023-10-10 22:50:03 -0400 50)                 athleteName="David Reid"
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 51)                 teamName="CS340"
+bd425d09 (Peyton Davis 2023-10-10 22:50:03 -0400 52)                 raceDate="October 11, 2023"
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 53)                 raceResult="Winner"
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 54)             />
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 55)             {/* You can add more cards here */}
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 56)         </ScrollView>
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 57)     );
+d550d5d0 (Peyton Davis 2023-09-22 18:38:54 -0400 58) }
+d550d5d0 (Peyton Davis 2023-09-22 18:38:54 -0400 59)
+d550d5d0 (Peyton Davis 2023-09-22 18:38:54 -0400 60) const styles = StyleSheet.create({
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 61)     container: {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 62)         flexGrow: 1,
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 63)         backgroundColor: 'white',
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 64)         padding: 15,
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 65)         alignItems: 'center',
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 66)         justifyContent: 'center'
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 67)     },
+d550d5d0 (Peyton Davis 2023-09-22 18:38:54 -0400 68) });
+
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400  1) import React from 'react';
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400  2) import { Image } from 'react-native';
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400  3) import { Card, Title, Paragraph } from 'react-native-paper';
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400  4) 
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400  5) const BaseCard = ({ sportLogo, athleteName, teamName, raceDate, raceResult }) => {
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400  6)   return (
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400  7)     <Card style={{ marginBottom: 20 }}>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400  8)       <Card.Cover source={sportLogo} style={{ width: 100, height: 100, alignSelf: 'center' }} />
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400  9)       <Card.Content style={{ alignItems: 'center' }}>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400 10)         <Title>{athleteName}</Title>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400 11)         <Paragraph>{teamName}</Paragraph>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400 12)         <Paragraph>{raceDate}</Paragraph>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400 13)         <Title>{raceResult}</Title>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400 14)       </Card.Content>
+ca3ee011 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-09 21:36:45 -0400 15)     </Card>
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400 16)   );
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400 17) };
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400 18)
+f71cdbf0 helloplus/pdavis43/project_test/racemob_test_page/components/base_card.js (Peyton Davis 2023-10-04 10:18:26 -0400 19) export default BaseCard;
+
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  1) import React, { useState } from 'react';
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  2) import { TextInput, View, StyleSheet } from 'react-native';
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  3)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  4) const SearchBar = ({ onSearch }) => {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  5)   const [term, setTerm] = useState('');
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  6)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  7)   const handleInputChange = (newTerm) => {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  8)     setTerm(newTerm);
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400  9)   };
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 10)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 11)   const handleSubmitEditing = () => {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 12)     onSearch(term);
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 13)   };
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 14)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 15)   return (
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 16)     <View style={styles.container}>
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 17)       <TextInput
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 18)         style={styles.input}
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 19)         value={term}
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 20)         onChangeText={handleInputChange}
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 21)         placeholder="Search..."
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 22)         onSubmitEditing={handleSubmitEditing}
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 23)       />
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 24)     </View>
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 25)   );
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 26) };
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 27)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 28) const styles = StyleSheet.create({
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 29)   container: {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 30)     width: '100%',
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 31)     marginBottom: 10
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 32)   },
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 33)   input: {
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 34)     height: 40,
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 35)     borderWidth: 1,
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 36)     borderRadius: 8,
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 37)     paddingLeft: 10,
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 38)     borderColor: '#ddd'
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 39)   }
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 40) });
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 41)
+1cbc6390 (Peyton Davis 2023-10-09 22:22:30 -0400 42) export default SearchBar;
+
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  1) import React, { useState } from 'react';
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  2) import { View } from 'react-native';
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  3) import { Calendar } from 'react-native-calendars';
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  4)
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  5) const DateRangePicker = ({ onRangeSelected }) => {
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  6)     const [startDate, setStartDate] = useState(null);
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  7)     const [endDate, setEndDate] = useState(null);
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  8)
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400  9)     const onDayPress = (day) => {
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 10)         if (!startDate || (startDate && endDate)) {
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 11)             setStartDate(day.dateString);
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 12)             setEndDate(null);
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 13)         } else if (!endDate) {
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 14)         setEndDate(day.dateString);
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 15)         onRangeSelected({ startDate, endDate: day.dateString });
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 16)         }
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 17)     };
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 18)
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 19)     return (
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 20)         <View>
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 21)             <Calendar
+6d000226 (Peyton Davis 2023-10-11 11:44:18 -0400 22)                 onDayPress={onDayPress}
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 23)                 markingType='period'
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 24)                 markedDates={{
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 25)                     [startDate]: {
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 26)                         startingDay: true,
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 27)                         color: 'blue',
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 28)                         textColor: 'white'
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 29)                     },
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 30)                     [endDate]: {
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 31)                         endingDay: true,
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 32)                         color: 'blue',
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 33)                         textColor: 'white'
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 34)                     }
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 35)                 }}
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 36)             />
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 37)         </View>
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 38)     );
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 39) };
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 40)
+f2fddc1f (Peyton Davis 2023-10-09 22:50:27 -0400 41) export default DateRangePicker;
