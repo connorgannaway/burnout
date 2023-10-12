@@ -4,6 +4,7 @@
 !requirements.txt
 #db.sqlite3
 .env
+!*.commits.txt
 
 /__pycache__
 *.pyc

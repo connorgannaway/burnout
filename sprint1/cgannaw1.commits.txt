@@ -1,0 +1,610 @@
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  1) #!/bin/sh
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  2) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  3) # Check if the current directory is a git repository
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  4) if [ ! -d .git ] && ! git rev-parse --git-dir > /dev/null 2>&1; then
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  5)     echo "This is not a git repository"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  6)     exit 1
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  7) fi
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  8) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400  9) # Get the current branch name
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 10) current_branch=$(git branch --show-current)
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 11) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 12) # Print the current branch name
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 13) if [ -z "$current_branch" ]; then
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 14)     echo "No current branch (You might be in 'detached HEAD' state)"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 15) else
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 16)     echo "Current branch: $current_branch"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 17)     # Add a warning if the branch name does not contain 'release'
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 18)     if [[ ! $current_branch =~ release ]]; then
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 19)         echo "WARNING: Not on a Release Branch."
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 20)     fi
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 21) fi
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 22) djangopath='./backend/pitwallapi/__init__.py'
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 23) packagepath='./frontend/burnout/package.json'
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 24) apppath='./frontend/burnout/app.json'
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 25) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 26) # Get current versions
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 27) django=$(grep "__version__ =" $djangopath | awk -F\' '{print $2}')
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 28) package=$(grep "version" $packagepath | awk -F\" '{print $4}')
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 29) app=$(grep "version" $apppath | awk -F\" '{print $4}')
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 30) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 31) # Print versions
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 32) echo
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 33) echo "Current Versions:"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 34) echo "__init__.py: $django"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 35) echo "package.json: $package"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 36) echo "app.json: $app"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 37) echo
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 38) echo -n "Bump all to: "
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 39) read bump
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 40) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 41) # Check for semantic versioning (x.x.x)
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 42) if [[ ! $bump =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 43)     echo "Invalid version number format. Please use the format: X.X.X"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 44)     exit 1
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 45) fi
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 46) 
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 47) # Update files
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 48) echo "Bumping"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 49) sed -i "/__version__ =/s/'$django'/'$bump'/" "$djangopath"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 50) sed -i "/\"version\":/s/\"$package\"/\"$bump\"/" "$packagepath"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 51) sed -i "/\"version\":/s/\"$app\"/\"$bump\"/" "$apppath"
+0c7d8b14 (Connor Gannaway 2023-09-27 16:29:22 -0400 52) echo "Done."
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  1) from django.contrib import admin
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  2) from .models import *
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  3) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  4) # Register your models here.
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  5) admin.site.register(Disciplines)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  6) admin.site.register(Seasons)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  7) admin.site.register(Constructors)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  8) admin.site.register(Drivers)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  9) admin.site.register(Circuits)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 10) admin.site.register(Races)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 11) admin.site.register(PitStops)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 12) admin.site.register(LapTimes)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 13) admin.site.register(Status)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 14) admin.site.register(DriverStandings)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 15) admin.site.register(ConstructorStandings)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 16) admin.site.register(Qualifying)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 17) admin.site.register(SprintResults)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 18) admin.site.register(Results)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 19) admin.site.register(Messages)
+5e4c78e2 (Connor Gannaway  2023-09-25 09:40:53 -0400   1) from django.db import models
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400   2) from django.utils import timezone
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400   3) 
+5e4c78e2 (Connor Gannaway  2023-09-25 09:40:53 -0400   4) 
+5e4c78e2 (Connor Gannaway  2023-09-25 09:40:53 -0400   5) # Create your models here.
+e24e4d96 (Connor Gannaway  2023-09-25 10:57:51 -0400   6) # Models that don't have a primary_key=true statement use the standard django id field
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  12)     seasonId = models.IntegerField(primary_key=True)
+d0f69cab (Connor Gannaway  2023-10-02 12:12:00 -0400  13)     year = models.IntegerField()
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  14)     url = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  15)     disciplineId = models.ForeignKey(Disciplines, db_column='disciplineId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  19)     constructorRef = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  22)     url = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  26)     driverRef = models.BigIntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  27)     number = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  28)     code = models.CharField(max_length=3, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  31)     dob = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  33)     url = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  37)     circuitRef = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  39)     location = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  40)     country = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  41)     lat = models.FloatField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  42)     lng = models.FloatField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  43)     alt = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  44)     url = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  48)     seasonId = models.ForeignKey(Seasons, db_column='seasonId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  49)     round = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  50)     circuitId = models.ForeignKey(Circuits,db_column='circuitId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  52)     date = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  53)     time = models.TimeField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  54)     url = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  55)     fp1_date = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  56)     fp1_time = models.TimeField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  57)     fp2_date = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  58)     fp2_time = models.TimeField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  59)     fp3_date = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  60)     fp3_time = models.TimeField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  61)     quali_date = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  62)     quali_time = models.TimeField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  63)     sprint_date = models.DateField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  64)     sprint_time = models.TimeField(blank=True, null=True)
+67b216f5 (Connor Gannaway  2023-09-25 10:14:52 -0400  66) class PitStops(models.Model):
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  67)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  68)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+67b216f5 (Connor Gannaway  2023-09-25 10:14:52 -0400  69)     stop = models.IntegerField()
+67b216f5 (Connor Gannaway  2023-09-25 10:14:52 -0400  70)     lap = models.IntegerField()
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  71)     time = models.TimeField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  72)     duration = models.FloatField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  73)     milliseconds = models.IntegerField(blank=True, null=True)
+14046339 (Connor Gannaway  2023-09-25 10:30:34 -0400  74) 
+14046339 (Connor Gannaway  2023-09-25 10:30:34 -0400  75) class LapTimes(models.Model):
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  76)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  77)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+14046339 (Connor Gannaway  2023-09-25 10:30:34 -0400  78)     lap = models.IntegerField()
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  79)     position = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  80)     time = models.FloatField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  81)     milliseconds = models.IntegerField(blank=True, null=True)
+e24e4d96 (Connor Gannaway  2023-09-25 10:57:51 -0400  82) 
+e24e4d96 (Connor Gannaway  2023-09-25 10:57:51 -0400  83) class Status(models.Model):
+e24e4d96 (Connor Gannaway  2023-09-25 10:57:51 -0400  84)     statusId = models.IntegerField(primary_key=True)
+e24e4d96 (Connor Gannaway  2023-09-25 10:57:51 -0400  85)     status = models.CharField(max_length=255)
+e04c8585 (Connor Gannaway  2023-09-25 11:28:01 -0400  86) 
+e04c8585 (Connor Gannaway  2023-09-25 11:28:01 -0400  87) class DriverStandings(models.Model):
+e04c8585 (Connor Gannaway  2023-09-25 11:28:01 -0400  88)     driverStandingsId = models.IntegerField(primary_key=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  89)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  90)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+e04c8585 (Connor Gannaway  2023-09-25 11:28:01 -0400  91)     points = models.FloatField()
+e04c8585 (Connor Gannaway  2023-09-25 11:28:01 -0400  92)     position = models.IntegerField()
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  93)     positionText = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  94)     wins = models.IntegerField(blank=True, null=True)
+6e13d651 (Connor Gannaway  2023-09-25 11:34:35 -0400  95) 
+6e13d651 (Connor Gannaway  2023-09-25 11:34:35 -0400  96) class ConstructorStandings(models.Model):
+6e13d651 (Connor Gannaway  2023-09-25 11:34:35 -0400  97)     constructorStandingsId = models.IntegerField(primary_key=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  98)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400  99)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+6e13d651 (Connor Gannaway  2023-09-25 11:34:35 -0400 100)     points = models.FloatField()
+6e13d651 (Connor Gannaway  2023-09-25 11:34:35 -0400 101)     position = models.IntegerField()
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 102)     positionText = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 103)     wins = models.IntegerField(blank=True, null=True)
+0ee93aff (Connor Gannaway  2023-09-25 11:42:30 -0400 104) 
+0ee93aff (Connor Gannaway  2023-09-25 11:42:30 -0400 105) class ConstructorResults(models.Model):
+0ee93aff (Connor Gannaway  2023-09-25 11:42:30 -0400 106)     constructorResultsId = models.IntegerField(primary_key=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 107)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 108)     constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
+0ee93aff (Connor Gannaway  2023-09-25 11:42:30 -0400 109)     points = models.FloatField()
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 110)     status = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 114)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 115)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 116)     constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 117)     number = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 118)     position = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 119)     q1 = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 120)     q2 = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 121)     q3 = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 125)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 126)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 127)     constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 128)     number = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 129)     grid = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 130)     position = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 131)     positionText = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 132)     positionOrder = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 133)     points = models.FloatField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 134)     laps = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 135)     time = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 136)     milliseconds = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 137)     fastestLap = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 138)     fastestLapTime = models.CharField(max_length=255, blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 139)     statusId = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 143)     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 144)     driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 145)     constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 146)     number = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 147)     grid = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 148)     position = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 149)     positionText = models.CharField(max_length=255,blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 150)     positionOrder = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 151)     points = models.FloatField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 152)     laps = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 153)     time = models.CharField(max_length=255,blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 154)     milliseconds = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 155)     fastestLap = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 156)     rank = models.IntegerField(blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 157)     fastestLapTime = models.CharField(max_length=255,blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 158)     fastestLapSpeed = models.CharField(max_length=255,blank=True, null=True)
+dfd78bb5 (Connor Gannaway  2023-10-03 23:53:17 -0400 159)     statusId = models.IntegerField(blank=True, null=True)
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 160) 
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 161) class Messages(models.Model):
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 162)     enabled = models.BooleanField()
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 163)     title = models.CharField(max_length=100)
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 164)     message = models.CharField(max_length=255)
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 165) 
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 166)     # django will handle these fields since auto_now(_add) is true.
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 167)     # anything passed will be ignored upon Model.save()
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 168)     created_at = models.DateTimeField(auto_now_add=True)
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 169)     updated_at = models.DateTimeField(auto_now=True)
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 170) 
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 171)     def __str__(self):
+61ab9de0 (Connor Gannaway  2023-10-04 13:50:17 -0400 172)         return self.title
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  1) """
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  2) Examples:
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  3) Function views
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  4)     1. Add an import:  from my_app import views
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  5)     2. Add a URL to urlpatterns:  path('', views.home, name='home')
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  6) Class-based views
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  7)     1. Add an import:  from other_app.views import Home
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  8)     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  9) Including another URLconf
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 10)     1. Import the include() function: from django.urls import include, path
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 11)     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 12) """
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 13) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 14) from django.urls import path
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 15) from .views import Version
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 16) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 17) urlpatterns = [
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 18)     path('version/', Version.as_view())
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 19) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  1) from django.shortcuts import render
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  2) import re
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  3) import os
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  4) import subprocess
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  5) import json
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  6) from rest_framework.views import APIView
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  7) from rest_framework.response import Response
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  8) # Create your views here.
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  9) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 10) #
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 11) # This file contains code for returning version information through the api.
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 12) # This is useful for checking versions in production and has no effect on the actual app.
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 13) #
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 14) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 15) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 16) """
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 17) Return package version as listed in `__version__` in `init.py`.
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 18) Credit: michel.iamit
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 19) """
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 20) def get_version(package):
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 21)     init_py = open(os.path.join(package, '__init__.py')).read()
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 22)     return re.match("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 23) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 24) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 25) '''
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 26) Return current backend version and git commit information
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 27) Git command credit: Pranab
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 28) '''
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 29) class Version(APIView):
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 30)     def get(self, request, format=None):
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 31)         try:
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 32)             version = get_version('pitwallapi')
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 33)         except Exception as e:
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 34)             print(f"[Version Endpoint] Error: {e}")
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 35)             return Response(status=400)
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 36)         try:
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 37)             file_dir = os.path.dirname(os.path.abspath(__file__))
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 38)             git_command = ['git', 'log', '-1', '--pretty={"commit_hash": "%h", "full_commit_hash": "%H", "author_name": "%an", "commit_date": "%aD", "comment": "%s"}']
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 39)             git_identifier = subprocess.check_output(git_command, cwd=file_dir).decode('utf-8').strip()
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 40)             git_identifier = json.loads(git_identifier)
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 41)         except Exception as e:
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 42)             print(f"[Version Endpoint] Error: {e}")
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 43)             return Response({"version":version}, status=200)
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 44) 
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 45)         return Response({
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 46)             "version": version,
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 47)             "git_commit": git_identifier
+1632dfac (Connor Gannaway 2023-09-30 00:05:03 -0400 48)         }, status=200)
+3d8c2af7 (Connor Gannaway 2023-10-10 19:30:59 -0400 1) __version__ = '0.1.1'
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 2) VERSION = __version__  # synonym
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   1) """
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   2) Django settings for pitwallapi project.
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   3) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   4) Generated by 'django-admin startproject' using Django 4.2.5.
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   5) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   6) For more information on this file, see
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   7) https://docs.djangoproject.com/en/4.2/topics/settings/
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   8) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   9) For the full list of settings and their values, see
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  10) https://docs.djangoproject.com/en/4.2/ref/settings/
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  11) """
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  12) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  13) from pathlib import Path
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  14) import os
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  15) from dotenv import load_dotenv
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  16) 
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  17) load_dotenv()
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  18) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  19) # Build paths inside the project like this: BASE_DIR / 'subdir'.
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  20) BASE_DIR = Path(__file__).resolve().parent.parent
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  21) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  22) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  23) # Quick-start development settings - unsuitable for production
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  24) # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  25) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  26) # SECURITY WARNING: keep the secret key used in production secret!
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  27) SECRET_KEY = os.environ.get('DJANGO_SECRET', 'django-insecure-u-5^9jut+zm)#jgh4gesv7!zpt@#j4595(2ftwbt+q!%j=&4ap')
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  28) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  29) # SECURITY WARNING: don't run with debug turned on in production!
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  30) DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  31) 
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  32) ALLOWED_HOSTS = [
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  33)     'localhost',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  34)     '127.0.0.1',
+dfd78bb5 (Connor Gannaway 2023-10-03 23:53:17 -0400  35)     '10.0.0.48',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  36)     'pitwall.connorgannaway.net',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  37) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  38) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  39) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  40) # Application definition
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  41) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  42) INSTALLED_APPS = [
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  43)     'django.contrib.admin',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  44)     'django.contrib.auth',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  45)     'django.contrib.contenttypes',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  46)     'django.contrib.sessions',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  47)     'django.contrib.messages',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  48)     'django.contrib.staticfiles',
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  49)     'rest_framework',
+d0f69cab (Connor Gannaway 2023-10-02 12:12:00 -0400  50)     'data.apps.DataConfig',
+d0f69cab (Connor Gannaway 2023-10-02 12:12:00 -0400  51)     'v1.apps.V1Config',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  52) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  53) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  54) MIDDLEWARE = [
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  55)     'django.middleware.security.SecurityMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  56)     'django.contrib.sessions.middleware.SessionMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  57)     'django.middleware.common.CommonMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  58)     'django.middleware.csrf.CsrfViewMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  59)     'django.contrib.auth.middleware.AuthenticationMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  60)     'django.contrib.messages.middleware.MessageMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  61)     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  62) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  63) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  64) ROOT_URLCONF = 'pitwallapi.urls'
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  65) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  66) TEMPLATES = [
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  67)     {
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  68)         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  69)         'DIRS': [],
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  70)         'APP_DIRS': True,
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  71)         'OPTIONS': {
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  72)             'context_processors': [
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  73)                 'django.template.context_processors.debug',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  74)                 'django.template.context_processors.request',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  75)                 'django.contrib.auth.context_processors.auth',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  76)                 'django.contrib.messages.context_processors.messages',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  77)             ],
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  78)         },
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  79)     },
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  80) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  81) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  82) WSGI_APPLICATION = 'pitwallapi.wsgi.application'
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  83) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  84) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  85) # Database
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  86) # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  87) DATABASES = {}
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  88) if DEBUG == True:
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  89)     DATABASES = {
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  90)         'default': {
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  91)             'ENGINE': 'django.db.backends.sqlite3',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  92)             'NAME': BASE_DIR / 'db.sqlite3',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  93)         }
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  94)     }
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  95) else:
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  96)     DATABASES = {
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  97)         'default': {
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400  98)             'ENGINE': 'django.db.backends.postgresql',
+dfd78bb5 (Connor Gannaway 2023-10-03 23:53:17 -0400  99)             'OPTIONS': {
+dfd78bb5 (Connor Gannaway 2023-10-03 23:53:17 -0400 100)                 'options': '-c search_path=appdata'
+dfd78bb5 (Connor Gannaway 2023-10-03 23:53:17 -0400 101)             },
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400 102)             'NAME': 'pitwall',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400 103)             'USER': os.environ.get('DBUSER'),
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400 104)             'PASSWORD': os.environ.get('DBPASS'),
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400 105)             'HOST': '127.0.0.1',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400 106)             'PORT': '5432',
+d7e8ab95 (Connor Gannaway 2023-10-03 11:57:47 -0400 107)         }
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 108)     }
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 109) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 110) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 111) # Password validation
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 112) # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 113) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 114) AUTH_PASSWORD_VALIDATORS = [
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 115)     {
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 116)         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 117)     },
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 118)     {
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 119)         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 120)     },
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 121)     {
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 122)         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 123)     },
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 124)     {
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 125)         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 126)     },
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 127) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 128) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 129) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 130) # Internationalization
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 131) # https://docs.djangoproject.com/en/4.2/topics/i18n/
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 132) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 133) LANGUAGE_CODE = 'en-us'
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 134) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 135) TIME_ZONE = 'UTC'
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 136) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 137) USE_I18N = True
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 138) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 139) USE_TZ = True
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 140) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 141) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 142) # Static files (CSS, JavaScript, Images)
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 143) # https://docs.djangoproject.com/en/4.2/howto/static-files/
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 144) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 145) STATIC_URL = 'static/'
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 146) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 147) # Default primary key field type
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 148) # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 149) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400 150) DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  1) from rest_framework import serializers
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  2) from data.models import *
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  3) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  4) class MessageSerializer(serializers.ModelSerializer):
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  5)     class Meta:
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  6)         model = Messages
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  7)         fields = [
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  8)             'pk',
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  9)             'enabled',
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 10)             'title',
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 11)             'message',
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 12)             'created_at',
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 13)             'updated_at',
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 14)         ]
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 15) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 16)         # set these to non required so they don't need to be present
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 17)         # on POST/PUT. Django handles these behind the curtain.
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 18)         extra_kwargs = {
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 19)             "created_at": {"required": False},
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 20)             "updated_at": {"required": False},
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 21)         }
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  1) """
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  2) Examples:
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  3) Function views
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  4)     1. Add an import:  from my_app import views
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  5)     2. Add a URL to urlpatterns:  path('', views.home, name='home')
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  6) Class-based views
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  7)     1. Add an import:  from other_app.views import Home
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  8)     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400  9) Including another URLconf
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 10)     1. Import the include() function: from django.urls import include, path
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 11)     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 12) """
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 13) 
+0c9d832d (Connor Gannaway 2023-09-27 13:51:09 -0400 14) from django.urls import path
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 15) from . import views
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 16) urlpatterns = [
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 17)     path('messages/', views.Message.as_view()),
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 18)     path('messages/<int:pk>/', views.MessageDetail.as_view()),
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 19)     path('races/<int:pk>/brief/', views.RaceBrief.as_view()),
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 20)     path('races/nearest/', views.RaceIds.as_view())
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400 21) ]
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   1) from django.shortcuts import render
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400   2) from rest_framework.views import APIView
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400   3) from rest_framework.response import Response
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400   4) from rest_framework import status, permissions
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400   5) from django.utils import timezone
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400   6) from django.db.models import F
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400   7) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400   8) from .serializers import *
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400   9) 
+5e4c78e2 (Connor Gannaway 2023-09-25 09:40:53 -0400  10) # Create your views here.
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  11) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  12) # /v1/messages
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  13) # GET: Return all enabled messages, or all messages if /?all=true
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  14) # POST: Create a new message
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  15) class Message(APIView):
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  16)     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  17) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  18)     def get(self, request, format=None):
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  19)         # this if has to be in a try block. exception thrown if the param doesn't exist.
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  20)         try:
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  21)             if request.query_params['all'].lower() == "true":
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  22)                 messages = Messages.objects.all().order_by('-enabled')
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  23)             else:
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  24)                 messages = Messages.objects.filter(enabled=True)
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  25)         except:
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  26)             messages = Messages.objects.filter(enabled=True)
+4990c051 (Connor Gannaway 2023-10-04 14:10:41 -0400  27) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  28)         serializer = MessageSerializer(messages, many=True)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  29)         return Response(serializer.data, status=status.HTTP_200_OK)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  30) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  31)     def post(self, request, format=None):
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  32)         serializer = MessageSerializer(data=request.data)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  33)         if serializer.is_valid():
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  34)             serializer.save()
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  35)             return Response(status=status.HTTP_201_CREATED)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  36)         return Response(status=status.HTTP_400_BAD_REQUEST)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  37) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  38) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  39) # /v1/messages/<int:pk>/
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  40) # GET: View an individual message
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  41) # PUT: Update a message
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  42) class MessageDetail(APIView):
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  43)     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  44) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  45)     def get(self, request, pk, format=None):
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  46)         try:
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  47)             message = Messages.objects.get(pk=pk)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  48)         except Messages.DoesNotExist:
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  49)             return Response(status=status.HTTP_404_NOT_FOUND)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  50) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  51)         serializer = MessageSerializer(message)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  52)         return Response(serializer.data, status=status.HTTP_200_OK)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  53) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  54)     def put(self, request, pk, format=None):
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  55)         try:
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  56)             message = Messages.objects.get(pk=pk)
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  57)         except Messages.DoesNotExist:
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  58)             return Response(status=status.HTTP_404_NOT_FOUND)
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  59) 
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  60)         serializer = MessageSerializer(message, data=request.data)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  61)         if serializer.is_valid():
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  62)             serializer.save()
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  63)             return Response(status=status.HTTP_200_OK)
+61ab9de0 (Connor Gannaway 2023-10-04 13:50:17 -0400  64)         return Response(status=status.HTTP_400_BAD_REQUEST)
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  65) 
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  66) # /v1/races/<int:pk>/brief/
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  67) # given a race id, return a future/live/completed var, name, date,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  68) # time, track, & top 3 qualifiers or finishers if available
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  69) class RaceBrief(APIView):
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  70)     def get(self, request, pk, format=None):
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  71)         try:
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  72)             race = Races.objects.get(raceId=pk)
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  73)         except:
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  74)             return Response(status=status.HTTP_404_NOT_FOUND)
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  75) 
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  76)         data = {
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  77)             "raceId": race.raceId,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  78)             "name": race.name,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  79)             "date": race.date,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  80)             "time": race.time,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  81)             "track": race.circuitId.name,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  82)         }
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  83) 
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  84)         now = timezone.now()
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  85)         date = now.date()
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  86)         time = now.time()
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  87) 
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  88)         if date < race.quali_date:
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  89)             data["rstatus"] = "Upcoming"
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  90)         elif date < race.date or (date == race.date and time < race.time):
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  91)             data["rstatus"] = "Qualified"
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  92)             finishers = race.qualifying_set.all().order_by(F('position').asc(nulls_last=True))[:3]
+9cd06fea (Connor Gannaway 2023-10-10 09:49:44 -0400  93)             data["grid"] = [
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  94)                 {
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  95)                     "position": finisher.position,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  96)                     "number": finisher.number,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  97)                     "name": finisher.driverId.surname,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  98)                     "code": finisher.driverId.code,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400  99)                     "constructor": finisher.constructorId.name,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 100)                     "time": finisher.q1
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 101)                 } for finisher in finishers
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 102)             ]
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 103) 
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 104)         else:
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 105)             data["rstatus"] = "Completed"
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 106)             finishers = race.results_set.all().order_by(F('position').asc(nulls_last=True))[:3]
+9cd06fea (Connor Gannaway 2023-10-10 09:49:44 -0400 107)             data["grid"] = [
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 108)                 {
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 109)                     "position": finisher.position,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 110)                     "number": finisher.number,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 111)                     "name": finisher.driverId.surname,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 112)                     "code": finisher.driverId.code,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 113)                     "constructor": finisher.constructorId.name,
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 114)                     "time": finisher.time
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 115)                 } for finisher in finishers
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 116)             ]
+1756afd1 (Connor Gannaway 2023-10-10 09:43:44 -0400 117) 
+2f733ba4 (Connor Gannaway 2023-10-10 19:22:00 -0400 118)         return Response(data, status=status.HTTP_200_OK)
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 119) 
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 120) # This returns the nearest races from the current date, or date given.
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 121) class RaceIds(APIView):
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 122)     def get(self, request, format=None):
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 123)         try:
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 124)             targetdate = request.query_params['date']
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 125)         except:
+23f71239 (Connor Gannaway 2023-10-10 19:25:24 -0400 126)             targetdate = timezone.now().date()
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 127) 
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 128)         today = Races.objects.filter(date=targetdate).values_list('raceId', flat=True)
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 129)         greater = Races.objects.filter(date__gt=targetdate).order_by('date')[:10].values_list('raceId', flat=True)
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 130)         less = Races.objects.filter(date__lt=targetdate).order_by('-date')[:10].values_list('raceId', flat=True)
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 131) 
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 132)         data = {
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 133)             "today": today,
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 134)             "future": greater,
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 135)             "past": less
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 136)         }
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 137)         print(targetdate)
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 138)         return Response(data=data, status=status.HTTP_200_OK)
+f7b61222 (Connor Gannaway 2023-10-06 16:29:31 -0400 139) 
+2f733ba4 (Connor Gannaway 2023-10-10 19:22:00 -0400 140)         
