@@ -19,32 +19,32 @@ const styles = StyleSheet.create({
 });
 
 const ScreenOptions = {
-		headerBackTitleVisible: false,
-		headerTitleAlign: 'center',
-		headerTintColor: '#fff',
-		headerStyle: {
-			backgroundColor: '#ff0000',
-		},
-		headerRight: () => (
-            <SafeAreaView>
-                <View style={{flexDirection:'row'}}>
-                    <MaterialCommunityIcons 
-                        name='magnify' 
-                        color={'black'} 
-                        size={25} 
-                        style={{paddingLeft: 20}}
-                        onPress={() => 
-                            {alert('This has not been implemented yet')}}/>
-                    <MaterialCommunityIcons 
-                        name='calendar-today' 
-                        color={'black'}
-                        style={{paddingLeft: 20}}
-                        size={25} 
-                        onPress={() => 
-                            {alert('This has not been implemented yet')}}/>
-                </View>
-            </SafeAreaView>
-		),
+	headerBackTitleVisible: false,
+	headerTitleAlign: 'center',
+	headerTintColor: '#fff',
+	headerStyle: {
+		backgroundColor: '#ff0000',
+	},
+	headerRight: () => (
+		<SafeAreaView>
+			<View style={{flexDirection:'row'}}>
+				<MaterialCommunityIcons 
+					name='magnify' 
+					color={'black'} 
+					size={25} 
+					style={{paddingLeft: 20}}
+					onPress={() => 
+					{alert('This has not been implemented yet');}}/>
+				<MaterialCommunityIcons 
+					name='calendar-today' 
+					color={'black'}
+					style={{paddingLeft: 20}}
+					size={25} 
+					onPress={() => 
+					{alert('This has not been implemented yet');}}/>
+			</View>
+		</SafeAreaView>
+	),
 };
 
 function LeagueStack({navigation}){
@@ -107,14 +107,14 @@ function HomeStack({navigation}){
 				component={HomeScreen}
 				options={{
 					title: 'Home Page',
-                    // headerTitle: () => (
-                    //     <SafeAreaView>
-                    //         <Image 
-                    //         style={{width: 75, height: 75, resizeMode: 'contain',}}
-                    //         source={require('../images/mustangburnout.jpg')}/>
-                    //     <Text>Burnout!!</Text>
-                    //     </SafeAreaView>
-                    // ),
+					// headerTitle: () => (
+					//     <SafeAreaView>
+					//         <Image 
+					//         style={{width: 75, height: 75, resizeMode: 'contain',}}
+					//         source={require('../images/mustangburnout.jpg')}/>
+					//     <Text>Burnout!!</Text>
+					//     </SafeAreaView>
+					// ),
 
 				}}
 			></Stack.Screen>

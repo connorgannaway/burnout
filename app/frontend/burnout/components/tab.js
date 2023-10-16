@@ -1,11 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-	SafeAreaProvider,
-	useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React from 'react';
 import TestScreen from '../screens/testscreen';
 import { HomeStack, LeagueStack } from './stack';
 

@@ -9,36 +9,36 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 		justifyContent: 'space-between',
-        alignItems: 'center',
-        textAlign: 'left',
+		alignItems: 'center',
+		textAlign: 'left',
 	},
 });
 async function get(){
-    const l = await getmessages();
-    return await l;
+	const l = await getmessages();
+	return await l;
 }
 const messages = get();
 
 function render(cards){
-    if(cards != null){
-        return (
-            <View>
-                {cards}
-            </View>
-        );
-    }
-    return null;
+	if(cards != null){
+		return (
+			<View>
+				{cards}
+			</View>
+		);
+	}
+	return null;
 }
 
 export default function HomeScreen({ navigation }) {
-    const cards = messages["_j"];     
-    console.log(cards);
+	const cards = messages['_j'];     
+	console.log(cards);
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
 			<View style={styles.container}>
 				{/* Put things that should be rendered into the ScrolLView element */}
 				<ScrollView>
-                    {render(cards)}
+					{render(cards)}
 					<Text>Body Text</Text>
 					{Array.from({ length: 50 }).map((_, i) => (
 						<Text key={i}>

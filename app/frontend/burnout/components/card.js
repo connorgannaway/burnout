@@ -4,22 +4,22 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        width: screen.width/1.15,
-        padding: screen.width/24,
-        marginTop: screen.height/96,
-        marginBottom: screen.height/96,
-        borderRadius: 15,
-    },
-    title:{
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        color: 'white',
-    }
+	container: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+		width: screen.width/1.15,
+		padding: screen.width/24,
+		marginTop: screen.height/96,
+		marginBottom: screen.height/96,
+		borderRadius: 15,
+	},
+	title:{
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+		color: 'white',
+	}
 });
 
 export default class BaseCard extends React.Component{
@@ -37,7 +37,7 @@ export default class BaseCard extends React.Component{
 			<View style={styles.cardStyle}>
 				<Card 
 					style={[styles.container, {backgroundColor: bgcolor}]} 
-					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert("This is a message")}>
+					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert('This is a message')}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 
