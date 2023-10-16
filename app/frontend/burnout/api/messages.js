@@ -1,6 +1,6 @@
 import { V1MESSAGESJSON } from './urls';
 import BaseCard from '../components/card';
-import react from 'react';
+import React from 'react';
 
 export default async function getmessages() {
 	return await fetch(V1MESSAGESJSON)
