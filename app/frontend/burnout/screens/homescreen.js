@@ -1,5 +1,3 @@
-import TopBar  from '../components/topbar';
-import BottomBar  from '../components/bottombar';
 import BaseCard from '../components/card';
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform } from 'react-native';
@@ -11,58 +9,39 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 		justifyContent: 'space-between',
+        alignItems: 'center',
+        textAlign: 'left',
 	},
-	// topBar: {
-	// 	flexDirection: 'row',
-	// 	width: '100%',
-	// 	padding: 10,
-	// 	paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-	// 	justifyContent: 'space-between',
-	// 	alignItems: 'center',
-	// 	borderBottomWidth: 1,
-	// 	borderColor: '#eee',
-	// 	backgroundColor: '#fff',
-	// },
-	// logo: {
-	// 	width: 50,
-	// 	height: 50,
-	// 	resizeMode: 'contain',
-	// },
-	// headerText: {
-	// 	fontSize: 20,
-	// 	fontWeight: 'bold',
-	// },
-	// iconContainer: {
-	// 	flexDirection: 'row',
-	// 	width: 60,
-	// 	justifyContent: 'space-between',
-	// },
 });
+async function get(){
+    const l = await getmessages();
+    return await l;
+}
+const messages = get();
+
+function render(cards){
+    if(cards != null){
+        return (
+            <View>
+                {cards}
+            </View>
+        );
+    }
+    return null;
+}
+
 export default function HomeScreen({ navigation }) {
-    const messages = getmessages().then(data => {
-        console.log(data);
-        let ret = [];
-        for(i = 0; i < Object.keys(data).length; i++){
-            ret.push(
-                <BaseCard navigation={null}
-                where={null}
-                name={data[i]['title']}
-                subName={'This is message #'+data[i]['pk']}
-                body={data[i]['message']}
-                bgcolor={'#ff00ff'}/>
-            );
-        }
-        console.log(ret);
-        return ret;
-    })
+    const cards = messages["_j"];     
+    console.log(cards);
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
 			<View style={styles.container}>
 				{/* Put things that should be rendered into the ScrolLView element */}
-				<ScrollView style={styles.content}>
+				<ScrollView>
+                    {render(cards)}
 					<Text>Body Text</Text>
 					{Array.from({ length: 50 }).map((_, i) => (
-						<Text key={i} style={styles.contentText}>
+						<Text key={i}>
                         Render stuff here {i + 1}
 						</Text>
 					))}
@@ -80,3 +59,25 @@ export default function HomeScreen({ navigation }) {
 	);
 }
 
+// function buildcards(data){
+//         data.then(fetched => {
+//             return fetched.json()
+//         }).catch(error => {
+//             console.warn(error);
+//         }).then(messages => {
+//             return JSON.parse(JSON.stringify(messages))
+//         }).catch(error => {
+//             console.warn(error);
+//         }).then(data => {
+//             for(i = 0; i < Object.keys(data).length; i++){
+//                     <BaseCard navigation={null}
+//                     where={null}
+//                     name={data[i]['title']}
+//                     subName={'This is message #'+data[i]['pk']}
+//                     body={data[i]['message']}
+//                     bgcolor={'#ff00ff'}/>
+//             }
+//         }).catch(error => {
+//             console.warn(error);
+//         })
+// }
