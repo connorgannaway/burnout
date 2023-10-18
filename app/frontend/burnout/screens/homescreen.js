@@ -15,122 +15,114 @@ const styles = StyleSheet.create({
 	},
 });
 
-const messages = getmessages();
-const briefs = getbriefs();
+// const messages = getmessages();
+// const briefs = getbriefs().then(data => {
+//     console.log(data);
+// });
 
-function render(cards){
-    if(cards != null){
-        return (
-            <View>
-				{cards}
-			</View>
-		);
-	}
-	return null;
-}
-
-// export default class HomeScreen extends React.Component{
-//     constructor(){
-//         super();
-//         this.state = {
-//             isLoading: true,
-//             briefs: getbriefs(),
-//             messages: getmessages(),
-//         }
-//     }
-//     put() {
-//         if(this.state.messages['_j'] != null && this.state.briefs != null){
-//             this.setState({isLoading: false});
-//             return (
-//                 <View>
-//                     {this.state.messages['_j']}
-//                     {/* {this.state.briefs} */}
-//                 </View>
-//             );
-//         }
-//         return null;
-//     }
-//     render(){
-//         const navigation = this.props;
-//         console.log(this.state.messages);
-//         if(this.state.isLoading){
+// function render(cards){
+//     if(cards != null){
 //         return (
-//             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
-//                 <View style={styles.container}>
-//                     {/* Put things that should be rendered into the ScrolLView element */}
-//                     <ScrollView>
-//                         {this.put()}
-//                         <Text>Body Text</Text>
-//                         {Array.from({ length: 50 }).map((_, i) => (
-//                             <Text key={i}>
-//                             Render stuff here {i + 1}
-//                             </Text>
-//                         ))}
-//                         <BaseCard 
-//                             navigation={navigation}
-//                             name={'Formula 1'}
-//                             body={'Click to view the Formula 1 League Page'}
-//                             bgcolor={'#ff00ff'}
-//                             where={'LeaguesScreen'}
-//                         />
-//                     </ScrollView>
-//                     <StatusBar style="auto" />
-//                 </View>
-//             </SafeAreaView>
-//         );
-//     } else{
-//         console.log('done loading: ', this.state.briefs);
-//         return(
-//             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
-//             <View style={styles.container}>
-//                 {/* Put things that should be rendered into the ScrolLView element */}
-//                 <ScrollView>
-//                     {this.put()}
-//                     <Text>Body Text</Text>
-//                     {Array.from({ length: 50 }).map((_, i) => (
-//                         <Text key={i}>
-//                         Render stuff here {i + 1}
-//                         </Text>
-//                     ))}
-//                     <BaseCard 
-//                         navigation={navigation}
-//                         name={'Formula 1'}
-//                         body={'Click to view the Formula 1 League Page'}
-//                         bgcolor={'#ff00ff'}
-//                         where={'LeaguesScreen'}
-//                     />
-//                 </ScrollView>
-//                 <StatusBar style="auto" />
-//             </View>
-//         </SafeAreaView>
-//     );
-//     }}
+//             <View>
+// 				{cards}
+// 			</View>
+// 		);
+// 	}
+// 	return null;
 // }
 
-export default function HomeScreen({ navigation }){
-    return(
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
-        <View style={styles.container}>
-            {/* Put things that should be rendered into the ScrolLView element */}
-            <ScrollView>
-                {render(messages['_j'])}
-                {render(briefs['_j'])}
-                <Text>Body Text</Text>
-                {Array.from({ length: 50 }).map((_, i) => (
-                    <Text key={i}>
-                    Render stuff here {i + 1}
-                    </Text>
-                ))}
-                <BaseCard 
-                    navigation={navigation}
-                    name={'Formula 1'}
-                    body={'Click to view the Formula 1 League Page'}
-                    bgcolor={'#ff00ff'}
-                    where={'LeaguesScreen'}
-                />
-            </ScrollView>
-            <StatusBar style="auto" />
-        </View>
-    </SafeAreaView>
-    );
+export default class HomeScreen extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            isLoading: true,
+            messages: getmessages(),
+            briefs: getbriefs(),
+        }
+        this.state.briefs
+        .catch(error => {
+            console.warn(error);
+        }).then(async data => {
+            await this.setState({isLoading: false})
+            console.log(this.state);
+        }).catch(error => {
+            console.warn(error);
+        });// }).then(() => {
+        //     this.forceUpdate();
+        // });
+    }
+    put(cards) {
+        console.log(cards);
+        if(cards != null){
+            return(
+                <View>
+                    {cards}
+                </View>
+            );
+        }
+        return null;
+    }
+    shouldComponentUpdate(nextState){
+        if(this.state.briefs !== nextState.briefs) return true;
+        if(this.state.messages !== nextState.messages) return true;
+        if(nextState.isLoading === false) return true;
+        return false;
+    }
+    render(){
+        const navigation = this.props;
+        console.log(this.state);
+        return (
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+                <View style={styles.container}>
+                    {/* Put things that should be rendered into the ScrolLView element */}
+                    <ScrollView>
+                        {this.put(this.state.messages['_j'])}
+                        {this.put(this.state.briefs['_j'])}
+                        <Text>Body Text</Text>
+                        {Array.from({ length: 50 }).map((_, i) => (
+                            <Text key={i}>
+                            Render stuff here {i + 1}
+                            </Text>
+                        ))}
+                        <BaseCard 
+                            navigation={navigation}
+                            name={'Formula 1'}
+                            body={'Click to view the Formula 1 League Page'}
+                            bgcolor={'#ff00ff'}
+                            where={'LeaguesScreen'}
+                        />
+                    </ScrollView>
+                    <StatusBar style="auto" />
+                </View>
+            </SafeAreaView>
+        );
+    }
 }
+
+// export default function HomeScreen({ navigation }){
+//     return(
+//         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+//         <View style={styles.container}>
+//             {/* Put things that should be rendered into the ScrolLView element */}
+//             <ScrollView>
+//                 {render(messages['_j'])}
+//                 {render(briefs['_j'])}
+//                 <Text>Body Text</Text>
+//                 {Array.from({ length: 50 }).map((_, i) => (
+//                     <Text key={i}>
+//                     Render stuff here {i + 1}
+//                     </Text>
+//                 ))}
+//                 <BaseCard 
+//                     navigation={navigation}
+//                     name={'Formula 1'}
+//                     body={'Click to view the Formula 1 League Page'}
+//                     bgcolor={'#ff00ff'}
+//                     where={'LeaguesScreen'}
+//                 />
+//             </ScrollView>
+//             <StatusBar style="auto" />
+//         </View>
+//     </SafeAreaView>
+//     );
+// }
