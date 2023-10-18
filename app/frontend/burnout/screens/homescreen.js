@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import getmessages from '../api/messages';
+import getbriefs from '../api/briefs';
 
 const styles = StyleSheet.create({
 	container: {
@@ -13,16 +14,14 @@ const styles = StyleSheet.create({
 		textAlign: 'left',
 	},
 });
-async function get(){
-	const l = await getmessages();
-	return await l;
-}
-const messages = get();
+
+const messages = getmessages();
+const briefs = getbriefs();
 
 function render(cards){
-	if(cards != null){
-		return (
-			<View>
+    if(cards != null){
+        return (
+            <View>
 				{cards}
 			</View>
 		);
@@ -30,54 +29,108 @@ function render(cards){
 	return null;
 }
 
-export default function HomeScreen({ navigation }) {
-	const cards = messages['_j'];     
-	console.log(cards);
-	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
-			<View style={styles.container}>
-				{/* Put things that should be rendered into the ScrolLView element */}
-				<ScrollView>
-					{render(cards)}
-					<Text>Body Text</Text>
-					{Array.from({ length: 50 }).map((_, i) => (
-						<Text key={i}>
-                        Render stuff here {i + 1}
-						</Text>
-					))}
-					<BaseCard 
-						navigation={navigation}
-						name={'Formula 1'}
-						body={'Click to view the Formula 1 League Page'}
-						bgcolor={'#ff00ff'}
-						where={'LeaguesScreen'}
-					/>
-				</ScrollView>
-				<StatusBar style="auto" />
-			</View>
-		</SafeAreaView>
-	);
-}
-
-// function buildcards(data){
-//         data.then(fetched => {
-//             return fetched.json()
-//         }).catch(error => {
-//             console.warn(error);
-//         }).then(messages => {
-//             return JSON.parse(JSON.stringify(messages))
-//         }).catch(error => {
-//             console.warn(error);
-//         }).then(data => {
-//             for(i = 0; i < Object.keys(data).length; i++){
-//                     <BaseCard navigation={null}
-//                     where={null}
-//                     name={data[i]['title']}
-//                     subName={'This is message #'+data[i]['pk']}
-//                     body={data[i]['message']}
-//                     bgcolor={'#ff00ff'}/>
-//             }
-//         }).catch(error => {
-//             console.warn(error);
-//         })
+// export default class HomeScreen extends React.Component{
+//     constructor(){
+//         super();
+//         this.state = {
+//             isLoading: true,
+//             briefs: getbriefs(),
+//             messages: getmessages(),
+//         }
+//     }
+//     put() {
+//         if(this.state.messages['_j'] != null && this.state.briefs != null){
+//             this.setState({isLoading: false});
+//             return (
+//                 <View>
+//                     {this.state.messages['_j']}
+//                     {/* {this.state.briefs} */}
+//                 </View>
+//             );
+//         }
+//         return null;
+//     }
+//     render(){
+//         const navigation = this.props;
+//         console.log(this.state.messages);
+//         if(this.state.isLoading){
+//         return (
+//             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+//                 <View style={styles.container}>
+//                     {/* Put things that should be rendered into the ScrolLView element */}
+//                     <ScrollView>
+//                         {this.put()}
+//                         <Text>Body Text</Text>
+//                         {Array.from({ length: 50 }).map((_, i) => (
+//                             <Text key={i}>
+//                             Render stuff here {i + 1}
+//                             </Text>
+//                         ))}
+//                         <BaseCard 
+//                             navigation={navigation}
+//                             name={'Formula 1'}
+//                             body={'Click to view the Formula 1 League Page'}
+//                             bgcolor={'#ff00ff'}
+//                             where={'LeaguesScreen'}
+//                         />
+//                     </ScrollView>
+//                     <StatusBar style="auto" />
+//                 </View>
+//             </SafeAreaView>
+//         );
+//     } else{
+//         console.log('done loading: ', this.state.briefs);
+//         return(
+//             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+//             <View style={styles.container}>
+//                 {/* Put things that should be rendered into the ScrolLView element */}
+//                 <ScrollView>
+//                     {this.put()}
+//                     <Text>Body Text</Text>
+//                     {Array.from({ length: 50 }).map((_, i) => (
+//                         <Text key={i}>
+//                         Render stuff here {i + 1}
+//                         </Text>
+//                     ))}
+//                     <BaseCard 
+//                         navigation={navigation}
+//                         name={'Formula 1'}
+//                         body={'Click to view the Formula 1 League Page'}
+//                         bgcolor={'#ff00ff'}
+//                         where={'LeaguesScreen'}
+//                     />
+//                 </ScrollView>
+//                 <StatusBar style="auto" />
+//             </View>
+//         </SafeAreaView>
+//     );
+//     }}
 // }
+
+export default function HomeScreen({ navigation }){
+    return(
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+        <View style={styles.container}>
+            {/* Put things that should be rendered into the ScrolLView element */}
+            <ScrollView>
+                {render(messages['_j'])}
+                {render(briefs['_j'])}
+                <Text>Body Text</Text>
+                {Array.from({ length: 50 }).map((_, i) => (
+                    <Text key={i}>
+                    Render stuff here {i + 1}
+                    </Text>
+                ))}
+                <BaseCard 
+                    navigation={navigation}
+                    name={'Formula 1'}
+                    body={'Click to view the Formula 1 League Page'}
+                    bgcolor={'#ff00ff'}
+                    where={'LeaguesScreen'}
+                />
+            </ScrollView>
+            <StatusBar style="auto" />
+        </View>
+    </SafeAreaView>
+    );
+}
