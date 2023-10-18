@@ -5,7 +5,6 @@ import BaseCard from '../components/card';
 export default async function getbriefs(){
     const data = await getnearestraces();
     const ret = await getdata(data);
-    // console.log('This is in getbriefs before return', ret);
     return ret;
 }
 
@@ -15,19 +14,19 @@ async function getdata(ids){
     const today = ids['today'];
     const past = ids['past'];
     const future = ids['past'];
+    for(let i = 0; i < future.length; i++){
+        card = grabcard(future[i]);
+        ret.push(card);
+    }
     for(let i = 0; i < today.length; i++){
-        card = await grabcard(today[i]);
+        card = grabcard(today[i]);
         ret.push(card);
     }
     for(let i = 0; i < past.length; i++){
-        card = await grabcard(past[i]);
+        card = grabcard(past[i]);
         ret.push(card);
     }
-    for(let i = 0; i < future.length; i++){
-        card = await grabcard(future[i]);
-        ret.push(card);
-    }
-    return ret;
+    return await Promise.resolve(Promise.all(ret));
 }
 
 async function grabcard(id){
@@ -50,8 +49,9 @@ async function grabcard(id){
             subName={data['track']}
             body={data['time']+' '+data['date']+' '+data['rstatus']}
             bgcolor={'#ff00ff'}
-            key={data['time']+data['date']}
-        />
+            key={data['track']+data['date']+data['time']}
+            message={'This is a race brief'}
+            />
             );
     }).catch(error => {
         console.warn(error);
