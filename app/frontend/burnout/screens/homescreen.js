@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
 // }
 
 export default class HomeScreen extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             isLoading: true,
             messages: getmessages(),
@@ -69,8 +69,9 @@ export default class HomeScreen extends React.Component{
         return false;
     }
     render(){
-        const navigation = this.props;
+        const {navigation} = this.props;
         console.log(this.state);
+        console.log(this.props);
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
                 <View style={styles.container}>
