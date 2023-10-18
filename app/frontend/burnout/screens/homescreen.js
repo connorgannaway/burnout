@@ -47,13 +47,11 @@ export default class HomeScreen extends React.Component{
             console.log(this.state);
         }).catch(error => {
             console.warn(error);
-        });// }).then(() => {
-        //     this.forceUpdate();
-        // });
+        });
     }
     put(cards) {
-        console.log(cards);
         if(cards != null){
+            console.warn(cards);
             return(
                 <View>
                     {cards}
