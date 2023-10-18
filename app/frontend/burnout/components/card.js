@@ -31,13 +31,13 @@ export default class BaseCard extends React.Component{
 		this.GoHere = this.GoHere.bind(this);
 	}
 	render () {
-		const {navigation, name, subName, body, bgcolor, where} = this.props;
+		const {navigation, name, subName, body, bgcolor, where, message } = this.props;
 
 		return (
 			<View style={styles.cardStyle}>
 				<Card 
 					style={[styles.container, {backgroundColor: bgcolor}]} 
-					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert('This is a message')}>
+					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert(message)}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 
