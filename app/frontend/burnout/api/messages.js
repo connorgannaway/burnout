@@ -31,7 +31,9 @@ async function getdata() {
 						name={data[i]['title']}
 						subName={'This is message #'+data[i]['pk']}
 						body={data[i]['message']}
-						bgcolor={'#ff00ff'}/>
+						bgcolor={'#ff00ff'}
+                        message={'This is a message'}
+                        />
 				);
 			}
 			return ret;
