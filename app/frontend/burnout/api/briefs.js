@@ -26,7 +26,7 @@ async function getdata(ids){
         card = grabcard(past[i]);
         ret.push(card);
     }
-    return await Promise.resolve(Promise.all(ret));
+    return await Promise.all(ret);
 }
 
 async function grabcard(id){
