@@ -3,9 +3,7 @@ import getnearestraces from './nearestraces';
 import BaseCard from '../components/card';
 
 export default async function getbriefs(){
-    const data = await getnearestraces();
-    const ret = await getdata(data);
-    return ret;
+    return await getdata(await getnearestraces());
 }
 
 async function getdata(ids){
@@ -26,16 +24,15 @@ async function getdata(ids){
         card = grabcard(past[i]);
         ret.push(card);
     }
-    return await Promise.all(ret);
+    return Promise.all(ret);
 }
 
 async function grabcard(id){
-    const response = await fetch(BASEURL+'/v1/races/'+id+'/brief/?format=json')
+    return await fetch(BASEURL+'/v1/races/'+id+'/brief/?format=json')
     .catch(error => {
         console.warn(error);
-    }).then(async response => {
-        const json = await response.json();
-        return json;
+    }).then(response => {
+        return response.json();
     }).catch(error => {
         console.warn(error);
     }).then(json => {
@@ -56,5 +53,4 @@ async function grabcard(id){
     }).catch(error => {
         console.warn(error);
     });
-    return response;
 }
