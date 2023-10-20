@@ -6,7 +6,7 @@ import HomeScreen from '../screens/homescreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
-import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons } from 'react-native';
+import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView } from 'react-native';
 import Topbar from './topbar';
 
 const Stack = createNativeStackNavigator();
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
 });
 
 const ScreenOptions = {
-		lazy: false,
 		headerBackTitleVisible: false,
 		headerTitleAlign: 'center',
 		headerTintColor: '#fff',
@@ -27,6 +26,7 @@ const ScreenOptions = {
 			backgroundColor: '#ff0000',
 		},
 		headerRight: () => (
+			<SafeAreaView>
 			<View style={{flexDirection:"row"}}>
 				<MaterialCommunityIcons 
 					name='magnify' 
@@ -42,6 +42,7 @@ const ScreenOptions = {
 					onPress={() => 
 						{alert('This has not been implemented yet')}}/>
 			</View>
+			</SafeAreaView>
 		),
 };
 
