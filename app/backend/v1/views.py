@@ -134,7 +134,107 @@ class RaceIds(APIView):
             "future": greater,
             "past": less
         }
-        print(targetdate)
         return Response(data=data, status=status.HTTP_200_OK)
 
-        
+'''
+given a race id, return a future/live/completed var,
+************************Future/live:************************
+name, track, date & session times, starting grid with interval times if available
+********************Completed:********************
+name, track, date & session times, finishing grid with interval times:
+ driver name, number, points earned, total points, if driver has fastest lap
+Another similar grid with sprint data if its a sprint race weekend.
+'''
+class Race(APIView):
+
+    def positionTextConversion(self, string):
+        if string == 'D':
+            return 'Disqualified'
+        elif string == 'E':
+            return 'Excluded'
+        elif string == 'F':
+            return 'Failed to Qualify'
+        elif string == 'N':
+            return 'Not Classified'
+        elif string == 'R':
+            return 'Retired'
+        elif string == 'W':
+            return 'Withdrew'
+        else:
+            return string
+
+
+    def get(self, request, pk, format=None):
+        try:
+            race = Races.objects.get(raceId=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        data = {
+            "raceId": race.raceId,
+            "name": race.name,
+            "quali_date": race.quali_date,
+            "quali_time": race.quali_time,
+            "date": race.date,
+            "time": race.time,
+            "fp1_date": race.fp1_date,
+            "fp1_time": race.fp1_time,
+            "fp2_date": race.fp2_date,
+            "fp2_time": race.fp2_time,
+            "fp3_date": race.fp3_date,
+            "fp3_time": race.fp3_time,
+            "round": race.round,
+            "track": race.circuitId.name,
+            "location": race.circuitId.location,
+            "country": race.circuitId.country,
+        }
+
+        now = timezone.now()
+        date = now.date()
+        time = now.time()
+
+        if date < race.quali_date:
+            data['rstatus'] = 'Upcoming'
+            return Response(data=data, status=status.HTTP_200_OK)
+
+        elif date < race.date or (date == race.date and time < race.time):
+            data['rstatus'] = 'Qualified'
+
+            finishers = race.qualifying_set.all().order_by(F('position').asc(nulls_last=True))
+            data["grid"] = [
+                {
+                    "position": finisher.position,
+                    "number": finisher.number,
+                    "name": finisher.driverId.surname,
+                    "code": finisher.driverId.code,
+                    "constructor": finisher.constructorId.name,
+                    "q1": finisher.q1,
+                    "q2": finisher.q2,
+                    "q3": finisher.q3,
+                } for finisher in finishers
+            ]
+
+            return Response(data=data, status=status.HTTP_200_OK)
+        else:
+            data['rstatus'] = 'Completed'
+
+            finishers = race.results_set.all().order_by(F('positionOrder').asc(nulls_last=True))
+
+            data["grid"] = [
+                {
+                    "position": self.positionTextConversion(finisher.positionText),
+                    "number": finisher.number,
+                    "name": finisher.driverId.surname,
+                    "code": finisher.driverId.code,
+                    "constructor": finisher.constructorId.name,
+                    "time": finisher.time,
+                    "status": finisher.statusId.status,
+                    "points": finisher.points,
+                    "startingPosition": finisher.grid,
+
+                } for finisher in finishers
+            ]
+
+            return Response(data=data, status=status.HTTP_200_OK)
+
+
