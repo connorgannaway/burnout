@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet, SafeAreaView } from 'react-native';
+import BaseCard from '../components/card';
 import { buildCardsFromData } from '../components/card';
 import BottomBar from '../components/bottombar';
 import Topbar from '../components/topbar';
@@ -15,20 +16,26 @@ export default class DriverMasterScreen extends React.Component{
 	render() {
 		const {navigation} = this.props;
 		/*TODO: swap test data with an API call to retrieve real data*/
-		const races = [{name: 'Race 1', subName: 'Location 1', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'},
-					   {name: 'Race 2', subName: 'Location 2', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'},
-					   {name: 'Race 3', subName: 'Location 3', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'}];
+		const races = [{name: 'Race 1', subName: 'Location 1', body: 'Race Data', bgcolor: '#ff1801', where: 'TestScreen'},
+					   {name: 'Race 2', subName: 'Location 2', body: 'Race Data', bgcolor: '#ff1801', where: 'TestScreen'},
+					   {name: 'Race 3', subName: 'Location 3', body: 'Race Data', bgcolor: '#ff1801', where: 'TestScreen'}];
 
 		const raceCards = buildCardsFromData(navigation, races);
 
 		return(
-			<View style={styles.container}>
-				<Topbar />
+			<SafeAreaView style={styles.container}>
 				<ScrollView>
-					{raceCards}
+					{/* {driverCards} */}
+					<BaseCard
+						name={'Max Verstappen'}
+						subName={'Total Driver Points: All of em'}
+						body={'Current Driver Standing: First'}
+						bgcolor={'#ff1801'}
+						where={null}
+						navigation={null}
+					/>
 				</ScrollView>
-				<BottomBar navigation={navigation}/>
-			</View>
+			</SafeAreaView>
 		);
 	}
 }
@@ -41,5 +48,6 @@ const styles = StyleSheet.create({
 		height: screen.height-250,
 		width: screen.width,
 		backgroundColor: '#efefef',
+		alignItems: 'center',
 	},
 });

@@ -6,6 +6,7 @@ import HomeScreen from '../screens/homescreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
+import TeamMasterScreen from '../screens/teammasterscreen';
 import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
 import Topbar from './topbar';
 
@@ -76,6 +77,22 @@ function LeagueStack({navigation}){
 				}}
 			>
 			</Stack.Screen>
+			<Stack.Screen
+				name='TeamMasterScreen'
+				component={TeamMasterScreen}
+				options={{
+					title: 'Team Master Screen',
+				}}
+			>
+			</Stack.Screen>
+			<Stack.Screen
+				name='DriverMasterScreen'
+				component={DriverMasterScreen}
+				options={{
+					title: 'Driver Master Screen',
+				}}
+			>
+			</Stack.Screen>
 		</Stack.Navigator>
 	);
 }
@@ -123,6 +140,22 @@ function HomeStack({navigation}){
 				component={LeagueMasterScreen}
 				options={{
 					title: 'League Master Screen',
+				}}
+			>
+			</Stack.Screen>
+			<Stack.Screen
+				name='TeamMasterScreen'
+				component={TeamMasterScreen}
+				options={{
+					title: 'Team Master Screen',
+				}}
+			>
+			</Stack.Screen>
+			<Stack.Screen
+				name='DriverMasterScreen'
+				component={DriverMasterScreen}
+				options={{
+					title: 'Driver Master Screen',
 				}}
 			>
 			</Stack.Screen>

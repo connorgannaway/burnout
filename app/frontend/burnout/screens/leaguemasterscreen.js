@@ -32,12 +32,16 @@ export default class LeagueMasterScreen extends React.Component{
 		const standings = [{name: 'Standings', body:'1. Max Verstappen - All the points\n1. Driver 2 - X Points\n1. Driver 3 - X Points', bgcolor: '#ff1801', where:'TestScreen'}];
 		const standingsCard = buildCardsFromData(navigation, standings);
 
+		const teams = [{name: 'Teams', body: 'Click to view individual team page', bgcolor: '#ff1801', where: 'TeamMasterScreen'}];
+		const teamscard = buildCardsFromData(navigation, teams);
+
 		return(
 			<View style={styles.container}>
 				<ScrollView>
 					{raceRecapCard}
 					{scheduleCard}
 					{standingsCard}
+					{teamscard}
 				</ScrollView>
 			</View>
 		);
