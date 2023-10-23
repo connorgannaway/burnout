@@ -2,7 +2,7 @@
 
 set /p yn="Would you like to run the linter with the --fix option (y|n)? "
 
-set dirs=components screens .
+set dirs=components screens . api
 if "%yn%"=="y" (
     (for %%a in (%dirs%) do (
     for %%i in (%%a\*.js) do (

@@ -2,6 +2,25 @@ import * as React from 'react';
 import { Card, Button } from 'react-native-paper';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 
+const screen = Dimensions.get('screen');
+const styles = StyleSheet.create({
+	container: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+		width: screen.width/1.15,
+		padding: screen.width/24,
+		marginTop: screen.height/96,
+		marginBottom: screen.height/96,
+		borderRadius: 15,
+	},
+	title:{
+		justifyContent: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+		color: 'white',
+	}
+});
 
 export default class BaseCard extends React.Component{
 	constructor(){
@@ -12,13 +31,13 @@ export default class BaseCard extends React.Component{
 		this.GoHere = this.GoHere.bind(this);
 	}
 	render () {
-		const {navigation, name, subName, body, bgcolor, where} = this.props;
+		const {navigation, name, subName, body, bgcolor, where, message } = this.props;
 
 		return (
 			<View style={styles.cardStyle}>
 				<Card 
 					style={[styles.container, {backgroundColor: bgcolor}]} 
-					onPress={() => navigation.navigate({name: where})}>
+					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert(message)}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 
@@ -77,22 +96,3 @@ export function buildCardsFromData(navigation, data){
 	);
 }
 
-const screen = Dimensions.get('screen');
-const styles = StyleSheet.create({
-	container: {
-		justifyContent: 'center',
-		alignItems: 'center',
-		textAlign: 'center',
-		width: screen.width/1.15,
-		padding: screen.width/24,
-		marginTop: screen.height/96,
-		marginBottom: screen.height/96,
-		borderRadius: 15,
-	},
-	title:{
-		justifyContent: 'center',
-		alignItems: 'center',
-		textAlign: 'center',
-		color: 'white',
-	}
-});
