@@ -165,11 +165,14 @@ class Race(APIView):
 
 
     def get(self, request, pk, format=None):
+
+        # find race from passed pk
         try:
             race = Races.objects.get(raceId=pk)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+        # add general data
         data = {
             "raceId": race.raceId,
             "name": race.name,
@@ -183,6 +186,8 @@ class Race(APIView):
             "fp2_time": race.fp2_time,
             "fp3_date": race.fp3_date,
             "fp3_time": race.fp3_time,
+            "sprint_date": race.sprint_date,
+            "sprint_time": race.sprint_time,
             "round": race.round,
             "track": race.circuitId.name,
             "location": race.circuitId.location,
@@ -193,6 +198,31 @@ class Race(APIView):
         date = now.date()
         time = now.time()
 
+        # check for sprint weekend
+        sprintresults = race.sprintresults_set.all().order_by(F('positionOrder').asc(nulls_last=True))
+        if not sprintresults:
+            data['is_sprint_weekend'] = False
+
+        else:
+            data['is_sprint_weekend'] = True
+            if date >= race.sprint_date and time >= race.sprint_time:
+                data["sprint_grid"] = [
+                    {
+                        "position": self.positionTextConversion(finisher.positionText),
+                        "number": finisher.number,
+                        "name": finisher.driverId.surname,
+                        "code": finisher.driverId.code,
+                        "constructor": finisher.constructorId.name,
+                        "time": finisher.time,
+                        "status": finisher.statusId.status,
+                        "points": finisher.points,
+                        "laps": finisher.laps,
+                        "startingPosition": finisher.grid,
+
+                    } for finisher in sprintresults
+                ]
+
+        # Set race status based on time. Include Qualifying or Completed grids if available.
         if date < race.quali_date:
             data['rstatus'] = 'Upcoming'
             return Response(data=data, status=status.HTTP_200_OK)
@@ -230,6 +260,7 @@ class Race(APIView):
                     "time": finisher.time,
                     "status": finisher.statusId.status,
                     "points": finisher.points,
+                    "laps": finisher.laps,
                     "startingPosition": finisher.grid,
 
                 } for finisher in finishers
