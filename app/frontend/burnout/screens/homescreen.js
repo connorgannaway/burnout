@@ -52,15 +52,17 @@ export default class HomeScreen extends React.Component{
 
     put(cards){
         if(cards != null){
-            let c = [];
-            for(let i = 0; i < cards.length/2; i++){
-                c.push(cards[i]);
-            }
-            return(
-                <View>
-                    {c}
-                </View>
-            );
+            if(this.state.isLoading){
+                let c = [];
+                for(let i = 0; i < cards.length/2; i++){
+                    c.push(cards[i]);
+                }
+                return(
+                    <View>
+                        {c}
+                    </View>
+                );
+            } else return <View>{cards}</View>
         }
         return null;
     }
