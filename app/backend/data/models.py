@@ -15,7 +15,7 @@ class Seasons(models.Model):
     disciplineId = models.ForeignKey(Disciplines, db_column='disciplineId', on_delete=models.CASCADE)
     
 class Constructors(models.Model):
-    contructorId = models.IntegerField(primary_key=True)
+    constructorId = models.IntegerField(primary_key=True)
     constructorRef = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255)
     nationality = models.CharField(max_length=255)

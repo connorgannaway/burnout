@@ -18,5 +18,5 @@ urlpatterns = [
     path('messages/<int:pk>/', views.MessageDetail.as_view()),
     path('races/<int:pk>/brief/', views.RaceBrief.as_view()),
     path('races/nearest/', views.RaceIds.as_view()),
-    path('teams/', views.Teams.as_view())
+    path('teams/', views.Teams.as_view()),
 ]

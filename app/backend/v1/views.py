@@ -141,8 +141,14 @@ class RaceIds(APIView):
 class Teams(APIView):
     def get(self, request, format=None):
         try:
-            teams = Constructors.objects.all()
+            year = request.query_params['year']
+        except:
+            year = timezone.now().date().strftime("%Y")
+        try:
+            season = Seasons.objects.filter(year=year).values_list('seasonId', flat=True)[0]
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = TeamsSerializer(teams, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        raceId = Races.objects.filter(seasonId=season).values_list('raceId', flat=True)[::-1][0]
+        standings = ConstructorResults.objects.filter(raceId=raceId).values_list('constructorId', flat=True)
+        teams = Constructors.objects.filter(constructorId__in=standings).order_by('name').values_list('name', flat=True)
+        return Response(teams, status=status.HTTP_200_OK)
