@@ -150,5 +150,8 @@ class Teams(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         raceId = Races.objects.filter(seasonId=season).values_list('raceId', flat=True)[::-1][0]
         standings = ConstructorResults.objects.filter(raceId=raceId).values_list('constructorId', flat=True)
-        teams = Constructors.objects.filter(constructorId__in=standings).order_by('name').values_list('name', flat=True)
-        return Response(teams, status=status.HTTP_200_OK)
+        teams = Constructors.objects.filter(constructorId__in=standings).values_list('name', flat=True)
+        # points = ConstructorStandings.objects.filter(raceId=raceId).values_list('points', flat=True)
+        # data = [{'team': team, 'points': points} for team,points in zip(teams,points)]
+        # data.sort(key=lambda x: x['points'], reverse=True)
+        return Response(sorted(teams), status=status.HTTP_200_OK)
