@@ -19,3 +19,23 @@ class MessageSerializer(serializers.ModelSerializer):
             "created_at": {"required": False},
             "updated_at": {"required": False},
         }
+        
+class TeamsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Constructors
+        fields = [
+            'contructorId',
+            'constructorRef',
+            'name',
+            'nationality',
+            'url',
+        ]
+        # model = ConstructorResults
+        # fields = [
+        #     'constructorResultsId',
+        #     'raceId',
+        #     'constructorId',
+        #     'points',
+        # ]
+        # if fields[4] == '\\N': # Need to match "\\N" somehow
+        #     status = "Not finished"

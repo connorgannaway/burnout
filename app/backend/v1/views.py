@@ -136,5 +136,13 @@ class RaceIds(APIView):
         }
         print(targetdate)
         return Response(data=data, status=status.HTTP_200_OK)
-
-        
+ 
+ 
+class Teams(APIView):
+    def get(self, request, format=None):
+        try:
+            teams = Constructors.objects.all()
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = TeamsSerializer(teams, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
