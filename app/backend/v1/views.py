@@ -226,7 +226,7 @@ class Race(APIView):
 
         else:
             data['is_sprint_weekend'] = True
-            if date >= race.sprint_date and time >= race.sprint_time:
+            if date > race.sprint_date or (date == race.sprint_date and time >= race.sprint_time):
                 data["sprint_grid"] = [
                     {
                         "position": self.positionTextConversion(finisher.positionText),
