@@ -47,8 +47,8 @@ export default class LeagueMasterScreen extends React.Component{
 						body={'Current Team Standing: First'}
 						bgcolor={'#ff1801'}
 						where={'TeamMasterScreen'}
-						// navigation={navigation.state.props({title: 'Team Screen'})}
 						navigation={navigation}
+						title={'Team Name'}
 					/>
 				</ScrollView>
 			</View>

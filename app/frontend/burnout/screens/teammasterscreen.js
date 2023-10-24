@@ -59,6 +59,7 @@ export default class TeamMasterScreen extends React.Component{
 							bgcolor={'#ff1801'}
 							where={'DriverMasterScreen'}
 							navigation={navigation}
+							title={'Driver ' + (i + 1)}
 						/>
 					))}
 				</ScrollView>

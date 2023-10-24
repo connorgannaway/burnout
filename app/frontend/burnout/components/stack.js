@@ -57,42 +57,43 @@ function LeagueStack({navigation}){
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
-				options={{
-					title: 'Leagues Page',
-				}}
+				initialParams={{newTitle: 'Leagues Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='TestScreen'
 				component={TestScreen}
-				options={{
-					title: 'Testing Page',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'Testing Page'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
-				options={{
-					title: 'League Master Screen',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'League Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 			<Stack.Screen
 				name='TeamMasterScreen'
 				component={TeamMasterScreen}
-				options={{
-					title: 'Team Master Screen',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'Team Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 			<Stack.Screen
 				name='DriverMasterScreen'
 				component={DriverMasterScreen}
-				options={{
-					title: 'Driver Master Screen',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 		</Stack.Navigator>
 	);
 }
@@ -108,57 +109,65 @@ function HomeStack({navigation}){
 			<Stack.Screen
 				name='TestScreen'
 				component={TestScreen}
-				options={{
-					title: 'Testing Page',
-				}}
+				initialParams={{newTitle: 'Testing Page'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
-				options={{
-					title: 'Leagues Page',
-				}}
+				initialParams={{newTitle: 'Leagues Page'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
-				options={{
-					title: 'Home Page',
-					// headerTitle: () => (
-					//     <SafeAreaView>
-					//         <Image 
-					//         style={{width: 75, height: 75, resizeMode: 'contain',}}
-					//         source={require('../images/mustangburnout.jpg')}/>
-					//     <Text>Burnout!!</Text>
-					//     </SafeAreaView>
-					// ),
+				initialParams={{newTitle: 'Home Page'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+				// options={{
+				// 	title: 'Home Page',
+				// 	// headerTitle: () => (
+				// 	//     <SafeAreaView>
+				// 	//         <Image 
+				// 	//         style={{width: 75, height: 75, resizeMode: 'contain',}}
+				// 	//         source={require('../images/mustangburnout.jpg')}/>
+				// 	//     <Text>Burnout!!</Text>
+				// 	//     </SafeAreaView>
+				// 	// ),
 
-				}}
+				// }}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
-				options={{
-					title: 'League Master Screen',
-				}}
+				initialParams={{newTitle: 'League Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			>
 			</Stack.Screen>
 			<Stack.Screen
 				name='TeamMasterScreen'
 				component={TeamMasterScreen}
-				options={{
-					title: 'Team Master Screen',
-				}}
+				initialParams={{newTitle: 'Team Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			>
 			</Stack.Screen>
 			<Stack.Screen
 				name='DriverMasterScreen'
 				component={DriverMasterScreen}
-				options={{
-					title: 'Driver Master Screen',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 		</Stack.Navigator>
 	);
 }

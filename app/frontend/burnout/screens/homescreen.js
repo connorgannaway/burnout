@@ -15,21 +15,21 @@ const styles = StyleSheet.create({
 	},
 });
 
-// const messages = getmessages();
-// const briefs = getbriefs().then(data => {
-//     console.log(data);
-// });
+const messages = getmessages();
+const briefs = getbriefs().then(data => {
+	console.log(data);
+});
 
-// function render(cards){
-//     if(cards != null){
-//         return (
-//             <View>
-// 				{cards}
-// 			</View>
-// 		);
-// 	}
-// 	return null;
-// }
+function render(cards){
+	if(cards != null){
+		return (
+			<View>
+				{cards}
+			</View>
+		);
+	}
+	return null;
+}
 
 export default class HomeScreen extends React.Component{
 	constructor(props){
@@ -75,8 +75,8 @@ export default class HomeScreen extends React.Component{
 				<View style={styles.container}>
 					{/* Put things that should be rendered into the ScrolLView element */}
 					<ScrollView>
-						{this.put(this.state.messages['_j'])}
-						{this.put(this.state.briefs['_j'])}
+						{/* {this.put(this.state.messages['_j'])}
+						{this.put(this.state.briefs['_j'])} */}
 						<Text>Body Text</Text>
 						{Array.from({ length: 50 }).map((_, i) => (
 							<Text key={i}>
@@ -89,6 +89,7 @@ export default class HomeScreen extends React.Component{
 							body={'Click to view the Formula 1 League Page'}
 							bgcolor={'#ff00ff'}
 							where={'LeaguesScreen'}
+							title={'Leagues Page'}
 						/>
 					</ScrollView>
 					<StatusBar style="auto" />
