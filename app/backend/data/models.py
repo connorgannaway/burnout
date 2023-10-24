@@ -15,7 +15,7 @@ class Seasons(models.Model):
     disciplineId = models.ForeignKey(Disciplines, db_column='disciplineId', on_delete=models.CASCADE)
     
 class Constructors(models.Model):
-    contructorId = models.IntegerField(primary_key=True)
+    constructorId = models.IntegerField(primary_key=True)
     constructorRef = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255)
     nationality = models.CharField(max_length=255)
@@ -96,7 +96,7 @@ class DriverStandings(models.Model):
 class ConstructorStandings(models.Model):
     constructorStandingsId = models.IntegerField(primary_key=True)
     raceId = models.ForeignKey(Races,db_column='raceId', on_delete=models.CASCADE)
-    driverId = models.ForeignKey(Drivers,db_column='driverId', on_delete=models.CASCADE)
+    constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
     points = models.FloatField()
     position = models.IntegerField()
     positionText = models.CharField(max_length=255, blank=True, null=True)
