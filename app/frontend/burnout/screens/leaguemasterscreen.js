@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
-import { buildCardsFromData } from '../components/card';
+import BaseCard, { buildCardsFromData } from '../components/card';
 import BottomBar from '../components/bottombar';
 import Topbar from '../components/topbar';
 
@@ -32,8 +32,8 @@ export default class LeagueMasterScreen extends React.Component{
 		const standings = [{name: 'Standings', body:'1. Max Verstappen - All the points\n1. Driver 2 - X Points\n1. Driver 3 - X Points', bgcolor: '#ff1801', where:'TestScreen'}];
 		const standingsCard = buildCardsFromData(navigation, standings);
 
-		const teams = [{name: 'Teams', body: 'Click to view individual team page', bgcolor: '#ff1801', where: 'TeamMasterScreen'}];
-		const teamscard = buildCardsFromData(navigation, teams);
+		// const teams = [{name: 'Teams', body: 'Click to view individual team page', bgcolor: '#ff1801', where: 'TeamMasterScreen'}];
+		// const teamscard = buildCardsFromData(navigation, teams);
 
 		return(
 			<View style={styles.container}>
@@ -41,7 +41,15 @@ export default class LeagueMasterScreen extends React.Component{
 					{raceRecapCard}
 					{scheduleCard}
 					{standingsCard}
-					{teamscard}
+					<BaseCard
+						name={'Team Name'}
+						subName={'Total Team Points: 9'}
+						body={'Current Team Standing: First'}
+						bgcolor={'#ff1801'}
+						where={'TeamMasterScreen'}
+						// navigation={navigation.state.props({title: 'Team Screen'})}
+						navigation={navigation}
+					/>
 				</ScrollView>
 			</View>
 		);
