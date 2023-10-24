@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rightTextContainer: {
-    flex: 1,
+    flex: 0,
   },
   leftText: {
     color: 'white',
