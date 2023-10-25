@@ -117,6 +117,7 @@ class RaceBrief(APIView):
 
         return Response(data, status=status.HTTP_200_OK)
 
+# /v1/races/nearest/
 # This returns the nearest races from the current date, or date given.
 class RaceIds(APIView):
     def get(self, request, format=None):
@@ -136,7 +137,8 @@ class RaceIds(APIView):
         }
         return Response(data=data, status=status.HTTP_200_OK)
  
- 
+
+# /v1/teams/
 class Teams(APIView):
     def get(self, request, format=None):
         try:
@@ -166,6 +168,7 @@ name, track, date & session times, finishing grid with interval times:
  driver name, number, points earned, total points, if driver has fastest lap
 Another similar grid with sprint data if its a sprint race weekend.
 '''
+# /v1/race/<int:pk>/
 class Race(APIView):
 
     def positionTextConversion(self, string):
@@ -288,3 +291,12 @@ class Race(APIView):
             ]
 
             return Response(data=data, status=status.HTTP_200_OK)
+
+
+# /v1/leagues/
+class AllLeagues(APIView):
+    def get(self, request, format=None):
+        disciplines = Disciplines.objects.all()
+        serializer = DisciplineSerializer(disciplines, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
