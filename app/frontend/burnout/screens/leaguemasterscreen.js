@@ -24,7 +24,7 @@ export default class LeagueMasterScreen extends React.Component{
 		const {navigation} = this.props;
 		/*TODO: swap test data with an API call to retrieve real data*/
 		
-		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'TestScreen'}];
+		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'RaceScreen'}];
 		const raceRecapCard = buildCardsFromData(navigation, raceRecap);
 
 		const schedule = [{name: 'Schedule', body:'10/8     Next Race\n10/15   Nexter Race\n10/22   Nextest Race', bgcolor: '#ff1801', where:'TestScreen'}];

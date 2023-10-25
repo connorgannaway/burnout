@@ -6,6 +6,7 @@ import HomeScreen from '../screens/homescreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
+import RaceScreen from '../screens/racescreen';
 import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
 import Topbar from './topbar';
 
@@ -73,6 +74,14 @@ function LeagueStack({navigation}){
 				component={LeagueMasterScreen}
 				options={{
 					title: 'League Master Screen',
+				}}
+			>
+			</Stack.Screen>
+            <Stack.Screen
+				name='RaceScreen'
+				component={RaceScreen}
+				options={{
+					title: 'RaceScreen',
 				}}
 			>
 			</Stack.Screen>
