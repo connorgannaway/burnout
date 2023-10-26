@@ -288,3 +288,12 @@ class Race(APIView):
             ]
 
             return Response(data=data, status=status.HTTP_200_OK)
+
+class DriversView(APIView):
+    def get(self, request, format=None):
+        try:
+            drivers = Drivers.objects.all()
+            serializer = DriversSerializer(drivers, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
