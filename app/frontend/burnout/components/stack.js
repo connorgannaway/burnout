@@ -6,6 +6,8 @@ import HomeScreen from '../screens/homescreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
+import TeamMasterScreen from '../screens/teammasterscreen';
+import RaceScreen from '../screens/racescreen';
 import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
 import Topbar from './topbar';
 
@@ -57,22 +59,46 @@ function LeagueStack({navigation}){
 				name='LeaguesScreen'
 				component={LeaguesScreen}
 				options={{
-					title: 'Leagues Page',
+					title: 'Leagues Page'
 				}}
 			></Stack.Screen>
 			<Stack.Screen
 				name='TestScreen'
 				component={TestScreen}
-				options={{
-					title: 'Testing Page',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'Testing Page'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
+				initialParams={{newTitle: 'League Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
+			<Stack.Screen
+				name='TeamMasterScreen'
+				component={TeamMasterScreen}
+				initialParams={{newTitle: 'Team Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
+			<Stack.Screen
+				name='DriverMasterScreen'
+				component={DriverMasterScreen}
+				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
+			<Stack.Screen
+				name='RaceScreen'
+				component={RaceScreen}
 				options={{
-					title: 'League Master Screen',
+					title: 'RaceScreen',
 				}}
 			>
 			</Stack.Screen>
@@ -91,9 +117,10 @@ function HomeStack({navigation}){
 			<Stack.Screen
 				name='TestScreen'
 				component={TestScreen}
-				options={{
-					title: 'Testing Page',
-				}}
+				initialParams={{newTitle: 'Testing Page'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeaguesScreen'
@@ -107,25 +134,46 @@ function HomeStack({navigation}){
 				component={HomeScreen}
 				options={{
 					title: 'Home Page',
-					// headerTitle: () => (
-					//     <SafeAreaView>
-					//         <Image 
-					//         style={{width: 75, height: 75, resizeMode: 'contain',}}
-					//         source={require('../images/mustangburnout.jpg')}/>
-					//     <Text>Burnout!!</Text>
-					//     </SafeAreaView>
-					// ),
-
 				}}
+				// options={{
+				// 	title: 'Home Page',
+				// 	// headerTitle: () => (
+				// 	//     <SafeAreaView>
+				// 	//         <Image 
+				// 	//         style={{width: 75, height: 75, resizeMode: 'contain',}}
+				// 	//         source={require('../images/mustangburnout.jpg')}/>
+				// 	//     <Text>Burnout!!</Text>
+				// 	//     </SafeAreaView>
+				// 	// ),
+
+				// }}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
-				options={{
-					title: 'League Master Screen',
-				}}
+				initialParams={{newTitle: 'League Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
 			>
 			</Stack.Screen>
+			<Stack.Screen
+				name='TeamMasterScreen'
+				component={TeamMasterScreen}
+				initialParams={{newTitle: 'Team Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			>
+			</Stack.Screen>
+			<Stack.Screen
+				name='DriverMasterScreen'
+				component={DriverMasterScreen}
+				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ title: route.params.newTitle })
+				}
+			></Stack.Screen>
 		</Stack.Navigator>
 	);
 }

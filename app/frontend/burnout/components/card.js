@@ -22,6 +22,11 @@ const styles = StyleSheet.create({
 	}
 });
 
+// function press({navigation, where, title}){
+// 	navigation.setOptions({title: title});
+// 	navigation.navigate({name: where});
+// }
+
 export default class BaseCard extends React.Component{
 	constructor(){
 		super();
@@ -31,13 +36,14 @@ export default class BaseCard extends React.Component{
 		this.GoHere = this.GoHere.bind(this);
 	}
 	render () {
-		const {navigation, name, subName, body, bgcolor, where, message } = this.props;
+		const {navigation, name, subName, body, bgcolor, where, message, title } = this.props;
+		const screenName = where;
 
 		return (
 			<View style={styles.cardStyle}>
 				<Card 
 					style={[styles.container, {backgroundColor: bgcolor}]} 
-					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert(message)}>
+					onPress={() => navigation != null ? navigation.navigate(JSON.stringify(where).substring(1, where.length+1), {newTitle: title}) : alert(message)}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 

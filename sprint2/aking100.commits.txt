@@ -1,0 +1,189 @@
+leaguesscreen.js (aaronpig9 on 10/24/2023 at 16:50):                                    title={'Formula 1'}
+leaguesscreen.js (aaronpig9 on 10/24/2023 at 16:50):                                    title={'NASCAR'}
+leaguesscreen.js (aaronpig9 on 10/24/2023 at 16:50):                                    title={'MotoGP'}
+leaguesscreen.js (aaronpig9 on 10/24/2023 at 16:50):                                    title={'IndyCar'}
+
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42): import { View, ScrollView, Dimensions, StyleSheet, Text, SafeAreaView } from 'react-native';
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42): import BaseCard, { buildCardsFromData } from '../components/card';
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42): import DriverMasterScreen from './drivermasterscreen';
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51): import getteams from '../api/teams';
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42): const screen = Dimensions.get('screen');
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42): const styles = StyleSheet.create({
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):         container:{
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                 flex: 1,
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                 justifyContent: 'center',
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                 height: screen.height-250,
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                 width: screen.width,
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                 backgroundColor: '#efefef',
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                 alignItems: 'center',
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):         },
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42): });
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         isLoading: true,
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         teams: getteams(),
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 this.state.teams
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         .catch(error => {
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 console.warn(error);
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         }).then(() => {
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 this.setState({isLoading: false});
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         }).catch(error => {
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 console.warn(error);
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         });
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):         }
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):         put(cards){
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 if(cards != null){
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         if(this.state.isLoading){
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 const c = [];
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 for(let i = 0; i < cards.length/2; i++){
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                         c.push(cards[i]);
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 }
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 return(
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                         <View>
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                                 {c}
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                         </View>
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                 );
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                         } else return <View>{cards}</View>;
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 }
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 return null;
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):         }
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):         shouldComponentUpdate(nextState){
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 if(this.state.teams !== nextState.teams) return true;
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 if(nextState.isLoading === false) return true;
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                 return false;
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                         <SafeAreaView style={styles.container}>
+teammasterscreen.js (aaronpig9 on 10/26/2023 at 11:51):                                         {this.put(this.state.teams['_j'])}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                         <BaseCard
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 name={'Team Name'}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 subName={'Total Team Points: 9'}       
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 body={'Current Team Standing: First'}  
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 bgcolor={'#ff1801'}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 where={null}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 navigation={null}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                         />
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                         {Array.from({ length: 2 }).map((_,i) => (      
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 <BaseCard key={i}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                         name={'Driver ' + (i + 1) + ' Name'}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                         subName={'Current Driver Standing: last'}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                         body={'Click to view data on driver ' + (i + 1)}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                         bgcolor={'#ff1801'}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                         where={'DriverMasterScreen'}   
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                         navigation={navigation}        
+teammasterscreen.js (aaronpig9 on 10/24/2023 at 16:50):                                                         title={'Driver ' + (i + 1)}    
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                                 />
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                         ))}
+teammasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                         </SafeAreaView>
+
+card.js      (aaronpig9 on 10/24/2023 at 16:50):                const {navigation, name, subName, body, bgcolor, where, message, title } = this.props;
+card.js      (aaronpig9 on 10/24/2023 at 16:50):                const screenName = where;
+card.js      (aaronpig9 on 10/24/2023 at 16:50):                                        onPress={() => navigation != null ? navigation.navigate(JSON.stringify(where).substring(1, where.length+1), {newTitle: title}) : alert(message)}>
+
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Leagues Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Testing Page'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                        ></Stack.Screen>
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'League Master Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                        ></Stack.Screen>
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                        <Stack.Screen
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                name='TeamMasterScreen'
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                component={TeamMasterScreen}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Team Master Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                        ></Stack.Screen>
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                        <Stack.Screen
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                name='DriverMasterScreen'
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                component={DriverMasterScreen}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Driver Master Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                        ></Stack.Screen>
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Testing Page'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Leagues Page'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Home Page'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        <Stack.Screen
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                name='LeagueMasterScreen'
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                                component={LeagueMasterScreen}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'League Master Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        >
+stack.js     (aaronpig9 on 10/10/2023 at 14:16):                        </Stack.Screen>
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                        <Stack.Screen
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                name='TeamMasterScreen'
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                component={TeamMasterScreen}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Team Master Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                        >
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                        </Stack.Screen>
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                        <Stack.Screen
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                name='DriverMasterScreen'
+stack.js     (aaronpig9 on 10/23/2023 at 09:42):                                component={DriverMasterScreen}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                initialParams={{newTitle: 'Driver Master Screen'}}
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                options={
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                        ({ route }) => ({ title: route.params.newTitle })      
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                                }
+stack.js     (aaronpig9 on 10/24/2023 at 16:50):                        ></Stack.Screen>
+
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):               const races = [{name: 'Race 1', subName: 'Location 1', body: 'Race Data', bgcolor: '#ff1801', where: 'TestScreen'},
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                          {name: 'Race 2', subName: 'Location 2', body: 'Race Data', bgcolor: '#ff1801', where: 'TestScreen'},
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                          {name: 'Race 3', subName: 'Location 3', body: 'Race Data', bgcolor: '#ff1801', where: 'TestScreen'}];
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                       <SafeAreaView style={styles.container}>
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                       {/* {driverCards} */}
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                       <BaseCard
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                               name={'Max Verstappen'}
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                               subName={'Total Driver Points: All of em'}
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                               body={'Current Driver Standing: First'}drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                               bgcolor={'#ff1801'}
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                               where={null}
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                               navigation={null}
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                                       />
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):                       </SafeAreaView>
+drivermasterscreen.js (aaronpig9 on 10/23/2023 at 09:42):               alignItems: 'center',
+
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): import { BASEURL, V1TEAMSJSON } from './urls';
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): import BaseCard from '../components/card';
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): import {Text, View} from 'react-native';
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): export default async function getteams(){
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):        return await getdata();
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): }
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): async function getdata(){
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):        return await fetch(V1TEAMSJSON+'&year=2022')
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                .catch(error => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        console.warn(error);
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                }).then(response => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        return response.json();
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                }).catch(error => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        console.warn(error);
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                }).then(json => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        return JSON.parse(JSON.stringify(json));
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                }).catch(error => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        console.warn(error);
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                }).then(data => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        return (<View><Text>{data.map(item =>
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                                <Text>{item.team}      points: {item.points}{'\n'}</Text>)} </Text></View>);
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                }).catch(error => {
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                        console.warn(error);
+teams.js     (aaronpig9 on 10/26/2023 at 11:51):                });
+teams.js     (aaronpig9 on 10/26/2023 at 11:51): }
+
+urls.js      (aaronpig9 on 10/26/2023 at 11:51): export const V1TEAMSJSON=BASEURL+'/v1/teams/?format=json';
