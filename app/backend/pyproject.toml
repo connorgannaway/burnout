@@ -36,3 +36,22 @@ color_output = true
 dedup_headings = true
 overwrite_in_place = true
 star_first = true
+
+[tool.pylint]
+recursive = true
+ignore = ['csv', '.venv', '__pycache__', 'manage.py']
+jobs = 4
+argument-naming-style = 'snake_case'
+bad-names = ['t', 's', 'x', 'y', 'z', 'a', 'b', 'c', 'foo', 'bar', 'baz']
+const-naming-style = 'UPPER_CASE'
+function-naming-style = 'snake_case'
+max-args = 6
+max-branches = 8
+max-locals = 10
+max-line-length = 120
+single-line-if-stmt = false
+max-nested-blocks = 4
+check-quote-consistency = true
+allow-global-unused-variables = false 
+docstring-min-length = 0
+max-spelling-suggestions = 0

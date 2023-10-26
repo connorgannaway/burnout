@@ -17,5 +17,8 @@ urlpatterns = [
     path('messages/', views.Message.as_view()),
     path('messages/<int:pk>/', views.MessageDetail.as_view()),
     path('races/<int:pk>/brief/', views.RaceBrief.as_view()),
-    path('races/nearest/', views.RaceIds.as_view())
+    path('races/nearest/', views.RaceIds.as_view()),
+    path('teams/', views.Teams.as_view()),
+    path('races/<int:pk>/', views.Race.as_view()),
+    path('drivers/', views.Drivers.as_view()),
 ]

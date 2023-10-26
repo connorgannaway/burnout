@@ -4,17 +4,15 @@ import React from 'react';
 
 
 export default async function getmessages(){
-	const data = await getdata();
-	return data;
+    return await getdata();
 }
 async function getdata() {
-	const response = await fetch(V1MESSAGESJSON)
+	return await fetch(V1MESSAGESJSON)
 		.catch(error => {
 			console.warn(error);
 		})
-		.then(async fetched => {
-			const messages = await fetched.json();
-			return messages;
+		.then(fetched => {
+		    return fetched.json();
 		}).catch(error => {
 			console.warn(error);
 		}).then(messages => {
@@ -22,7 +20,7 @@ async function getdata() {
 		}).catch(error => {
 			console.warn(error);
 		}).then(data => {
-			const ret = [];
+			ret = [];
 			for(let i = 0; i < Object.keys(data).length; i++){
 				ret.push(
 					<BaseCard navigation={null}
@@ -40,5 +38,4 @@ async function getdata() {
 		}).catch(error => {
 			console.warn(error);
 		});
-	return response;
 }

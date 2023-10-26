@@ -1,0 +1,544 @@
+tab.js       (calebkornegay on 10/16/2023 at 11:29): import { SafeAreaProvider } from 'react-native-safe-area-context';
+tab.js       (calebkornegay on 10/16/2023 at 11:29): import React from 'react';
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 	return (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 		<SafeAreaProvider>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 			<NavigationContainer>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 				<Tab.Navigator initialRouteName='HomeStack'>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 					<Tab.Screen
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						name='HomeStack'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						component={HomeStack}
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						options={{
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							title: 'Home',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							headerShown: false,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarIcon: ({size}) => (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 								<MaterialCommunityIcons name='home' color='#f0f' size={size}/>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							),
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarActiveTintColor: '#000',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarInactiveTintColor: '#f0f'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						}}></Tab.Screen>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 					<Tab.Screen
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						name='LeaguesStack'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						component={LeagueStack}
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						options={{
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							title: 'Leagues',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							headerShown: false,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarIcon: ({ size }) => (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 								<MaterialCommunityIcons 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									name='racing-helmet' 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									color={'black'} 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									size={size} />
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							),
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarActiveTintColor: '#000',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarInactiveTintColor: '#f0f',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						}}></Tab.Screen>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 					<Tab.Screen
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						name='Test'
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						component={TestScreen}
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						options={{
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							title: 'Test',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							headerShown: false,
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarActiveTintColor: '#000',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarInactiveTintColor: '#f0f',
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							tabBarIcon: ({ size }) => (
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 								<MaterialCommunityIcons 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									name='calendar-today' 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									color={'black'} 
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 									size={size} />
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 							)
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 						}}></Tab.Screen>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 				</Tab.Navigator>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 			</NavigationContainer>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 		</SafeAreaProvider>
+tab.js       (calebkornegay on 10/11/2023 at 09:05): 	);
+urls.py      (calebkornegay on 10/23/2023 at 09:50):     path('races/nearest/', views.RaceIds.as_view()),
+urls.py      (calebkornegay on 10/23/2023 at 16:53):     path('teams/', views.Teams.as_view()),
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): import { buildCardsFromData } from '../components/card';
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		super();
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		};
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const races = [{name: 'Race 1', subName: 'Location 1', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'},
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 					   {name: 'Race 2', subName: 'Location 2', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'},
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 					   {name: 'Race 3', subName: 'Location 3', body: 'Race Data', bgcolor: '#5f5f5f', where: 'HomeScreen'}];
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#efefef',
+drivermasterscreen.js (calebkornegay on 10/11/2023 at 09:05): });
+homescreen.js (calebkornegay on 10/14/2023 at 00:48): import getmessages from '../api/messages';
+homescreen.js (calebkornegay on 10/17/2023 at 21:14): import getbriefs from '../api/briefs';
+homescreen.js (calebkornegay on 10/16/2023 at 11:29): 		alignItems: 'center',
+homescreen.js (calebkornegay on 10/16/2023 at 11:29): 		textAlign: 'left',
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // const messages = getmessages();
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // const briefs = getbriefs().then(data => {
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //     console.log(data);
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // });
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // function render(cards){
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //     if(cards != null){
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //         return (
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //             <View>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // 				{cards}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // 			</View>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // 		);
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // 	}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // 	return null;
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // }
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): export default class HomeScreen extends React.Component{
+homescreen.js (calebkornegay on 10/19/2023 at 15:21):     constructor(){
+homescreen.js (calebkornegay on 10/19/2023 at 15:21):         super();
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         this.state = {
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             isLoading: true,
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             messages: getmessages(),
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             briefs: getbriefs(),
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         }
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         this.state.briefs
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         .catch(error => {
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             console.warn(error);
+homescreen.js (calebkornegay on 10/19/2023 at 15:21):         }).then(() => {
+homescreen.js (calebkornegay on 10/19/2023 at 15:21):             this.setState({isLoading: false});
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         }).catch(error => {
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             console.warn(error);
+homescreen.js (calebkornegay on 10/18/2023 at 11:10):         });
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):     }
+homescreen.js (calebkornegay on 10/19/2023 at 15:21):     put(cards){
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         if(cards != null){
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):             if(this.state.isLoading){
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                 let c = [];
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                 for(let i = 0; i < cards.length/2; i++){
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                     c.push(cards[i]);
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                 }
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                 return(
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                     <View>
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                         {c}
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                     </View>
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):                 );
+homescreen.js (calebkornegay on 10/23/2023 at 08:41):             } else return <View>{cards}</View>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         }
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         return null;
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):     }
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):     shouldComponentUpdate(nextState){
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         if(this.state.briefs !== nextState.briefs) return true;
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         if(this.state.messages !== nextState.messages) return true;
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         if(nextState.isLoading === false) return true;
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         return false;
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):     }
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):     render(){
+homescreen.js (calebkornegay on 10/18/2023 at 01:22):         const {navigation} = this.props;
+homescreen.js (calebkornegay on 10/17/2023 at 21:14):         return (
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                 <View style={styles.container}>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                     {/* Put things that should be rendered into the ScrolLView element */}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                     <ScrollView>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         {this.put(this.state.messages['_j'])}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         {this.put(this.state.briefs['_j'])}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         <Text>Body Text</Text>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         {Array.from({ length: 50 }).map((_, i) => (
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             <Text key={i}>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             Render stuff here {i + 1}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             </Text>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         ))}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         <BaseCard 
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             navigation={navigation}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             name={'Formula 1'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             body={'Click to view the Formula 1 League Page'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             bgcolor={'#ff00ff'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                             where={'LeaguesScreen'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                         />
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                     </ScrollView>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                     <StatusBar style="auto" />
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):                 </View>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):             </SafeAreaView>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):         );
+homescreen.js (calebkornegay on 10/18/2023 at 01:17):     }
+homescreen.js (calebkornegay on 10/14/2023 at 22:33): }
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): // export default function HomeScreen({ navigation }){
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //     return(
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //         <View style={styles.container}>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //             {/* Put things that should be rendered into the ScrolLView element */}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //             <ScrollView>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 {render(messages['_j'])}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 {render(briefs['_j'])}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 <Text>Body Text</Text>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 {Array.from({ length: 50 }).map((_, i) => (
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     <Text key={i}>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     Render stuff here {i + 1}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     </Text>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 ))}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 <BaseCard 
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     navigation={navigation}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     name={'Formula 1'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     body={'Click to view the Formula 1 League Page'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     bgcolor={'#ff00ff'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                     where={'LeaguesScreen'}
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //                 />
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //             </ScrollView>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //             <StatusBar style="auto" />
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //         </View>
+homescreen.js (calebkornegay on 10/18/2023 at 01:17): //     </SafeAreaView>
+homescreen.js (calebkornegay on 10/17/2023 at 21:14): //     );
+homescreen.js (calebkornegay on 10/17/2023 at 21:14): // }
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14): import { V1NEARESTRACESJSON } from "./urls";
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14): export default async function getnearestraces(){
+nearestraces.js (calebkornegay on 10/19/2023 at 15:21):     return getdata();
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14): }
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14): async function getdata(){
+nearestraces.js (calebkornegay on 10/19/2023 at 15:21):     return await fetch(V1NEARESTRACESJSON)
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):     .catch(error => {
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+nearestraces.js (calebkornegay on 10/19/2023 at 15:21):     }).then(response => {
+nearestraces.js (calebkornegay on 10/19/2023 at 15:21):         return response.json();
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):     }).catch(error => {
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):     }).then(races => {
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):         return JSON.parse(JSON.stringify(races));
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):     }).catch(error => {
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+nearestraces.js (calebkornegay on 10/19/2023 at 15:21):     });
+nearestraces.js (calebkornegay on 10/17/2023 at 21:14): }
+urls.js      (calebkornegay on 10/16/2023 at 10:29): export const BASEURL='https://pitwall.connorgannaway.net';
+urls.js      (calebkornegay on 10/17/2023 at 21:14): // APIURL so we can concatenate extensions and variables to query api
+urls.js      (calebkornegay on 10/23/2023 at 08:41): export const V1MESSAGESJSON=BASEURL+'/v1/messages/?all=true&format=json';
+urls.js      (calebkornegay on 10/17/2023 at 21:14): export const V1NEARESTRACESJSON=BASEURL+'/v1/races/nearest/?format=json';
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): import { buildCardsFromData } from '../components/card';
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		super();
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		};
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'TestScreen'}];
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const schedule = [{name: 'Schedule', body:'10/8     Next Race\n10/15   Nexter Race\n10/22   Nextest Race', bgcolor: '#ff1801', where:'TestScreen'}];
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#efefef',
+leaguemasterscreen.js (calebkornegay on 10/11/2023 at 09:05): });
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): import { buildCardsFromData } from '../components/card';
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		super();
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		};
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		const drivers = [{name: 'Driver 1', subName: 'Constructor 1', body: 'Race Data', bgcolor: '#5f5f5f', where: 'drivermasterscreen'},
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 						 {name: 'Driver 2', subName: 'Constructor 2', body: 'Race Data', bgcolor: '#5f5f5f', where: 'drivermasterscreen'},
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 						 {name: 'Driver 3', subName: 'Constructor 3', body: 'Race Data', bgcolor: '#5f5f5f', where: 'drivermasterscreen'}];
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#efefef',
+teammasterscreen.js (calebkornegay on 10/11/2023 at 09:05): });
+models.py    (calebkornegay on 10/23/2023 at 16:53):     constructorId = models.IntegerField(primary_key=True)
+views.py     (calebkornegay on 10/23/2023 at 09:50): class Teams(APIView):
+views.py     (calebkornegay on 10/23/2023 at 09:50):     def get(self, request, format=None):
+views.py     (calebkornegay on 10/23/2023 at 09:50):         try:
+views.py     (calebkornegay on 10/23/2023 at 16:53):             year = request.query_params['year']
+views.py     (calebkornegay on 10/23/2023 at 16:53):         except:
+views.py     (calebkornegay on 10/23/2023 at 16:53):             year = timezone.now().date().strftime("%Y")
+views.py     (calebkornegay on 10/23/2023 at 16:53):         try:
+views.py     (calebkornegay on 10/23/2023 at 16:53):             season = Seasons.objects.filter(year=year).values_list('seasonId', flat=True)[0]
+views.py     (calebkornegay on 10/23/2023 at 09:50):         except:
+views.py     (calebkornegay on 10/23/2023 at 09:50):             return Response(status=status.HTTP_404_NOT_FOUND)
+views.py     (calebkornegay on 10/23/2023 at 16:53):         raceId = Races.objects.filter(seasonId=season).values_list('raceId', flat=True)[::-1][0]
+views.py     (calebkornegay on 10/23/2023 at 16:53):         standings = ConstructorResults.objects.filter(raceId=raceId).values_list('constructorId', flat=True)
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): import { BASEURL } from './urls';
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): import getnearestraces from './nearestraces';
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): import BaseCard from '../components/card';
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): export default async function getbriefs(){
+briefs.js    (calebkornegay on 10/19/2023 at 15:21):     return await getdata(await getnearestraces());
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): }
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): async function getdata(ids){
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     let ret = [];
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     let card;
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     const today = ids['today'];
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     const past = ids['past'];
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     const future = ids['past'];
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):     for(let i = 0; i < future.length; i++){
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):         card = grabcard(future[i]);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         ret.push(card);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):     for(let i = 0; i < today.length; i++){
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):         card = grabcard(today[i]);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         ret.push(card);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):     for(let i = 0; i < past.length; i++){
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):         card = grabcard(past[i]);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         ret.push(card);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }
+briefs.js    (calebkornegay on 10/19/2023 at 15:21):     return Promise.all(ret);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): }
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): async function grabcard(id){
+briefs.js    (calebkornegay on 10/19/2023 at 15:21):     return await fetch(BASEURL+'/v1/races/'+id+'/brief/?format=json')
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     .catch(error => {
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+briefs.js    (calebkornegay on 10/19/2023 at 15:21):     }).then(response => {
+briefs.js    (calebkornegay on 10/19/2023 at 15:21):         return response.json();
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }).catch(error => {
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }).then(json => {
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         return JSON.parse(JSON.stringify(json));
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }).catch(error => {
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }).then(data => {
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         return (<BaseCard 
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):             where={null}
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):             name={data['name']}
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):             subName={data['track']}
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):             body={data['time']+' '+data['date']+' '+data['rstatus']}
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):             bgcolor={'#ff00ff'}
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):             key={data['track']+data['date']+data['time']}
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):             message={'This is a race brief'}
+briefs.js    (calebkornegay on 10/18/2023 at 01:17):             />
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):             );
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     }).catch(error => {
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):         console.warn(error);
+briefs.js    (calebkornegay on 10/17/2023 at 21:14):     });
+briefs.js    (calebkornegay on 10/17/2023 at 21:14): }
+messages.js  (calebkornegay on 10/14/2023 at 22:31): import { V1MESSAGESJSON } from './urls';
+messages.js  (calebkornegay on 10/14/2023 at 22:31): import BaseCard from '../components/card';
+messages.js  (calebkornegay on 10/16/2023 at 11:30): import React from 'react';
+messages.js  (calebkornegay on 10/17/2023 at 21:14): export default async function getmessages(){
+messages.js  (calebkornegay on 10/19/2023 at 15:21):     return await getdata();
+messages.js  (calebkornegay on 10/17/2023 at 21:14): }
+messages.js  (calebkornegay on 10/17/2023 at 21:14): async function getdata() {
+messages.js  (calebkornegay on 10/19/2023 at 15:21): 	return await fetch(V1MESSAGESJSON)
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		.catch(error => {
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			console.warn(error);
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		})
+messages.js  (calebkornegay on 10/19/2023 at 15:21): 		.then(fetched => {
+messages.js  (calebkornegay on 10/19/2023 at 15:21): 		    return fetched.json();
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		}).catch(error => {
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			console.warn(error);
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		}).then(messages => {
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			return JSON.parse(JSON.stringify(messages));
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		}).catch(error => {
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			console.warn(error);
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		}).then(data => {
+messages.js  (calebkornegay on 10/19/2023 at 15:21): 			ret = [];
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			for(let i = 0; i < Object.keys(data).length; i++){
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 				ret.push(
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 					<BaseCard navigation={null}
+messages.js  (calebkornegay on 10/17/2023 at 21:14):                         key={data[i]['title']+data[i]['message']}
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 						where={null}
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 						name={data[i]['title']}
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 						subName={'This is message #'+data[i]['pk']}
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 						body={data[i]['message']}
+messages.js  (calebkornegay on 10/18/2023 at 01:15): 						bgcolor={'#ff00ff'}
+messages.js  (calebkornegay on 10/18/2023 at 01:15):                         message={'This is a message'}
+messages.js  (calebkornegay on 10/18/2023 at 01:15):                         />
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 				);
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			}
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			return ret;
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		}).catch(error => {
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 			console.warn(error);
+messages.js  (calebkornegay on 10/16/2023 at 11:29): 		});
+messages.js  (calebkornegay on 10/17/2023 at 21:14): }
+card.js      (calebkornegay on 10/14/2023 at 22:32): const screen = Dimensions.get('screen');
+card.js      (calebkornegay on 10/14/2023 at 22:32): const styles = StyleSheet.create({
+card.js      (calebkornegay on 10/16/2023 at 11:29): 	container: {
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		justifyContent: 'center',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		alignItems: 'center',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		textAlign: 'center',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		width: screen.width/1.15,
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		padding: screen.width/24,
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		marginTop: screen.height/96,
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		marginBottom: screen.height/96,
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		borderRadius: 15,
+card.js      (calebkornegay on 10/16/2023 at 11:29): 	},
+card.js      (calebkornegay on 10/16/2023 at 11:29): 	title:{
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		justifyContent: 'center',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		alignItems: 'center',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		textAlign: 'center',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 		color: 'white',
+card.js      (calebkornegay on 10/16/2023 at 11:29): 	}
+card.js      (calebkornegay on 10/14/2023 at 22:32): });
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	constructor(){
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		super();
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		this.state = {
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			showComponent: true,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		};
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		this.GoHere = this.GoHere.bind(this);
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	render () {
+card.js      (calebkornegay on 10/18/2023 at 01:16): 		const {navigation, name, subName, body, bgcolor, where, message } = this.props;
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		return (
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			<View style={styles.cardStyle}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 				<Card 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					style={[styles.container, {backgroundColor: bgcolor}]} 
+card.js      (calebkornegay on 10/18/2023 at 01:16): 					onPress={() => navigation != null ? navigation.navigate({name: where}) : alert(message)}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					<Card.Title  
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						subtitleStyle={styles.title} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						titleStyle={styles.title} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						title={name} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						subtitle={subName}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					</Card.Title>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					<Card.Content style={styles.title}>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 						<Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					</Card.Content>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					{/* Currently this is not needed but keeping it in case
+card.js      (calebkornegay on 10/11/2023 at 09:05): 					{/* <Card.Actions justifyContent='center'>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 				</Card>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			</View>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		);
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	GoHere () {
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		const { showComponent } = this.state;
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		this.setState({
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			showComponent: !showComponent,
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		});
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	return data.map((data) => 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		<BaseCard 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			key={data.name + data.where} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			navigation={navigation} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			name={data.name} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			subName={data.subName} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			body={data.body} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			bgcolor={data.bgcolor} 
+card.js      (calebkornegay on 10/11/2023 at 09:05): 			where={data.where}
+card.js      (calebkornegay on 10/11/2023 at 09:05): 		/>
+card.js      (calebkornegay on 10/11/2023 at 09:05): 	);
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53): # Generated by Django 4.2.5 on 2023-10-23 20:18
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53): from django.db import migrations
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53): class Migration(migrations.Migration):
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):     dependencies = [
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):         ('data', '0005_messages'),
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):     ]
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):     operations = [
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):         migrations.RenameField(
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):             model_name='constructors',
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):             old_name='contructorId',
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):             new_name='constructorId',
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):         ),
+0006_rename_contructorid_constructors_constructorid.py (calebkornegay on 10/23/2023 at 16:53):     ]
+serializers.py (calebkornegay on 10/23/2023 at 16:53):         }
+stack.js     (calebkornegay on 10/13/2023 at 08:33): import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	iconContainer: {
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		flexDirection: 'row',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		width: 60,
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		justifyContent: 'space-between',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	},
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	headerBackTitleVisible: false,
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	headerTitleAlign: 'center',
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	headerTintColor: '#fff',
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	headerStyle: {
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 		backgroundColor: '#ff0000',
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	},
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	headerRight: () => (
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 		<SafeAreaView>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 			<View style={{flexDirection:'row'}}>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 				<MaterialCommunityIcons 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					name='magnify' 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					color={'black'} 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					size={25} 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					style={{paddingLeft: 20}}
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					onPress={() => 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					{alert('This has not been implemented yet');}}/>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 				<MaterialCommunityIcons 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					name='calendar-today' 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					color={'black'}
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					style={{paddingLeft: 20}}
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					size={25} 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					onPress={() => 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					{alert('This has not been implemented yet');}}/>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 			</View>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 		</SafeAreaView>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 	),
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		<Stack.Navigator 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='LeaguesScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={LeaguesScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Leagues Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='TestScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={TestScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Testing Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			</Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		</Stack.Navigator>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): export {LeagueStack};
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	return (
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		<Stack.Navigator 
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='TestScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={TestScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Testing Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='LeaguesScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={LeaguesScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Leagues Page',
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			<Stack.Screen
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				name='HomeScreen'
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				component={HomeScreen}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				options={{
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 					title: 'Home Page',
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					// headerTitle: () => (
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					//     <SafeAreaView>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					//         <Image 
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					//         style={{width: 75, height: 75, resizeMode: 'contain',}}
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					//         source={require('../images/mustangburnout.jpg')}/>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					//     <Text>Burnout!!</Text>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					//     </SafeAreaView>
+stack.js     (calebkornegay on 10/16/2023 at 11:29): 					// ),
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 				}}
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 			></Stack.Screen>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 		</Stack.Navigator>
+stack.js     (calebkornegay on 10/11/2023 at 09:05): 	);
+stack.js     (calebkornegay on 10/11/2023 at 09:05): export {HomeStack};
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): [tool.pylint]
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): recursive = true
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): ignore = ['csv', '.venv', '__pycache__', 'manage.py']
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): jobs = 4
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): argument-naming-style = 'snake_case'
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): bad-names = ['t', 's', 'x', 'y', 'z', 'a', 'b', 'c', 'foo', 'bar', 'baz']
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): const-naming-style = 'UPPER_CASE'
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): function-naming-style = 'snake_case'
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): max-args = 6
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): max-branches = 8
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): max-locals = 10
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): max-line-length = 120
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): single-line-if-stmt = false
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): max-nested-blocks = 4
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): check-quote-consistency = true
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): allow-global-unused-variables = false 
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): docstring-min-length = 0
+pyproject.toml (calebkornegay on 10/21/2023 at 20:04): max-spelling-suggestions = 0
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	return (
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		<SafeAreaView style={styles.container}>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 			<ScrollView style={styles.scrollView} >
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				{/* This is where the cards for the leagues will go
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'Formula 1'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the Formula 1 League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#ff1801'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation} 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'NASCAR'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the NASCAR League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#e4002b'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation} 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'MotoGP'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the MotoGP League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#E0144C'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<BaseCard 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					navigation={navigation} 
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					name={'IndyCar'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					body={'Click to view the IndyCar League Page'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					bgcolor={'#b92a30'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 					where={'LeagueMasterScreen'}
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				/>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 				<StatusBar style="auto" />
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 			</ScrollView>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		</SafeAreaView>
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	);
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	container: {
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		flex: 1,
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#d0d0d0',
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		alignItems: 'center',
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		height: screen.height,
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		width: screen.width,
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	},
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	scrollView: {
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 		backgroundColor: '#d0d0d0',
+leaguesscreen.js (calebkornegay on 10/11/2023 at 09:05): 	},

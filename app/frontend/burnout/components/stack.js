@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
 import TeamMasterScreen from '../screens/teammasterscreen';
+import RaceScreen from '../screens/racescreen';
 import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
 import Topbar from './topbar';
 
@@ -94,6 +95,19 @@ function LeagueStack({navigation}){
 					({ route }) => ({ title: route.params.newTitle })
 				}
 			></Stack.Screen>
+				options={{
+					title: 'League Master Screen',
+				}}
+			>
+			</Stack.Screen>
+            <Stack.Screen
+				name='RaceScreen'
+				component={RaceScreen}
+				options={{
+					title: 'RaceScreen',
+				}}
+			>
+			</Stack.Screen>
 		</Stack.Navigator>
 	);
 }
