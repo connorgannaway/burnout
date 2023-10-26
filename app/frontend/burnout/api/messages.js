@@ -24,14 +24,14 @@ async function getdata() {
 			for(let i = 0; i < Object.keys(data).length; i++){
 				ret.push(
 					<BaseCard navigation={null}
-                        key={data[i]['title']+data[i]['message']}
+						key={data[i]['title']+data[i]['message']}
 						where={null}
 						name={data[i]['title']}
 						subName={'This is message #'+data[i]['pk']}
 						body={data[i]['message']}
 						bgcolor={'#ff00ff'}
-                        message={'This is a message'}
-                        />
+						message={'This is a message'}
+					/>
 				);
 			}
 			return ret;

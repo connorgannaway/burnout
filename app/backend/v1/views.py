@@ -145,15 +145,21 @@ class Teams(APIView):
             year = request.query_params['year']
         except:
             year = timezone.now().date().strftime("%Y")
-        try:
-            season = Seasons.objects.filter(year=year).values_list('seasonId', flat=True)[0]
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        raceId = Races.objects.filter(seasonId=season).values_list('raceId', flat=True)[::-1][0]
-        standings = ConstructorResults.objects.filter(raceId=raceId).values_list('constructorId', flat=True)
+        season = Seasons.objects.filter(year=year).values_list('seasonId', flat=True)[0]
+        raceId = Races.objects.filter(seasonId=season).values_list('raceId', flat=True)[::-1]
+        print(raceId[0])
+        i = 0
+        standings = ConstructorResults.objects.filter(raceId=raceId[i])
+        while not len(standings):
+            i += 1
+            try:
+                standings = ConstructorResults.objects.filter(raceId=raceId[i])
+            except:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        standings = standings.values_list('constructorId', flat=True)
         teams = Constructors.objects.filter(constructorId__in=standings).order_by('constructorId').values_list('name', flat=True)
-        points = ConstructorStandings.objects.filter(raceId=raceId).order_by('constructorId').values_list('points', flat=True)
-        data = [{'team': team, 'points': points} for team,points in zip(teams,points)]
+        points = ConstructorStandings.objects.filter(raceId=raceId[i]).order_by('constructorId').values_list('points', flat=True)
+        data = [{'id' : id, 'team': team, 'points': points} for id,team,points in zip(standings,teams,points)]
         data.sort(key=lambda x: x['points'], reverse=True)
         # data = ConstructorResults.objects.filter(constructorId__in=standings)#.select_related('name').order_by('constructorId')
         # data = StandingsSerializer(data).data
@@ -293,6 +299,7 @@ class Race(APIView):
             return Response(data=data, status=status.HTTP_200_OK)
 
 
+
 # /v1/leagues/
 class AllLeagues(APIView):
     def get(self, request, format=None):
@@ -421,3 +428,13 @@ class League(APIView):
 
         return Response(data=data, status=status.HTTP_200_OK)
     
+
+class DriversView(APIView):
+    def get(self, request, format=None):
+        try:
+            drivers = Drivers.objects.all()
+            serializer = DriversSerializer(drivers, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+

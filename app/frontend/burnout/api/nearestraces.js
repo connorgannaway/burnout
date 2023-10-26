@@ -1,4 +1,4 @@
-import { V1NEARESTRACESJSON } from "./urls";
+import { V1NEARESTRACESJSON } from './urls';
 
 export default async function getnearestraces(){
     return getdata();
