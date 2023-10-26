@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, ScrollView, Dimensions, StyleSheet, Button } from 'react-native';
-import { buildCardsFromData } from '../components/card';
+import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import BaseCard, { buildCardsFromData } from '../components/card';
 import BottomBar from '../components/bottombar';
 import Topbar from '../components/topbar';
 import StandingsCard, { standingsCard } from '../components/standingscard';
@@ -39,11 +39,24 @@ export default class LeagueMasterScreen extends React.Component{
 			// Add data for all teams
 		  ];
 
+		// const teams = [{name: 'Teams', body: 'Click to view individual team page', bgcolor: '#ff1801', where: 'TeamMasterScreen'}];
+		// const teamscard = buildCardsFromData(navigation, teams);
+
 		return(
 			<View style={styles.container}>
 				<ScrollView>
 					{raceRecapCard}
 					{scheduleCard}
+					{standingsCard}
+					<BaseCard
+						name={'Team Name'}
+						subName={'Total Team Points: 9'}
+						body={'Current Team Standing: First'}
+						bgcolor={'#ff1801'}
+						where={'TeamMasterScreen'}
+						navigation={navigation}
+						title={'Team Name'}
+					/>
 					<StandingsCard data={standingsData} />
 				</ScrollView>
 			</View>

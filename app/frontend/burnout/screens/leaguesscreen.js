@@ -17,6 +17,7 @@ export default function LeaguesScreen({ navigation }) {
 					body={'Click to view the Formula 1 League Page'}
 					bgcolor={'#ff1801'}
 					where={'LeagueMasterScreen'}
+					title={'Formula 1'}
 				/>
 				<BaseCard 
 					navigation={navigation} 
@@ -24,6 +25,7 @@ export default function LeaguesScreen({ navigation }) {
 					body={'Click to view the NASCAR League Page'}
 					bgcolor={'#e4002b'}
 					where={'LeagueMasterScreen'}
+					title={'NASCAR'}
 				/>
 				<BaseCard 
 					navigation={navigation} 
@@ -31,6 +33,7 @@ export default function LeaguesScreen({ navigation }) {
 					body={'Click to view the MotoGP League Page'}
 					bgcolor={'#E0144C'}
 					where={'LeagueMasterScreen'}
+					title={'MotoGP'}
 				/>
 				<BaseCard 
 					navigation={navigation} 
@@ -38,6 +41,7 @@ export default function LeaguesScreen({ navigation }) {
 					body={'Click to view the IndyCar League Page'}
 					bgcolor={'#b92a30'}
 					where={'LeagueMasterScreen'}
+					title={'IndyCar'}
 				/>
 				<StatusBar style="auto" />
 			</ScrollView>
