@@ -95,7 +95,7 @@ function LeagueStack({navigation}){
 					({ route }) => ({ title: route.params.newTitle })
 				}
 			></Stack.Screen>
-            <Stack.Screen
+			<Stack.Screen
 				name='RaceScreen'
 				component={RaceScreen}
 				options={{

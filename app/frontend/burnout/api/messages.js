@@ -4,10 +4,10 @@ import React from 'react';
 
 
 export default async function getmessages(){
-    return await getdata();
+	return await getdata();
 }
 async function getdata() {
-	return await fetch(V1MESSAGESJSON)
+	return fetch(V1MESSAGESJSON)
 		.catch(error => {
 			console.warn(error);
 		})
