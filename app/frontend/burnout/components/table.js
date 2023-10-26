@@ -5,10 +5,6 @@
 
 import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView } from "react-native";
 
-export class TableManager extends React.Component{
-    
-}
-
 /*
  * Creates a Table based on the given data
  *      props:
