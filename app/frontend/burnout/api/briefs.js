@@ -42,7 +42,7 @@ async function grabcard(id){
 				subName={data['track']}
 				body={data['time']+' '+data['date']+' '+data['rstatus']}
 				bgcolor={'#ff00ff'}
-				key={data['date']+data['time']}
+				key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
 				message={'This is a race brief'}
 			/>
 			);
