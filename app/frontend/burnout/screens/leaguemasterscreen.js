@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';
+import { Table, TableManager } from '../components/table';
 import BottomBar from '../components/bottombar';
 import Topbar from '../components/topbar';
 import StandingsCard, { standingsCard } from '../components/standingscard';
@@ -44,6 +45,32 @@ export default class LeagueMasterScreen extends React.Component{
 
 		return(
 			<View style={styles.container}>
+        <TableManager headings = {["first", "second","third","fourth"]}>
+					<Table
+						key={0}
+						data={DATA}
+						numColumns={1}
+						navigation={navigation}
+					/>
+					<Table
+						key={1}
+						data={DATA}
+						numColumns={2}
+						navigation={navigation}
+					/>
+					<Table
+						key={2}
+						data={DATA}
+						numColumns={3}
+						navigation={navigation}
+					/>
+					<Table
+						key={3}
+						data={DATA}
+						numColumns={4}
+						navigation={navigation}
+					/>
+				</TableManager>
 				<ScrollView>
 					{raceRecapCard}
 					{scheduleCard}
@@ -69,7 +96,6 @@ const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
 	container:{
 		flex: 1,
-		justifyContent: 'center',
 		height: screen.height-250,
 		width: screen.width,
 		backgroundColor: '#efefef',
