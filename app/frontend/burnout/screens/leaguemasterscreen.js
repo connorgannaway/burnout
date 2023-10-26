@@ -23,6 +23,7 @@ export default class LeagueMasterScreen extends React.Component{
 
 	render() {
 		const {navigation} = this.props;
+		const DATA = [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4];
 		/*TODO: swap test data with an API call to retrieve real data*/
 		
 		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'RaceScreen'}];
@@ -45,13 +46,7 @@ export default class LeagueMasterScreen extends React.Component{
 
 		return(
 			<View style={styles.container}>
-        <TableManager headings = {["first", "second","third","fourth"]}>
-					<Table
-						key={0}
-						data={DATA}
-						numColumns={1}
-						navigation={navigation}
-					/>
+				<TableManager headings = {["first", "second","third"]}>
 					<Table
 						key={1}
 						data={DATA}
