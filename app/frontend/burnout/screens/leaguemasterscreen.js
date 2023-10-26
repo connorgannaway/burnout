@@ -22,21 +22,33 @@ export default class LeagueMasterScreen extends React.Component{
 
 	render() {
 		const {navigation} = this.props;
-		const DATA = [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0];
+		const DATA = [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4];
 
 		return(
 			<View style={styles.container}>
-				<TableManager headings = {["first", "second"]}>
+				<TableManager headings = {["first", "second","third","fourth"]}>
 					<Table
 						key={0}
 						data={DATA}
-						numColumns={3}
+						numColumns={1}
 						navigation={navigation}
 					/>
 					<Table
 						key={1}
 						data={DATA}
-						numColumns={5}
+						numColumns={2}
+						navigation={navigation}
+					/>
+					<Table
+						key={2}
+						data={DATA}
+						numColumns={3}
+						navigation={navigation}
+					/>
+					<Table
+						key={3}
+						data={DATA}
+						numColumns={4}
 						navigation={navigation}
 					/>
 				</TableManager>

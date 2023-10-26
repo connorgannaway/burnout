@@ -3,7 +3,7 @@
  *
  */
 import {React, useState} from "react";
-import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView} from "react-native";
+import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView, Pressable} from "react-native";
 import { Button } from "react-native-paper";
 
 /*
@@ -17,11 +17,11 @@ import { Button } from "react-native-paper";
 export function TableManager({children, headings}){
     
     let [CurrentTable, setCurrentTable] = useState(0);
-    const tableSwitch = headings.map((heading, index) => <Button key={index} style={styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}/>);
+    const tableSwitch = headings.map((heading, index) => <Pressable key={index} style={CurrentTable === index ? styles.managerButtonActive : styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}><Text>{heading}</Text></Pressable>);
 
     return(
-        <SafeAreaView style={styles.container}>
-            <View style={{flexDirection: 'row', height: 50, backgroundColor: "#bfbfbf"}}>
+        <SafeAreaView style={[styles.container, {margin: 0}]}>
+            <View style={{flexDirection: 'row'}}>
                 {tableSwitch}
             </View>
             <View>
@@ -48,7 +48,7 @@ export function Table(props){
             renderItem = {({item, index}) => <Cell 
                                                 index = {index} 
                                                 navigation = {props.navigation} 
-                                                content={item} 
+                                                content = {item} 
                                                 numColumns = {props.numColumns}/>}
             keyExtractor={(item, index) => index}
         />
@@ -64,13 +64,13 @@ export function Table(props){
  */
 function Cell(props){
 
-    const colors = ['#efefef','#cfcfcf'];
+    const colors = ['#efefef','#e2e2e2'];
 
     return(
         <View style={[styles.cell,
                     {backgroundColor:colors[Math.floor(props.index/props.numColumns)%2],
-                    borderLeftWidth: 0, //((props.index%props.numColumns)/props.numColumns),
-                    borderRightWidth: 0, //(1-((props.index%props.numColumns)/props.numColumns)),
+                    borderLeftWidth: 0,
+                    borderRightWidth: 0,
                     }]}>
             <Text style={styles.cellText}>
                 {props.content}
@@ -87,15 +87,15 @@ const styles = StyleSheet.create({
     },
 	cell:{
         flex: 1,
-		height: 50,
-        padding: 5,
-        borderWidth: 1,
+        padding: 10,
+        borderWidth: .25,
         borderColor: '#777',
         color: '#000',
+        justifyContent: "center",
 	},
     cellText:{
-        fontSize: 24,
-        color: '#000',
+        fontSize: 12,
+        color: '#575757',
     },
     heading:{
         fontSize: 32,
@@ -103,9 +103,25 @@ const styles = StyleSheet.create({
     },
     managerButton:{
         flex: 1,
-        margin: 10,
-        backgroundColor: '#efefef',
-        color: 'black',
-        fontSize: 20,
+        backgroundColor: '#dfdfdf',
+        borderRadius: 0,
+        padding: 10,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: '#575757',
     },
+    managerButtonActive:{
+        flex: 1,
+        backgroundColor: '#efefef',
+        padding: 10,
+        borderRadius: 0,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: '#575757',
+        shadowColor: 'black',
+        shadowRadius: 20,
+        shadowOpacity: .5,
+        shadowOffset: {width:0, height:0},
+        zIndex: 2,
+    }
 });
