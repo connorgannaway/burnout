@@ -5,8 +5,16 @@
 
 import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView } from "react-native";
 
+export class TableManager extends React.Component{
+    
+}
+
 /*
  * Creates a Table based on the given data
+ *      props:
+ *                data: an array of objects to be added to the table
+ *          numColumns: number of columns in the table
+ *          navigation: navigation stack
  */
 export function Table(props){
 
@@ -26,6 +34,13 @@ export function Table(props){
     );
 }
 
+/*
+ * Used by Table to create individual cells
+ *  props:
+ *      index: index of the current cell in the table
+ * numColumns: number of columns in the table
+ *    content: object to be displayed in the cell as text
+ */
 function Cell(props){
 
     const colors = ['#efefef','#cfcfcf'];
