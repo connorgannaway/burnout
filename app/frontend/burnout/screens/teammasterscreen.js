@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, Text, SafeAreaView } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';
-import DriverMasterScreen from './drivermasterscreen';
+import getteams from '../api/teams';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -22,27 +22,56 @@ const styles = StyleSheet.create({
  *  
  */
 export default class TeamMasterScreen extends React.Component{
+
 	constructor(){
 		super();
 		this.state = {
-			showComponent: true,
+			isLoading: true,
+			teams: getteams(),
 		};
+
+		this.state.teams
+			.catch(error => {
+				console.warn(error);
+			}).then(() => {
+				this.setState({isLoading: false});
+			}).catch(error => {
+				console.warn(error);
+			});
+	}
+
+	put(cards){
+		if(cards != null){
+			if(this.state.isLoading){
+				const c = [];
+				for(let i = 0; i < cards.length/2; i++){
+					c.push(cards[i]);
+				}
+				return(
+					<View>
+						{c}
+					</View>
+				);
+			} else return <View>{cards}</View>;
+		}
+		return null;
+	}
+
+	shouldComponentUpdate(nextState){
+		if(this.state.teams !== nextState.teams) return true;
+		if(nextState.isLoading === false) return true;
+		return false;
 	}
 
 	render() {
 		const {navigation} = this.props;
         
 		/*TODO: swap test data with an API call to retrieve real data*/
-		// const drivers = [{name: 'Driver 1', subName: 'Constructor 1', body: 'Race Data', bgcolor: '#ff1801', where: 'DriverMasterScreen'},
-		// 				 {name: 'Driver 2', subName: 'Constructor 2', body: 'Race Data', bgcolor: '#ff1801', where: 'DriverMasterScreen'},
-		// 				 {name: 'Driver 3', subName: 'Constructor 3', body: 'Race Data', bgcolor: '#ff1801', where: 'DriverMasterScreen'}];
-
-		// const driverCards = buildCardsFromData(navigation, drivers);
 
 		return(
 			<SafeAreaView style={styles.container}>
 				<ScrollView>
-					{/* {driverCards} */}
+					{this.put(this.state.teams['_j'])}
 					<BaseCard
 						name={'Team Name'}
 						subName={'Total Team Points: 9'}

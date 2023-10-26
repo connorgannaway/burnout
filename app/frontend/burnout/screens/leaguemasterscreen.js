@@ -48,6 +48,7 @@ export default class LeagueMasterScreen extends React.Component{
 					{raceRecapCard}
 					{scheduleCard}
 					{standingsCard}
+					<StandingsCard data={standingsData} />
 					<BaseCard
 						name={'Team Name'}
 						subName={'Total Team Points: 9'}

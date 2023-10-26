@@ -58,10 +58,9 @@ function LeagueStack({navigation}){
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
-				initialParams={{newTitle: 'Leagues Screen'}}
-				options={
-					({ route }) => ({ title: route.params.newTitle })
-				}
+				options={{
+					title: 'Leagues Page'
+				}}
 			></Stack.Screen>
 			<Stack.Screen
 				name='TestScreen'
@@ -126,18 +125,16 @@ function HomeStack({navigation}){
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
-				initialParams={{newTitle: 'Leagues Page'}}
-				options={
-					({ route }) => ({ title: route.params.newTitle })
-				}
+				options={{
+					title: 'Leagues Page',
+				}}
 			></Stack.Screen>
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
-				initialParams={{newTitle: 'Home Page'}}
-				options={
-					({ route }) => ({ title: route.params.newTitle })
-				}
+				options={{
+					title: 'Home Page',
+				}}
 				// options={{
 				// 	title: 'Home Page',
 				// 	// headerTitle: () => (

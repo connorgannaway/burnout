@@ -15,21 +15,21 @@ const styles = StyleSheet.create({
 	},
 });
 
-const messages = getmessages();
-const briefs = getbriefs().then(data => {
-	console.log(data);
-});
+// const messages = getmessages();
+// const briefs = getbriefs().then(data => {
+// 	console.log(data);
+// });
 
-function render(cards){
-	if(cards != null){
-		return (
-			<View>
-				{cards}
-			</View>
-		);
-	}
-	return null;
-}
+// function render(cards){
+// 	if(cards != null){
+// 		return (
+// 			<View>
+// 				{cards}
+// 			</View>
+// 		);
+// 	}
+// 	return null;
+// }
 
 export default class HomeScreen extends React.Component{
 	constructor(){
@@ -93,11 +93,10 @@ export default class HomeScreen extends React.Component{
 						))}
 						<BaseCard 
 							navigation={navigation}
-							name={'Formula 1'}
-							body={'Click to view the Formula 1 League Page'}
+							name={'Leagues Page'}
+							body={'Click to view the Leagues Page'}
 							bgcolor={'#ff00ff'}
 							where={'LeaguesScreen'}
-							title={'Leagues Page'}
 						/>
 					</ScrollView>
 					<StatusBar style="auto" />
