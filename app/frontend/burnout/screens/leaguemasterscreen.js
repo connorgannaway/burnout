@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { View, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import { View, ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';
-import { Table } from '../components/table';
+import { Table, TableManager } from '../components/table';
 import BottomBar from '../components/bottombar';
 import Topbar from '../components/topbar';
 
@@ -26,11 +26,20 @@ export default class LeagueMasterScreen extends React.Component{
 
 		return(
 			<View style={styles.container}>
-				<Table
-					data={DATA}
-					numColumns={3}
-					navigation={navigation}
-				/>
+				<TableManager headings = {["first", "second"]}>
+					<Table
+						key={0}
+						data={DATA}
+						numColumns={3}
+						navigation={navigation}
+					/>
+					<Table
+						key={1}
+						data={DATA}
+						numColumns={5}
+						navigation={navigation}
+					/>
+				</TableManager>
 			</View>
 		);
 	}
