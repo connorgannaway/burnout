@@ -300,3 +300,124 @@ class AllLeagues(APIView):
         serializer = DisciplineSerializer(disciplines, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+
+# /v1/leagues/<int:pk>/
+class League(APIView):
+    def calcDriverStatistics(self, driver, races, mostRecentRaceId):
+        stats = dict()
+        stats['points'] = driver.points
+        stats['wins'] = driver.wins
+        podiums = 0
+        top5 = 0
+        for raceid in races:
+            if raceid == mostRecentRaceId:
+                break
+            try:
+                result = Results.objects.get(raceId=raceid, driverId=driver.driverId)
+            except:
+                continue
+
+            if result.position == None:
+                continue
+            if result.position <= 5:
+                top5 += 1
+                if result.position <= 3:
+                    podiums += 1
+
+        stats['podiums'] = podiums
+        stats['top5'] = top5
+
+        return stats
+
+    def calcConstructorStatistics(self, constructor, races, mostRecentRaceId):
+        stats = dict()
+        stats['points'] = constructor.points
+        stats['wins'] = constructor.wins
+        podiums = 0
+        top5 = 0
+        for raceid in races:
+            if raceid == mostRecentRaceId:
+                break
+            try:
+                results = Results.objects.filter(raceId=raceid, constructorId=constructor.constructorId)
+            except:
+                continue
+
+            for result in results:
+                if result.position == None:
+                    continue
+                if result.position <= 5:
+                    top5 += 1
+                    if result.position <= 3:
+                        podiums += 1
+
+        stats['podiums'] = podiums
+        stats['top5'] = top5
+
+        return stats
+
+    def get(self, request, pk, format=None):
+        now = timezone.now()
+        try:
+            year = request.query_params['year']
+        except:
+            year = now.year
+
+        try:
+            #discipline = Disciplines.objects.get(disciplineId=pk)
+            season = Seasons.objects.get(disciplineId=pk, year=year)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        races = season.races_set.all().order_by('date')
+        print(races)
+        data = {'races': []}
+
+        for race in races:
+            data['races'].append(race.raceId)
+
+        driverstandings = 0
+        raceid = data['races'][-1]
+        count = 0
+        while driverstandings == 0:
+            try:
+                driverstandings = DriverStandings.objects.filter(raceId=raceid)
+                if not driverstandings:
+                    raceid -= 1
+                    count += 1
+                    driverstandings = 0
+                    if (count > 25):
+                        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            except:
+                driverstandings = 0
+                raceid -= 1
+                count += 1
+                if (count > 25):
+                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        print(driverstandings)
+        data['drivers'] = [{
+            'position': driver.position,
+            'code': driver.driverId.code,
+            'firstname': driver.driverId.firstname,
+            'surname': driver.driverId.surname,
+            'nationality': driver.driverId.nationality,
+            'statistics': self.calcDriverStatistics(driver, data['races'], raceid)
+        } for driver in driverstandings]
+
+        data['drivers'] = sorted(data['drivers'], key=lambda x: x['position'])
+
+        try:
+            constructorstandings = ConstructorStandings.objects.filter(raceId=raceid)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        data['constructors'] = [{
+            'position': constructor.position,
+            'name': constructor.constructorId.name,
+            'nationality': constructor.constructorId.nationality,
+            'stats': self.calcConstructorStatistics(constructor, data['races'], raceid)
+        } for constructor in constructorstandings]
+
+        return Response(data=data, status=status.HTTP_200_OK)
+    
