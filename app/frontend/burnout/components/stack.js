@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TestScreen from '../screens/testscreen';
 import LeaguesScreen from '../screens/leaguesscreen';
@@ -8,10 +8,12 @@ import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
 import TeamMasterScreen from '../screens/teammasterscreen';
 import RaceScreen from '../screens/racescreen';
-import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
+import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image, Modal } from 'react-native';
 import Topbar from './topbar';
+import DateRangePicker from './DateRangePicker';
 
 const Stack = createNativeStackNavigator();
+
 const styles = StyleSheet.create({
 	iconContainer: {
 		flexDirection: 'row',
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-const ScreenOptions = {
+const ScreenOptions = ( isPickerVisible, setIsPickerVisible, onRangeSelected ) => ({
 	headerBackTitleVisible: false,
 	headerTitleAlign: 'center',
 	headerTintColor: '#fff',
@@ -42,18 +44,42 @@ const ScreenOptions = {
 					color={'black'}
 					style={{paddingLeft: 20}}
 					size={25} 
-					onPress={() => 
-					{alert('This has not been implemented yet');}}/>
+					onPress={() => setIsPickerVisible(true)}
+				/>
 			</View>
+			{isPickerVisible && (
+				<Modal 
+					animationType="slide"
+					transparent={true}
+					visible={isPickerVisible}
+					onRequestClose={() => {
+						setIsPickerVisible(false);
+					}}
+				>
+					<DateRangePicker onRangeSelected={onRangeSelected} />
+				</Modal>
+			)}
 		</SafeAreaView>
 	),
-};
+});
 
 function LeagueStack({navigation}){
+	const [isPickerVisible, setIsPickerVisible] = useState(false);
+
+	const onRangeSelected = (startDate, endDate) => {
+		setIsPickerVisible(false);
+
+		const formattedStartDate = startDate.toLocaleDateString();
+		const formattedEndDate = endDate.toLocaleDateString();
+
+		alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+		console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+	};
+
 	return (
 		<Stack.Navigator 
 			initialRouteName='LeaguesScreen'
-			screenOptions={ScreenOptions}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, onRangeSelected)}
 		> 
 			<Stack.Screen
 				name='LeaguesScreen'
@@ -109,10 +135,21 @@ function LeagueStack({navigation}){
 export {LeagueStack};
 
 function HomeStack({navigation}){
+	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	const onRangeSelected = (startDate, endDate) => {
+		setIsPickerVisible(false);
+
+		const formattedStartDate = startDate.toLocaleDateString();
+		const formattedEndDate = endDate.toLocaleDateString();
+
+		alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+		console.log('Start Date: ' + formattedStartDate + ' End Date: ' + formattedEndDate);
+	};
+
 	return (
 		<Stack.Navigator 
 			initialRouteName='HomeScreen'
-			screenOptions={ScreenOptions}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, onRangeSelected)}
 		>
 			<Stack.Screen
 				name='TestScreen'
