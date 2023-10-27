@@ -85,19 +85,19 @@ export default class HomeScreen extends React.Component{
 					<ScrollView>
 						{this.put(this.state.messages['_j'])}
 						{this.put(this.state.briefs['_j'])}
-						<Text>Body Text</Text>
-						{Array.from({ length: 50 }).map((_, i) => (
+						{/* <Text>Body Text</Text> */}
+						{/* {Array.from({ length: 50 }).map((_, i) => (
 							<Text key={i}>
                             Render stuff here {i + 1}
 							</Text>
-						))}
-						<BaseCard 
+						))} */}
+						{/* <BaseCard 
 							navigation={navigation}
 							name={'Leagues Page'}
 							body={'Click to view the Leagues Page'}
 							bgcolor={'#ff00ff'}
 							where={'LeaguesScreen'}
-						/>
+						/> */}
 					</ScrollView>
 					<StatusBar style="auto" />
 				</View>

@@ -20,10 +20,10 @@ export default function MyTab(){
 							title: 'Home',
 							headerShown: false,
 							tabBarIcon: ({size}) => (
-								<MaterialCommunityIcons name='home' color='#f0f' size={size}/>
+								<MaterialCommunityIcons name='home' color='#f00' size={size}/>
 							),
 							tabBarActiveTintColor: '#000',
-							tabBarInactiveTintColor: '#f0f'
+							tabBarInactiveTintColor: '#000'
 						}}></Tab.Screen>
 					<Tab.Screen
 						name='LeaguesStack'
@@ -34,11 +34,11 @@ export default function MyTab(){
 							tabBarIcon: ({ size }) => (
 								<MaterialCommunityIcons 
 									name='racing-helmet' 
-									color={'black'} 
+									color={'#f00'} 
 									size={size} />
 							),
 							tabBarActiveTintColor: '#000',
-							tabBarInactiveTintColor: '#f0f',
+							tabBarInactiveTintColor: '#f00',
 						}}></Tab.Screen>
 					<Tab.Screen
 						name='Test'
@@ -47,11 +47,11 @@ export default function MyTab(){
 							title: 'Test',
 							headerShown: false,
 							tabBarActiveTintColor: '#000',
-							tabBarInactiveTintColor: '#f0f',
+							tabBarInactiveTintColor: '#f00',
 							tabBarIcon: ({ size }) => (
 								<MaterialCommunityIcons 
 									name='calendar-today' 
-									color={'black'} 
+									color={'#f00'} 
 									size={size} />
 							)
 						}}></Tab.Screen>
