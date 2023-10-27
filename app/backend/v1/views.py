@@ -426,6 +426,8 @@ class League(APIView):
             'stats': self.calcConstructorStatistics(constructor, data['races'], raceid)
         } for constructor in constructorstandings]
 
+        data['constructors'] = sorted(data['constructors'], key=lambda x: x['position'])
+
         return Response(data=data, status=status.HTTP_200_OK)
     
 
