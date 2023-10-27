@@ -1,3 +1,7 @@
+@REM lint.bat
+@REM Caleb Kornegay
+@REM 10/27/2023
+@REM linting script to be used for development
 @echo off
 
 set /p yn="Would you like to run the linter with the --fix option (y|n)? "

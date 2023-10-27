@@ -1,3 +1,9 @@
+/*
+    teams.js
+    Aaron King
+    10/27/2023
+    comment here pls
+*/
 import { BASEURL, V1TEAMSJSON } from './urls';
 import BaseCard from '../components/card';
 import {Text, View} from 'react-native';

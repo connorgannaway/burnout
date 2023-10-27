@@ -1,3 +1,10 @@
+/*
+    urls.js
+    Caleb Kornegay
+    Aaron King
+    10/27/2023
+    Export consts so that we can do fetches to the backend endpoint.
+*/
 export const BASEURL='https://pitwall.connorgannaway.net';
 // APIURL so we can concatenate extensions and variables to query api
 

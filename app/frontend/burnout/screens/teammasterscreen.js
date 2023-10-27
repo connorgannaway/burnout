@@ -1,3 +1,9 @@
+/*
+    teammasterscreen.js
+    idk who
+    10/27/2023
+    comment here pls
+*/
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, Text, SafeAreaView } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';

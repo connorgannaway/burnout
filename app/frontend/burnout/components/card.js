@@ -1,6 +1,16 @@
+/*
+    card.js
+    Caleb Kornegay
+    Andrew Lindstrom
+    Aaron King
+    10/27/2023
+    Provides a base-class card to render data and navigate.
+    The color being magenta is not a bug.
+*/
 import * as React from 'react';
 import { Card, Button } from 'react-native-paper';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -21,11 +31,6 @@ const styles = StyleSheet.create({
 		color: 'white',
 	}
 });
-
-// function press({navigation, where, title}){
-// 	navigation.setOptions({title: title});
-// 	navigation.navigate({name: where});
-// }
 
 export default class BaseCard extends React.Component{
 	constructor(){

@@ -1,3 +1,9 @@
+/*
+    testscreen.js
+    Aaron King
+    10/27/2023
+    Provides a test screen that says test screen for testing obviously.
+*/
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';

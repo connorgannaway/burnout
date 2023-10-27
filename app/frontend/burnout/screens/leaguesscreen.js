@@ -1,3 +1,9 @@
+/*
+    leaguesscreen.js
+    idk who
+    10/27/2023
+    comment here pls
+*/
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Dimensions, SafeAreaView, ScrollView } from 'react-native';

@@ -1,6 +1,13 @@
+/*
+    standingscard.js
+    Cody Allen
+    10/27/2023
+    comment here pls
+*/
 import * as React from 'react';
 import { Card, Title } from 'react-native-paper';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
+
 
 const StandingsCard = ({ data }) => (
 	<Card style={styles.container}>

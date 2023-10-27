@@ -1,6 +1,17 @@
+/*
+    briefs.js
+    Caleb Kornegay
+    10/27/2023
+    Grabs nearest races from the /v1/nearest/ endpoint
+    Then async fetches all the race briefs from /v1/<int:pk>/brief endpoint
+    And returns cards for them.
+    Bug -- Resolves twice because of Promise.all(), don't know how to fix yet.
+*/
 import { BASEURL } from './urls';
 import getnearestraces from './nearestraces';
 import BaseCard from '../components/card';
+
+
 
 export default async function getbriefs(){
 	return await getdata(await getnearestraces());

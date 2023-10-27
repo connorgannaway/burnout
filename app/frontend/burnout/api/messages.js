@@ -1,6 +1,14 @@
+/*
+    messages.js
+    Caleb Kornegay
+    10/27/2023
+    Fetches all the messages from the /v1/messages/ endpoint
+    and returns cards for them.
+*/
 import { V1MESSAGESJSON } from './urls';
 import BaseCard from '../components/card';
 import React from 'react';
+
 
 
 export default async function getmessages(){

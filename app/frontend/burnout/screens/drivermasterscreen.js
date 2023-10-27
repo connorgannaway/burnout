@@ -1,3 +1,9 @@
+/*
+    drivermasterscreen.js
+    idk who
+    10/27/2023
+    comment here pls
+*/
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, SafeAreaView } from 'react-native';
 import BaseCard from '../components/card';

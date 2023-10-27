@@ -1,5 +1,7 @@
 /*
- * Table.js
+ * table.js
+ * Andrew Lindstrom
+ * 10/27/2023
  *
  */
 import {React, useState} from "react";

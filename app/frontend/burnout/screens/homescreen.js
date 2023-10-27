@@ -1,3 +1,11 @@
+/*
+    homescreen.js
+    Caleb Kornegay
+    Aaron King
+    10/27/2023
+    The base home screen that pops up
+    Bug -- race briefs are still messed up
+*/
 import BaseCard from '../components/card';
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform } from 'react-native';

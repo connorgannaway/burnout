@@ -1,3 +1,10 @@
+/*
+    stack.js
+    Caleb Kornegay
+    Aaron King
+    10/27/2023
+    Provides a stack navigator for the different tabs to be nested.
+*/
 import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TestScreen from '../screens/testscreen';
@@ -11,6 +18,7 @@ import RaceScreen from '../screens/racescreen';
 import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image, Modal } from 'react-native';
 import Topbar from './topbar';
 import DateRangePicker from './DateRangePicker';
+
 
 const Stack = createNativeStackNavigator();
 

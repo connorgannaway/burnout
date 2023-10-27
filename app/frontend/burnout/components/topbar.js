@@ -1,3 +1,9 @@
+/*
+    topbar.js
+    Nick Lindsey
+    10/27/2023
+    comment here pls
+*/
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet, Platform, Modal } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';

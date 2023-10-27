@@ -1,3 +1,9 @@
+/* 
+    racescreen.js
+    Nick Lindsey
+    10/27/2023
+    comment here pls
+*/
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
