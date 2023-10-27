@@ -8,9 +8,10 @@ import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
 import TeamMasterScreen from '../screens/teammasterscreen';
 import RaceScreen from '../screens/racescreen';
-import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image, Modal } from 'react-native';
+import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image, Modal, Text } from 'react-native';
 import Topbar from './topbar';
 import DateRangePicker from './DateRangePicker';
+import SearchBar from './SearchBar';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,13 +23,19 @@ const styles = StyleSheet.create({
 	},
 });
 
-const ScreenOptions = ( isPickerVisible, setIsPickerVisible, onRangeSelected ) => ({
+const ScreenOptions = ( isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected ) => ({
 	headerBackTitleVisible: false,
 	headerTitleAlign: 'center',
 	headerTintColor: '#fff',
 	headerStyle: {
 		backgroundColor: '#ff0000',
 	},
+	headerTitle: () => (
+		isSearchBarVisible
+			? <SearchBar onSearch={(term) => console.log(term)} />
+			// set search bar title in text component
+			: <Text style={{color: 'white'}}>PLACEMENT TITLE</Text>
+	),
 	headerRight: () => (
 		<SafeAreaView>
 			<View style={{flexDirection:'row'}}>
@@ -37,8 +44,8 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible, onRangeSelected ) =
 					color={'black'} 
 					size={25} 
 					style={{paddingLeft: 20}}
-					onPress={() => 
-					{alert('This has not been implemented yet');}}/>
+					onPress={() => setIsSearchBarVisible(!isSearchBarVisible)}
+				/>
 				<MaterialCommunityIcons 
 					name='calendar-today' 
 					color={'black'}
@@ -65,6 +72,8 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible, onRangeSelected ) =
 
 function LeagueStack({navigation}){
 	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	// const [searchTerm, setSearchTerm] = useState('');
+	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
 	const onRangeSelected = (startDate, endDate) => {
 		setIsPickerVisible(false);
@@ -76,10 +85,15 @@ function LeagueStack({navigation}){
 		console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
 	};
 
+	const handleSearch = (term) => {
+		setSearchTerm(term);
+		console.log('Searching for: ' + term);
+	};
+
 	return (
 		<Stack.Navigator 
 			initialRouteName='LeaguesScreen'
-			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, onRangeSelected)}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
 		> 
 			<Stack.Screen
 				name='LeaguesScreen'
@@ -136,6 +150,9 @@ export {LeagueStack};
 
 function HomeStack({navigation}){
 	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	// const [searchTerm, setSearchTerm] = useState('');
+	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+
 	const onRangeSelected = (startDate, endDate) => {
 		setIsPickerVisible(false);
 
@@ -143,13 +160,18 @@ function HomeStack({navigation}){
 		const formattedEndDate = endDate.toLocaleDateString();
 
 		alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
-		console.log('Start Date: ' + formattedStartDate + ' End Date: ' + formattedEndDate);
+		console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+	};
+
+	const handleSearch = (term) => {
+		setSearchTerm(term);
+		console.log('Searching for: ' + term);
 	};
 
 	return (
 		<Stack.Navigator 
 			initialRouteName='HomeScreen'
-			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, onRangeSelected)}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
 		>
 			<Stack.Screen
 				name='TestScreen'
