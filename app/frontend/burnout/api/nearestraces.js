@@ -1,4 +1,11 @@
+/*
+    nearestraces.js
+    Caleb Kornegay
+    10/27/2023
+    Fetches the nearest races array from /v1/nearest/
+*/
 import { V1NEARESTRACESJSON } from './urls';
+
 
 export default async function getnearestraces(){
 	return getdata();

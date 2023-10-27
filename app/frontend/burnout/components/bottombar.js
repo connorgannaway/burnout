@@ -1,5 +1,12 @@
+/*
+    bottombar.js
+    Nick Lindsey
+    10/27/2023
+    comment here pls
+*/
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+
 
 const styles = StyleSheet.create({
 	container: {

@@ -1,3 +1,11 @@
+/* 
+	racescreen.js
+	Nick Lindsey
+	10/27/2023
+    This screen is displayed when a user clicks on a race preview card.
+	Resolved styling redundancy 
+*/
+
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
@@ -7,16 +15,21 @@ const styles = StyleSheet.create({
 		backgroundColor: '#f0f0f0',
 		padding: 20,
 	},
+	header: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginBottom: 20,
+	},
 	title: {
 		fontSize: 30,
 		fontWeight: 'bold',
 		color: '#333',
-		marginBottom: 20,
+		flex: 1,
 	},
 	date: {
 		fontSize: 18,
 		color: '#666',
-		marginBottom: 20,
+		marginLeft: 10,
 	},
 	sectionTitle: {
 		fontSize: 25,
@@ -47,9 +60,6 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#ccc',
 		padding: 10,
 	},
-	tableHeader: {
-		fontWeight: 'bold',
-	},
 	tableCell: {
 		flex: 1,
 		justifyContent: 'center',
@@ -58,21 +68,8 @@ const styles = StyleSheet.create({
 	tableText: {
 		fontSize: 18,
 	},
-	header: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		marginBottom: 20,
-	},
-	title: {
-		fontSize: 30,
+	tableHeaderText: {
 		fontWeight: 'bold',
-		color: '#333',
-		flex: 1,
-	},
-	date: {
-		fontSize: 18,
-		color: '#666',
-		marginLeft: 10,
 	},
 });
 
@@ -105,23 +102,23 @@ export default class RaceScreen extends React.Component {
 				<Text style={styles.sectionTitle}>Results</Text>
 				<View style={styles.table}>
 					<View style={styles.tableRow}>
-						<View style={styles.tableCell}><Text style={[styles.tableText, styles.tableHeader]}>Driver</Text></View>
-						<View style={styles.tableCell}><Text style={[styles.tableText, styles.tableHeader]}>Score</Text></View>
+						<View style={styles.tableCell}><Text style={[styles.tableText, styles.tableHeaderText]}>Driver</Text></View>
+						<View style={styles.tableCell}><Text style={[styles.tableText, styles.tableHeaderText]}>Score</Text></View>
 					</View>
-					{drivers.map((driver, index) => (
-						<View key={index} style={styles.tableRow}>
+					{drivers.map((driver) => (
+						<View key={driver.name} style={styles.tableRow}>
 							<View style={styles.tableCell}><Text style={styles.tableText}>{driver.name}</Text></View>
 							<View style={styles.tableCell}><Text style={styles.tableText}>{driver.score}</Text></View>
 						</View>
 					))}
 				</View>
 
-				{additionalInfo && (
+				{additionalInfo ? (
 					<>
 						<Text style={styles.sectionTitle}>Additional Information</Text>
 						<Text style={styles.outcome}>{additionalInfo}</Text>
 					</>
-				)}
+				) : null}
 			</ScrollView>
 		);
 	}

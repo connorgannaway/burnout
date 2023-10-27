@@ -1,0 +1,266 @@
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 120) # /v1/races/nearest/
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 140) 
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 141) # /v1/teams/
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 169) given a race id, return a future/live/completed var,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 170) ************************Future/live:************************
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 171) name, track, date & session times, starting grid with interval times if available
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 172) ********************Completed:********************
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 173) name, track, date & session times, finishing grid with interval times:
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 174)  driver name, number, points earned, total points, if driver has fastest lap
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 175) Another similar grid with sprint data if its a sprint race weekend.
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 177) # /v1/race/<int:pk>/
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 178) class Race(APIView):
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 179) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 180)     def positionTextConversion(self, string):
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 181)         if string == 'D':
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 183)         elif string == 'E':
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 185)         elif string == 'F':
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 187)         elif string == 'N':
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 189)         elif string == 'R':
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 191)         elif string == 'W':
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 193)         else:
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 194)             return string
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 195) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 196) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 197)     def get(self, request, pk, format=None):
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 198) 
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 199)         # find race from passed pk
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 200)         try:
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 201)             race = Races.objects.get(raceId=pk)
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 202)         except:
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 203)             return Response(status=status.HTTP_404_NOT_FOUND)
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 204) 
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 205)         # add general data
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 206)         data = {
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 207)             "raceId": race.raceId,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 208)             "name": race.name,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 209)             "quali_date": race.quali_date,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 210)             "quali_time": race.quali_time,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 211)             "date": race.date,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 212)             "time": race.time,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 213)             "fp1_date": race.fp1_date,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 214)             "fp1_time": race.fp1_time,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 215)             "fp2_date": race.fp2_date,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 216)             "fp2_time": race.fp2_time,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 217)             "fp3_date": race.fp3_date,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 218)             "fp3_time": race.fp3_time,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 219)             "sprint_date": race.sprint_date,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 220)             "sprint_time": race.sprint_time,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 221)             "round": race.round,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 222)             "track": race.circuitId.name,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 223)             "location": race.circuitId.location,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 224)             "country": race.circuitId.country,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 225)         }
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 226) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 227)         now = timezone.now()
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 228)         date = now.date()
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 229)         time = now.time()
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 230) 
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 231)         # check for sprint weekend
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 232)         sprintresults = race.sprintresults_set.all().order_by(F('positionOrder').asc(nulls_last=True))
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 233)         if not sprintresults:
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 234)             data['is_sprint_weekend'] = False
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 235) 
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 236)         else:
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 237)             data['is_sprint_weekend'] = True
+1cc3142c (Connor Gannaway 2023-10-24 12:21:48 -0400 238)             if date > race.sprint_date or (date == race.sprint_date and time >= race.sprint_time):
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 239)                 data["sprint_grid"] = [
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 240)                     {
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 241)                         "position": self.positionTextConversion(finisher.positionText),
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 242)                         "number": finisher.number,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 243)                         "name": finisher.driverId.surname,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 244)                         "code": finisher.driverId.code,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 245)                         "constructor": finisher.constructorId.name,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 246)                         "time": finisher.time,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 247)                         "status": finisher.statusId.status,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 248)                         "points": finisher.points,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 249)                         "laps": finisher.laps,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 250)                         "startingPosition": finisher.grid,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 251) 
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 252)                     } for finisher in sprintresults
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 253)                 ]
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 254) 
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 255)         # Set race status based on time. Include Qualifying or Completed grids if available.
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 256)         if date < race.quali_date:
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 258)             return Response(data=data, status=status.HTTP_200_OK)
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 259) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 260)         elif date < race.date or (date == race.date and time < race.time):
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 262) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 263)             finishers = race.qualifying_set.all().order_by(F('position').asc(nulls_last=True))
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 264)             data["grid"] = [
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 265)                 {
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 266)                     "position": finisher.position,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 267)                     "number": finisher.number,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 268)                     "name": finisher.driverId.surname,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 269)                     "code": finisher.driverId.code,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 270)                     "constructor": finisher.constructorId.name,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 271)                     "q1": finisher.q1,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 272)                     "q2": finisher.q2,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 273)                     "q3": finisher.q3,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 274)                 } for finisher in finishers
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 275)             ]
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 276) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 277)             return Response(data=data, status=status.HTTP_200_OK)
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 278)         else:
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 280) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 281)             finishers = race.results_set.all().order_by(F('positionOrder').asc(nulls_last=True))
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 282) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 283)             data["grid"] = [
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 284)                 {
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 285)                     "position": self.positionTextConversion(finisher.positionText),
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 286)                     "number": finisher.number,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 287)                     "name": finisher.driverId.surname,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 288)                     "code": finisher.driverId.code,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 289)                     "constructor": finisher.constructorId.name,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 290)                     "time": finisher.time,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 291)                     "status": finisher.statusId.status,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 292)                     "points": finisher.points,
+1eabed5c (Connor Gannaway 2023-10-23 12:03:38 -0400 293)                     "laps": finisher.laps,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 294)                     "startingPosition": finisher.grid,
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 295) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 296)                 } for finisher in finishers
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 297)             ]
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 298) 
+55ae90db (Connor Gannaway 2023-10-20 11:05:25 -0400 299)             return Response(data=data, status=status.HTTP_200_OK)
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 300) 
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 301) 
+0769eed3 (Connor Gannaway 2023-10-26 12:06:20 -0400 302) 
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 303) # /v1/leagues/
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 304) class AllLeagues(APIView):
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 305)     def get(self, request, format=None):
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 306)         disciplines = Disciplines.objects.all()
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 307)         serializer = DisciplineSerializer(disciplines, many=True)
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 308)         return Response(data=serializer.data, status=status.HTTP_200_OK)
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 309) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 310) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 311) # /v1/leagues/<int:pk>/
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 312) class League(APIView):
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 313)     def calcDriverStatistics(self, driver, races, mostRecentRaceId):
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 314)         stats = dict()
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 315)         stats['points'] = driver.points
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 316)         stats['wins'] = driver.wins
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 317)         podiums = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 318)         top5 = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 319)         for raceid in races:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 320)             if raceid == mostRecentRaceId:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 321)                 break
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 322)             try:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 323)                 result = Results.objects.get(raceId=raceid, driverId=driver.driverId)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 324)             except:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 325)                 continue
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 326) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 327)             if result.position == None:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 328)                 continue
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 329)             if result.position <= 5:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 330)                 top5 += 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 331)                 if result.position <= 3:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 332)                     podiums += 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 333) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 334)         stats['podiums'] = podiums
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 335)         stats['top5'] = top5
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 336) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 337)         return stats
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 338) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 339)     def calcConstructorStatistics(self, constructor, races, mostRecentRaceId):
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 340)         stats = dict()
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 341)         stats['points'] = constructor.points
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 342)         stats['wins'] = constructor.wins
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 343)         podiums = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 344)         top5 = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 345)         for raceid in races:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 346)             if raceid == mostRecentRaceId:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 347)                 break
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 348)             try:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 349)                 results = Results.objects.filter(raceId=raceid, constructorId=constructor.constructorId)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 350)             except:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 351)                 continue
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 352) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 353)             for result in results:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 354)                 if result.position == None:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 355)                     continue
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 356)                 if result.position <= 5:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 357)                     top5 += 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 358)                     if result.position <= 3:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 359)                         podiums += 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 360) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 361)         stats['podiums'] = podiums
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 362)         stats['top5'] = top5
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 363) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 364)         return stats
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 365) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 366)     def get(self, request, pk, format=None):
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 367)         now = timezone.now()
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 368)         try:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 369)             year = request.query_params['year']
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 370)         except:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 371)             year = now.year
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 372) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 373)         try:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 374)             #discipline = Disciplines.objects.get(disciplineId=pk)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 375)             season = Seasons.objects.get(disciplineId=pk, year=year)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 376)         except:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 377)             return Response(status=status.HTTP_404_NOT_FOUND)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 378) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 379)         races = season.races_set.all().order_by('date')
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 380)         data = {'races': []}
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 381) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 382)         for race in races:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 383)             data['races'].append(race.raceId)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 384) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 385)         driverstandings = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 386)         raceid = data['races'][-1]
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 387)         count = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 388)         while driverstandings == 0:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 389)             try:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 390)                 driverstandings = DriverStandings.objects.filter(raceId=raceid)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 391)                 if not driverstandings:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 392)                     raceid -= 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 393)                     count += 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 394)                     driverstandings = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 395)                     if (count > 25):
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 396)                         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 397)             except:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 398)                 driverstandings = 0
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 399)                 raceid -= 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 400)                 count += 1
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 401)                 if (count > 25):
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 402)                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 403) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 404)         data['drivers'] = [{
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 405)             'position': driver.position,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 406)             'code': driver.driverId.code,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 407)             'firstname': driver.driverId.firstname,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 408)             'surname': driver.driverId.surname,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 409)             'nationality': driver.driverId.nationality,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 410)             'statistics': self.calcDriverStatistics(driver, data['races'], raceid)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 411)         } for driver in driverstandings]
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 412) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 413)         data['drivers'] = sorted(data['drivers'], key=lambda x: x['position'])
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 414) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 415)         try:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 416)             constructorstandings = ConstructorStandings.objects.filter(raceId=raceid)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 417)         except:
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 418)             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 419) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 420)         data['constructors'] = [{
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 421)             'position': constructor.position,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 422)             'name': constructor.constructorId.name,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 423)             'nationality': constructor.constructorId.nationality,
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 424)             'stats': self.calcConstructorStatistics(constructor, data['races'], raceid)
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 425)         } for constructor in constructorstandings]
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 426) 
+bb314be1 (Connor Gannaway 2023-10-27 08:12:56 -0400 427)         data['constructors'] = sorted(data['constructors'], key=lambda x: x['position'])
+bb314be1 (Connor Gannaway 2023-10-27 08:12:56 -0400 428) 
+ee4ef0fc (Connor Gannaway 2023-10-26 12:02:33 -0400 429)         return Response(data=data, status=status.HTTP_200_OK)
+0769eed3 (Connor Gannaway 2023-10-26 12:06:20 -0400 430)     
+0769eed3 (Connor Gannaway 2023-10-26 12:06:20 -0400 431) 
+0769eed3 (Connor Gannaway 2023-10-26 12:06:20 -0400 439)             return Response(status=status.HTTP_404_NOT_FOUND)
+0769eed3 (Connor Gannaway 2023-10-26 12:06:20 -0400 440) 
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 22)     path('races/<int:pk>/', views.Race.as_view()),
+063010f5 (Connor Gannaway 2023-10-25 17:51:47 -0400 23)     path('leagues/', views.AllLeagues.as_view()),
+73139aff (Connor Gannaway 2023-10-27 08:03:15 -0400 24)     path('leagues/<int:pk>/', views.League.as_view()),
+73139aff (Connor Gannaway 2023-10-27 08:03:15 -0400 25)     path('drivers/', views.DriversView.as_view()),
+3c2a52c8 (Connor Gannaway 2023-10-23 20:55:59 -0400  18)     constructorId = models.IntegerField(primary_key=True)
+3c2a52c8 (Connor Gannaway 2023-10-23 20:55:59 -0400  99)     constructorId = models.ForeignKey(Constructors,db_column='constructorId', on_delete=models.CASCADE)
+1cc3142c (Connor Gannaway 2023-10-24 12:21:48 -0400 139)     statusId = models.ForeignKey(Status, db_column='statusId', blank=True, null=True, on_delete=models.DO_NOTHING)
+1cc3142c (Connor Gannaway 2023-10-24 12:21:48 -0400 159)     statusId = models.ForeignKey(Status, db_column='statusId',blank=True, null=True, on_delete=models.DO_NOTHING)

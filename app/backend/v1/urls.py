@@ -21,6 +21,6 @@ urlpatterns = [
     path('teams/', views.Teams.as_view()),
     path('races/<int:pk>/', views.Race.as_view()),
     path('leagues/', views.AllLeagues.as_view()),
-    path('leagues/<int:pk>/', views.League.as_view())
-    path('drivers/', views.Drivers.as_view()),
+    path('leagues/<int:pk>/', views.League.as_view()),
+    path('drivers/', views.DriversView.as_view()),
 ]
