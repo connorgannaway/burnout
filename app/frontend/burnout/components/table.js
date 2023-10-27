@@ -3,8 +3,7 @@
  *
  */
 import {React, useState} from "react";
-import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView, Pressable} from "react-native";
-import { Button } from "react-native-paper";
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView} from "react-native";
 
 /*
  * Takes multiple Tables as children and adds functionality for switching between each table. Each table requires a defined key.
@@ -17,14 +16,17 @@ import { Button } from "react-native-paper";
 export function TableManager({children, headings}){
     
     let [CurrentTable, setCurrentTable] = useState(0);
-    const tableSwitch = headings.map((heading, index) => <Pressable key={index} style={CurrentTable === index ? styles.managerButtonActive : styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}><Text>{heading}</Text></Pressable>);
+    const tableSwitch = headings.map((heading, index) => <Pressable key={index}
+                                                                    style={CurrentTable === index ? styles.managerButtonActive : styles.managerButton}
+                                                                    onPress={()=>{setCurrentTable(index)}}
+                                                                    ><Text>{heading}</Text></Pressable>);
 
     return(
         <SafeAreaView style={[styles.container, {margin: 0}]}>
             <View style={{flexDirection: 'row'}}>
                 {tableSwitch}
             </View>
-            <View>
+            <View style={{height: Dimensions.get('screen').height/6.5, backgroundColor: '#efefef'}}>
                 {children[CurrentTable]}
             </View>
         </SafeAreaView>
@@ -41,17 +43,18 @@ export function TableManager({children, headings}){
  */
 export function Table(props){
 
-    return( 
-        <FlatList
-            data = {props.data}
-            numColumns = {props.numColumns}
-            renderItem = {({item, index}) => <Cell 
-                                                index = {index} 
-                                                navigation = {props.navigation} 
-                                                content = {item} 
-                                                numColumns = {props.numColumns}/>}
-            keyExtractor={(item, index) => index}
-        />
+    const data = props.data;
+    const cells = data.map((data, index) => <Cell key={"cell" + index}
+                                                  index={index}
+                                                  navigation={props.navigation}
+                                                  content={data}
+                                                  numColumns={props.numColumns}
+                                                />);
+
+    return(
+        <ScrollView style={styles.tableContainer}>
+            {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
+        </ScrollView>
     );
 }
 
@@ -79,11 +82,26 @@ function Cell(props){
     );
 }
 
+function chunk(list, size){
+
+    let chunks = [];
+
+    for(let i = 0; i < list.length; i+=size){
+        chunks.push(list.slice(i, i+size));
+    }
+
+    return chunks;
+}
+
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
     container:{
-        width: screen.width,
-        margin: 20,
+        flexDirection: 'column',
+		width: screen.width/1.15,
+    },
+    tableContainer:{
+        flexDirection: 'column',
+		width: screen.width/1.15,
     },
 	cell:{
         flex: 1,
@@ -107,8 +125,6 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         padding: 10,
         justifyContent: 'center',
-        alignContent: 'center',
-        color: '#575757',
     },
     managerButtonActive:{
         flex: 1,
@@ -118,6 +134,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         color: '#575757',
+        textAlign: 'center',
         shadowColor: 'black',
         shadowRadius: 20,
         shadowOpacity: .5,

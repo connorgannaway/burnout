@@ -26,32 +26,62 @@ export default class LeagueMasterScreen extends React.Component{
 
 		return(
 			<View style={styles.container}>
-				<TableManager headings = {["first", "second","third","fourth"]}>
-					<Table
-						key={0}
-						data={DATA}
-						numColumns={1}
+				<ScrollView>
+					<TableManager headings = {["first", "second","third","fourth"]}>
+						<Table
+							key={0}
+							data={DATA}
+							numColumns={1}
+							navigation={navigation}
+						/>
+						<Table
+							key={1}
+							data={DATA}
+							numColumns={2}
+							navigation={navigation}
+						/>
+						<Table
+							key={2}
+							data={DATA}
+							numColumns={3}
+							navigation={navigation}
+						/>
+						<Table
+							key={3}
+							data={DATA}
+							numColumns={4}
+							navigation={navigation}
+						/>
+					</TableManager>
+					<BaseCard 
 						navigation={navigation}
+						name={'Formula 1'}
+						body={'Click to view the Formula 1 League Page'}
+						bgcolor={'#ff1801'}
+						where={'LeagueMasterScreen'}
 					/>
-					<Table
-						key={1}
-						data={DATA}
-						numColumns={2}
-						navigation={navigation}
+					<BaseCard 
+						navigation={navigation} 
+						name={'NASCAR'}
+						body={'Click to view the NASCAR League Page'}
+						bgcolor={'#e4002b'}
+						where={'LeagueMasterScreen'}
 					/>
-					<Table
-						key={2}
-						data={DATA}
-						numColumns={3}
-						navigation={navigation}
+					<BaseCard 
+						navigation={navigation} 
+						name={'MotoGP'}
+						body={'Click to view the MotoGP League Page'}
+						bgcolor={'#E0144C'}
+						where={'LeagueMasterScreen'}
 					/>
-					<Table
-						key={3}
-						data={DATA}
-						numColumns={4}
-						navigation={navigation}
+					<BaseCard 
+						navigation={navigation} 
+						name={'IndyCar'}
+						body={'Click to view the IndyCar League Page'}
+						bgcolor={'#b92a30'}
+						where={'LeagueMasterScreen'}
 					/>
-				</TableManager>
+				</ScrollView>
 			</View>
 		);
 	}
