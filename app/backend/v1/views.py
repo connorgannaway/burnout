@@ -377,7 +377,6 @@ class League(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         races = season.races_set.all().order_by('date')
-        print(races)
         data = {'races': []}
 
         for race in races:
@@ -402,7 +401,6 @@ class League(APIView):
                 if (count > 25):
                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        print(driverstandings)
         data['drivers'] = [{
             'position': driver.position,
             'code': driver.driverId.code,
