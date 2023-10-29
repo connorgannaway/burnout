@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
 		width: 60,
 		justifyContent: 'space-between',
 	},
+	headerText: {
+		color: 'white',
+		fontWeight: '500', 
+		fontSize: 20,
+	},
 });
 
 const ScreenOptions = ( isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected ) => ({
@@ -38,12 +43,12 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible, isSearchBarVisible,
 	headerStyle: {
 		backgroundColor: '#ff0000',
 	},
-	headerTitle: () => (
-		isSearchBarVisible
-			? <SearchBar onSearch={(term) => console.log(term)} />
-			// set search bar title in text component
-			: <Text style={{color: 'white'}}>PLACEMENT TITLE</Text>
-	),
+	// headerTitle: () => (
+	// 	isSearchBarVisible
+	// 		? <SearchBar onSearch={(term) => console.log(term)} />
+	// 		// set search bar title in text component
+	// 		: <Text style={{color: 'white'}}>PLACEMENT TITLE</Text>
+	// ),
 	headerRight: () => (
 		<SafeAreaView>
 			<View style={{flexDirection:'row'}}>
@@ -107,7 +112,12 @@ function LeagueStack({navigation}){
 				name='LeaguesScreen'
 				component={LeaguesScreen}
 				options={{
-					title: 'Leagues Page'
+					headerTitle: () => (
+						isSearchBarVisible
+							? <SearchBar onSearch={(term) => console.log(term)} />
+							: <Text style={styles.headerText}>Leagues Page</Text>
+					),
+					
 				}}
 			></Stack.Screen>
 			<Stack.Screen
@@ -115,7 +125,13 @@ function LeagueStack({navigation}){
 				component={TestScreen}
 				initialParams={{newTitle: 'Testing Page'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			></Stack.Screen>
 			<Stack.Screen
@@ -123,7 +139,13 @@ function LeagueStack({navigation}){
 				component={LeagueMasterScreen}
 				initialParams={{newTitle: 'League Master Screen'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			></Stack.Screen>
 			<Stack.Screen
@@ -131,7 +153,13 @@ function LeagueStack({navigation}){
 				component={TeamMasterScreen}
 				initialParams={{newTitle: 'Team Master Screen'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			></Stack.Screen>
 			<Stack.Screen
@@ -139,15 +167,30 @@ function LeagueStack({navigation}){
 				component={DriverMasterScreen}
 				initialParams={{newTitle: 'Driver Master Screen'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='RaceScreen'
 				component={RaceScreen}
-				options={{
-					title: 'RaceScreen',
-				}}
+				// options={{
+				// 	title: 'RaceScreen',
+				// }}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
 			>
 			</Stack.Screen>
 		</Stack.Navigator>
@@ -186,21 +229,37 @@ function HomeStack({navigation}){
 				component={TestScreen}
 				initialParams={{newTitle: 'Testing Page'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
 				options={{
-					title: 'Leagues Page',
+					headerTitle: () => (
+						isSearchBarVisible
+							? <SearchBar onSearch={(term) => console.log(term)} />
+							: <Text style={styles.headerText}>Leagues Page</Text>
+					),
+					
 				}}
 			></Stack.Screen>
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
 				options={{
-					title: 'Home Page',
+					headerTitle: () => (
+						isSearchBarVisible
+							? <SearchBar onSearch={(term) => console.log(term)} />
+							: <Text style={styles.headerText}>Home</Text>
+					),
+					
 				}}
 				// options={{
 				// 	title: 'Home Page',
@@ -220,7 +279,13 @@ function HomeStack({navigation}){
 				component={LeagueMasterScreen}
 				initialParams={{newTitle: 'League Master Screen'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			>
 			</Stack.Screen>
@@ -229,7 +294,13 @@ function HomeStack({navigation}){
 				component={TeamMasterScreen}
 				initialParams={{newTitle: 'Team Master Screen'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			>
 			</Stack.Screen>
@@ -238,7 +309,13 @@ function HomeStack({navigation}){
 				component={DriverMasterScreen}
 				initialParams={{newTitle: 'Driver Master Screen'}}
 				options={
-					({ route }) => ({ title: route.params.newTitle })
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
 				}
 			></Stack.Screen>
 		</Stack.Navigator>

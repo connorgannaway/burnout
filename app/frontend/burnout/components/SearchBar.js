@@ -27,7 +27,7 @@ const SearchBar = ({ onSearch }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '70%',
     marginBottom: 10
   },
   input: {
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingLeft: 10,
+    paddingRight: 20,
     borderColor: '#ddd'
   }
 });
