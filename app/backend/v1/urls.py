@@ -23,4 +23,5 @@ urlpatterns = [
     path('leagues/', views.AllLeagues.as_view()),
     path('leagues/<int:pk>/', views.League.as_view()),
     path('drivers/', views.DriversView.as_view()),
+    path('drivers/<int:pk>/', views.Driver.as_view()),
 ]
