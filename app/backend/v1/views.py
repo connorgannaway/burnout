@@ -438,3 +438,72 @@ class DriversView(APIView):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+# /v1/drivers/<int:pk>/
+class Driver(APIView):
+    def get(self, request, pk, format=None):
+        try:
+            driver = Drivers.objects.get(driverId=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        data = {
+            "driverId": driver.driverId,
+            "number": driver.number,
+            "code": driver.code,
+            "firstname": driver.firstname,
+            "surname": driver.surname,
+            "dob": driver.dob,
+            "nationality": driver.nationality,
+            "results": []
+        }
+
+        now = timezone.now()
+        year = now.year
+
+        found = False
+        while 1:
+            season = Seasons.objects.get(year=year)
+            races = season.races_set.all().order_by('-date')
+            driverstandings = 0
+            raceid = races[0].raceId
+            numraces = len(races)
+            count = 0
+            breakouter = False
+            while driverstandings == 0:
+                try:
+                    driverstandings = DriverStandings.objects.get(raceId=raceid, driverId=driver.driverId)
+                    found = True
+
+                except:
+                    driverstandings = 0
+                    raceid -= 1
+                    count += 1
+                    if (count > numraces):
+                        breakouter = True
+                        break
+                        #return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            if breakouter and found:
+                break
+            if not found:
+                year -= 1
+                continue
+
+            try:
+                result = Results.objects.get(raceId=raceid, driverId=driver.driverId)
+                constructor = result.constructorId.name
+            except:
+                constructor = None
+
+            data["results"].append({
+                "year": year,
+                "position": driverstandings.position,
+                "wins": driverstandings.wins,
+                "points": driverstandings.points,
+                "constructor": constructor
+            })
+
+            year -= 1
+
+
+        return Response(data=data, status=status.HTTP_200_OK)
