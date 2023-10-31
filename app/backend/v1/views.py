@@ -147,7 +147,7 @@ class Teams(APIView):
             year = timezone.now().date().strftime("%Y")
         season = Seasons.objects.filter(year=year).values_list('seasonId', flat=True)[0]
         raceId = Races.objects.filter(seasonId=season).values_list('raceId', flat=True)[::-1]
-        print(raceId[0])
+        #print(raceId[0])
         i = 0
         standings = ConstructorResults.objects.filter(raceId=raceId[i])
         while not len(standings):
@@ -505,5 +505,74 @@ class Driver(APIView):
 
             year -= 1
 
+
+        return Response(data=data, status=status.HTTP_200_OK)
+
+class TeamDetail(APIView):
+    def get(self, request, pk, format=None):
+        try:
+            constructor = Constructors.objects.get(constructorId=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        data = {
+            "constructorId": constructor.constructorId,
+            "name": constructor.name,
+            "nationality": constructor.nationality,
+            "results": []
+        }
+
+        now = timezone.now()
+        year = now.year
+
+        found = False
+        while 1:
+            season = Seasons.objects.get(year=year)
+            races = season.races_set.all().order_by('-date')
+            constructorstandings = 0
+            raceid = races[0].raceId
+            numraces = len(races)
+            count = 0
+            breakouter = False
+            while constructorstandings == 0:
+                try:
+                    constructorstandings = ConstructorStandings.objects.get(raceId=raceid, constructorId=constructor.constructorId)
+                    found = True
+
+                except:
+                    constructorstandings = 0
+                    raceid -= 1
+                    count += 1
+                    if (count > numraces):
+                        breakouter = True
+                        break
+                        # return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            if breakouter and found:
+                break
+            if not found:
+                year -= 1
+                continue
+
+            try:
+                result = Results.objects.filter(raceId=raceid, constructorId=constructor.constructorId)
+            except:
+                result = []
+
+            data["results"].append({
+                "year": year,
+                "position": constructorstandings.position,
+                "wins": constructorstandings.wins,
+                "points": constructorstandings.points,
+                "drivers": [{
+                    "driverId": driver.driverId.driverId,
+                    "number": driver.number,
+                    "code": driver.driverId.code,
+                    "firstname": driver.driverId.firstname,
+                    "surname": driver.driverId.surname,
+                } for driver in result]
+            })
+
+            year -= 1
 
         return Response(data=data, status=status.HTTP_200_OK)
