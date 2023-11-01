@@ -156,7 +156,7 @@ class Teams(APIView):
                 standings = ConstructorResults.objects.filter(raceId=raceId[i])
             except:
                 return Response(status=status.HTTP_404_NOT_FOUND)
-        standings = standings.values_list('constructorId', flat=True)
+        standings = standings.values_list('constructorId', flat=True).order_by('constructorId')
         teams = Constructors.objects.filter(constructorId__in=standings).order_by('constructorId').values_list('name', flat=True)
         points = ConstructorStandings.objects.filter(raceId=raceId[i]).order_by('constructorId').values_list('points', flat=True)
         data = [{'id' : id, 'team': team, 'points': points} for id,team,points in zip(standings,teams,points)]
