@@ -86,6 +86,7 @@ export default class LeagueMasterScreen extends React.Component{
 						where={'TeamMasterScreen'}
 						navigation={navigation}
 						title={'Team Name'}
+						id={9}
 					/>
 					<StandingsCard data={standingsData} />
 				</ScrollView>

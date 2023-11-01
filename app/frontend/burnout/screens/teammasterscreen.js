@@ -1,13 +1,14 @@
 /*
     teammasterscreen.js
-    idk who
+    Aaron King
     10/27/2023
-    comment here pls
+    This screen will show the data for each individual team.
 */
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, Text, SafeAreaView } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';
 import getteams from '../api/teams';
+import getteamdetails from '../api/teamdetails';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -28,15 +29,27 @@ const styles = StyleSheet.create({
  *  
  */
 export default class TeamMasterScreen extends React.Component{
+	
 
-	constructor(){
+	constructor({navigation, route}){
+		const id = route.params?.id;
 		super();
 		this.state = {
 			isLoading: true,
 			teams: getteams(),
+			teamdetails: getteamdetails(id, {navigation}),
 		};
 
 		this.state.teams
+			.catch(error => {
+				console.warn(error);
+			}).then(() => {
+				this.setState({isLoading: false});
+			}).catch(error => {
+				console.warn(error);
+			});
+
+			this.state.teamdetails
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
@@ -65,6 +78,7 @@ export default class TeamMasterScreen extends React.Component{
 
 	shouldComponentUpdate(nextState){
 		if(this.state.teams !== nextState.teams) return true;
+		if(this.state.teamdetails !== nextState.teamdetails) return true;
 		if(nextState.isLoading === false) return true;
 		return false;
 	}
@@ -77,16 +91,17 @@ export default class TeamMasterScreen extends React.Component{
 		return(
 			<SafeAreaView style={styles.container}>
 				<ScrollView>
-					{this.put(this.state.teams['_j'])}
-					<BaseCard
+					{/* {this.put(this.state.teams['_j'])} */}
+					{this.put(this.state.teamdetails['_j'])}
+					{/* <BaseCard
 						name={'Team Name'}
 						subName={'Total Team Points: 9'}
 						body={'Current Team Standing: First'}
 						bgcolor={'#ff1801'}
 						where={null}
 						navigation={null}
-					/>
-					{Array.from({ length: 2 }).map((_,i) => (
+					/> */}
+					{/* {Array.from({ length: 2 }).map((_,i) => (
 						<BaseCard key={i}
 							name={'Driver ' + (i + 1) + ' Name'}
 							subName={'Current Driver Standing: last'}
@@ -96,7 +111,7 @@ export default class TeamMasterScreen extends React.Component{
 							navigation={navigation}
 							title={'Driver ' + (i + 1)}
 						/>
-					))}
+					))} */}
 				</ScrollView>
 			</SafeAreaView>
 		);

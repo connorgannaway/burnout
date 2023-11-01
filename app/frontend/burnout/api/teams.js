@@ -2,7 +2,7 @@
     teams.js
     Aaron King
     10/27/2023
-    comment here pls
+    Returns list of teams with their ID's and current season points.
 */
 import { BASEURL, V1TEAMSJSON } from './urls';
 import BaseCard from '../components/card';
@@ -25,17 +25,6 @@ async function getdata(){
 		}).catch(error => {
 			console.warn(error);
 		}).then(data => {
-			// return (<BaseCard 
-			//     where={'TeamMasterScreen'}
-			//     title={data['team']}
-			//     name={data['team']}
-			//     // subName={data['track']}
-			//     body={'Points: '+data['points']}
-			//     bgcolor={'#ff0000'}
-			//     key={data['team']+data['points']}
-			//     message={'This is a team'}
-			//     />
-			//     );
 			return (<View><Text>{data.map(item =>
 				<Text>{item.team}      points: {item.points}{'\n'}</Text>)} </Text></View>);
 		}).catch(error => {
