@@ -2,13 +2,26 @@
     leaguesscreen.js
     idk who
     10/27/2023
-    comment here pls
+    Create cards to be clickable to actually get to the specified league
 */
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import BaseCard from '../components/card';
 
+const screen = Dimensions.get('screen');
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#d0d0d0',
+		alignItems: 'center',
+		height: screen.height,
+		width: screen.width,
+	},
+	scrollView: {
+		backgroundColor: '#d0d0d0',
+	},
+});
 
 export default function LeaguesScreen({ navigation }) {
 	return (
@@ -54,18 +67,3 @@ export default function LeaguesScreen({ navigation }) {
 		</SafeAreaView>
 	);
 }
-
-
-const screen = Dimensions.get('screen');
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#d0d0d0',
-		alignItems: 'center',
-		height: screen.height,
-		width: screen.width,
-	},
-	scrollView: {
-		backgroundColor: '#d0d0d0',
-	},
-});

@@ -8,7 +8,7 @@
 */
 import BaseCard from '../components/card';
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import getmessages from '../api/messages';
 import getbriefs from '../api/briefs';
@@ -22,22 +22,6 @@ const styles = StyleSheet.create({
 		textAlign: 'left',
 	},
 });
-
-// const messages = getmessages();
-// const briefs = getbriefs().then(data => {
-// 	console.log(data);
-// });
-
-// function render(cards){
-// 	if(cards != null){
-// 		return (
-// 			<View>
-// 				{cards}
-// 			</View>
-// 		);
-// 	}
-// 	return null;
-// }
 
 export default class HomeScreen extends React.Component{
 	constructor(){
@@ -85,7 +69,7 @@ export default class HomeScreen extends React.Component{
 	}
 
 	render(){
-		const {navigation} = this.props;
+		const { navigation } = this.props;
 		return (
 			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
 				<View style={styles.container}>
@@ -93,19 +77,6 @@ export default class HomeScreen extends React.Component{
 					<ScrollView>
 						{this.put(this.state.messages['_j'])}
 						{this.put(this.state.briefs['_j'])}
-						{/* <Text>Body Text</Text> */}
-						{/* {Array.from({ length: 50 }).map((_, i) => (
-							<Text key={i}>
-                            Render stuff here {i + 1}
-							</Text>
-						))} */}
-						{/* <BaseCard 
-							navigation={navigation}
-							name={'Leagues Page'}
-							body={'Click to view the Leagues Page'}
-							bgcolor={'#ff00ff'}
-							where={'LeaguesScreen'}
-						/> */}
 					</ScrollView>
 					<StatusBar style="auto" />
 				</View>
@@ -113,31 +84,3 @@ export default class HomeScreen extends React.Component{
 		);
 	}
 }
-
-// export default function HomeScreen({ navigation }){
-//     return(
-//         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
-//         <View style={styles.container}>
-//             {/* Put things that should be rendered into the ScrolLView element */}
-//             <ScrollView>
-//                 {render(messages['_j'])}
-//                 {render(briefs['_j'])}
-//                 <Text>Body Text</Text>
-//                 {Array.from({ length: 50 }).map((_, i) => (
-//                     <Text key={i}>
-//                     Render stuff here {i + 1}
-//                     </Text>
-//                 ))}
-//                 <BaseCard 
-//                     navigation={navigation}
-//                     name={'Formula 1'}
-//                     body={'Click to view the Formula 1 League Page'}
-//                     bgcolor={'#ff00ff'}
-//                     where={'LeaguesScreen'}
-//                 />
-//             </ScrollView>
-//             <StatusBar style="auto" />
-//         </View>
-//     </SafeAreaView>
-//     );
-// }

@@ -4,12 +4,60 @@
  * 10/27/2023
  *
  */
-import {React, useState} from "react";
-import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView, Pressable} from "react-native";
-import { Button } from "react-native-paper";
+import {React, useState} from 'react';
+import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView, Pressable} from 'react-native';
+import { Button } from 'react-native-paper';
+
+const screen = Dimensions.get('screen');
+const styles = StyleSheet.create({
+    container:{
+        width: screen.width,
+        margin: 20,
+    },
+	cell:{
+        flex: 1,
+        padding: 10,
+        borderWidth: .25,
+        borderColor: '#777',
+        color: '#000',
+        justifyContent: 'center',
+	},
+    cellText:{
+        fontSize: 12,
+        color: '#575757',
+    },
+    heading:{
+        fontSize: 32,
+        fontWeight: 'bold',
+    },
+    managerButton:{
+        flex: 1,
+        backgroundColor: '#dfdfdf',
+        borderRadius: 0,
+        padding: 10,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: '#575757',
+    },
+    managerButtonActive:{
+        flex: 1,
+        backgroundColor: '#efefef',
+        padding: 10,
+        borderRadius: 0,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: '#575757',
+        shadowColor: 'black',
+        shadowRadius: 20,
+        shadowOpacity: .5,
+        shadowOffset: {width:0, height:0},
+        zIndex: 2,
+    }
+});
 
 /*
- * Takes multiple Tables as children and adds functionality for switching between each table. Each table requires a defined key.
+ * Takes multiple Tables as children and adds functionality for switching between each table. 
+    Each table requires a defined key.
  *  props:
  *      children: a list of children props
  *      headings: names for the buttons used to select between each table
@@ -18,8 +66,11 @@ import { Button } from "react-native-paper";
 
 export function TableManager({children, headings}){
     
-    let [CurrentTable, setCurrentTable] = useState(0);
-    const tableSwitch = headings.map((heading, index) => <Pressable key={index} style={CurrentTable === index ? styles.managerButtonActive : styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}><Text>{heading}</Text></Pressable>);
+    const [CurrentTable, setCurrentTable] = useState(0);
+    const tableSwitch = headings.map((heading, index) => 
+        <Pressable key={index} style={CurrentTable === index ? styles.managerButtonActive : 
+            styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}><Text>{heading}</Text>
+            </Pressable>);
 
     return(
         <SafeAreaView style={[styles.container, {margin: 0}]}>
@@ -80,50 +131,3 @@ function Cell(props){
         </View>
     );
 }
-
-const screen = Dimensions.get('screen');
-const styles = StyleSheet.create({
-    container:{
-        width: screen.width,
-        margin: 20,
-    },
-	cell:{
-        flex: 1,
-        padding: 10,
-        borderWidth: .25,
-        borderColor: '#777',
-        color: '#000',
-        justifyContent: "center",
-	},
-    cellText:{
-        fontSize: 12,
-        color: '#575757',
-    },
-    heading:{
-        fontSize: 32,
-        fontWeight: 'bold',
-    },
-    managerButton:{
-        flex: 1,
-        backgroundColor: '#dfdfdf',
-        borderRadius: 0,
-        padding: 10,
-        justifyContent: 'center',
-        alignContent: 'center',
-        color: '#575757',
-    },
-    managerButtonActive:{
-        flex: 1,
-        backgroundColor: '#efefef',
-        padding: 10,
-        borderRadius: 0,
-        justifyContent: 'center',
-        alignContent: 'center',
-        color: '#575757',
-        shadowColor: 'black',
-        shadowRadius: 20,
-        shadowOpacity: .5,
-        shadowOffset: {width:0, height:0},
-        zIndex: 2,
-    }
-});

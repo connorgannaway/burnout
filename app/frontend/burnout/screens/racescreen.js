@@ -102,8 +102,12 @@ export default class RaceScreen extends React.Component {
 				<Text style={styles.sectionTitle}>Results</Text>
 				<View style={styles.table}>
 					<View style={styles.tableRow}>
-						<View style={styles.tableCell}><Text style={[styles.tableText, styles.tableHeaderText]}>Driver</Text></View>
-						<View style={styles.tableCell}><Text style={[styles.tableText, styles.tableHeaderText]}>Score</Text></View>
+						<View style={styles.tableCell}>
+                            <Text style={[styles.tableText, styles.tableHeaderText]}>Driver</Text>
+                        </View>
+						<View style={styles.tableCell}>
+                            <Text style={[styles.tableText, styles.tableHeaderText]}>Score</Text>
+                        </View>
 					</View>
 					{drivers.map((driver) => (
 						<View key={driver.name} style={styles.tableRow}>

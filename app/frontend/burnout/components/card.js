@@ -8,8 +8,8 @@
     The color being magenta is not a bug.
 */
 import * as React from 'react';
-import { Card, Button } from 'react-native-paper';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Card } from 'react-native-paper';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 
 const screen = Dimensions.get('screen');
@@ -48,7 +48,9 @@ export default class BaseCard extends React.Component{
 			<View style={styles.cardStyle}>
 				<Card 
 					style={[styles.container, {backgroundColor: bgcolor}]} 
-					onPress={() => navigation != null ? navigation.navigate(JSON.stringify(where).substring(1, where.length+1), {newTitle: title, id: id}) : alert(message)}>
+					onPress={() => navigation != null ? 
+                    navigation.navigate(JSON.stringify(where).substring(1, where.length+1), 
+                    {newTitle: title, id: id}) : alert(message)}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 
@@ -59,19 +61,6 @@ export default class BaseCard extends React.Component{
 					<Card.Content style={styles.title}>
 						<Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>
 					</Card.Content>
-					{/* Currently this is not needed but keeping it in case
-                    it is needed later */}
-					{/* <Card.Actions justifyContent='center'>
-                    <Button 
-                        onPress={() => alert("You don't wanna do that")}>
-                    Cancel</Button>
-                    <Button 
-                        onPress={() => console.log('I\'M PRESSED FRFR')}>
-                    Ok</Button>
-                    <Button 
-                        onPress={this.GoHere}>
-                    Kill react</Button>
-                </Card.Actions> */}
 				</Card>
 			</View>
 		);

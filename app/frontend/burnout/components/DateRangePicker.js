@@ -2,7 +2,7 @@
     daterangepicker.js
     Peyton Davis 
     10/27/2023
-    comment here pls
+    Calendar is one day off, please fix, we also only need one day, not a range
 */
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';

@@ -9,10 +9,18 @@ import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';
 import { Table, TableManager } from '../components/table';
-import BottomBar from '../components/bottombar';
-import Topbar from '../components/topbar';
 import StandingsCard, { standingsCard } from '../components/standingscard';
 
+const screen = Dimensions.get('screen');
+const styles = StyleSheet.create({
+	container:{
+		flex: 1,
+		height: screen.height-250,
+		width: screen.width,
+		backgroundColor: '#efefef',
+		alignItems: 'center',
+	},
+});
 
 /*
  * LeagueMasterScreen component builds a screen that displays information about the league
@@ -29,14 +37,16 @@ export default class LeagueMasterScreen extends React.Component{
 	}
 
 	render() {
-		const {navigation} = this.props;
+		const { navigation } = this.props;
 		const DATA = [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4];
 		/*TODO: swap test data with an API call to retrieve real data*/
 		
-		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'RaceScreen'}];
+		const raceRecap = [{name: 'Last Race', body:'1. Max Verstappen\n\
+                            2. Lightning McQueen\n3. Spider-Man', bgcolor: '#ff1801', where:'RaceScreen'}];
 		const raceRecapCard = buildCardsFromData(navigation, raceRecap);
 
-		const schedule = [{name: 'Schedule', body:'10/8     Next Race\n10/15   Nexter Race\n10/22   Nextest Race', bgcolor: '#ff1801', where:'TestScreen'}];
+		const schedule = [{name: 'Schedule', body:'10/8     Next Race\n\
+                            10/15   Nexter Race\n10/22   Nextest Race', bgcolor: '#ff1801', where:'TestScreen'}];
 		const scheduleCard = buildCardsFromData(navigation, schedule);
 		
 		const standingsData = [
@@ -46,14 +56,15 @@ export default class LeagueMasterScreen extends React.Component{
 			{ position: 4, name: 'Driver 4', team: 'Team D', points: 75 },
 			{ position: 5, name: 'Driver 5', team: 'Team E', points: 70 },
 			// Add data for all teams
-		  ];
+		];
 
-		// const teams = [{name: 'Teams', body: 'Click to view individual team page', bgcolor: '#ff1801', where: 'TeamMasterScreen'}];
+		// const teams = [{name: 'Teams', body: 'Click to view individual team page',
+        //                     bgcolor: '#ff1801', where: 'TeamMasterScreen'}];
 		// const teamscard = buildCardsFromData(navigation, teams);
 
 		return(
 			<View style={styles.container}>
-				<TableManager headings = {["first", "second","third"]}>
+				<TableManager headings = {['first', 'second','third']}>
 					<Table
 						key={1}
 						data={DATA}
@@ -94,14 +105,3 @@ export default class LeagueMasterScreen extends React.Component{
 		);
 	}
 }
-
-const screen = Dimensions.get('screen');
-const styles = StyleSheet.create({
-	container:{
-		flex: 1,
-		height: screen.height-250,
-		width: screen.width,
-		backgroundColor: '#efefef',
-		alignItems: 'center',
-	},
-});

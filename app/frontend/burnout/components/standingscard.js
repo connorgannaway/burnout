@@ -2,34 +2,11 @@
     standingscard.js
     Cody Allen
     10/27/2023
-    comment here pls
+    Make this a function using function instead of the = () => syntax
 */
 import * as React from 'react';
 import { Card, Title } from 'react-native-paper';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
-
-
-const StandingsCard = ({ data }) => (
-	<Card style={styles.container}>
-		<Card.Content>
-			<Title style={styles.title}>Standings</Title>
-		</Card.Content>
-		<Card.Content style={styles.content}>
-			<View style={styles.rowsContainer}>
-				{data.map((driver, index) => (
-					<View key={index} style={styles.row}>
-						<View style={styles.leftTextContainer}>
-							<Text style={styles.leftText}>{driver.position}. {driver.name}</Text>
-						</View>
-						<View style={styles.rightTextContainer}>
-							<Text style={styles.rightText}>Points: {driver.points}</Text>
-						</View>
-					</View>
-				))}
-			</View>
-		</Card.Content>
-	</Card>
-);
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -72,5 +49,28 @@ const styles = StyleSheet.create({
 		color: 'white',
 	},
 });
+
+
+const StandingsCard = ({ data }) => (
+	<Card style={styles.container}>
+		<Card.Content>
+			<Title style={styles.title}>Standings</Title>
+		</Card.Content>
+		<Card.Content style={styles.content}>
+			<View style={styles.rowsContainer}>
+				{data.map((driver, index) => (
+					<View key={index} style={styles.row}>
+						<View style={styles.leftTextContainer}>
+							<Text style={styles.leftText}>{driver.position}. {driver.name}</Text>
+						</View>
+						<View style={styles.rightTextContainer}>
+							<Text style={styles.rightText}>Points: {driver.points}</Text>
+						</View>
+					</View>
+				))}
+			</View>
+		</Card.Content>
+	</Card>
+);
 
 export default StandingsCard;

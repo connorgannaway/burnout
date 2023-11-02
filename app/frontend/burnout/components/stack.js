@@ -15,8 +15,7 @@ import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
 import TeamMasterScreen from '../screens/teammasterscreen';
 import RaceScreen from '../screens/racescreen';
-import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image, Modal, Text } from 'react-native';
-import Topbar from './topbar';
+import { StyleSheet, View, SafeAreaView, Modal, Text } from 'react-native';
 import DateRangePicker from './DateRangePicker';
 import SearchBar from './SearchBar';
 
@@ -36,7 +35,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-const ScreenOptions = ( isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected ) => ({
+const ScreenOptions = ( isPickerVisible, setIsPickerVisible, 
+    isSearchBarVisible, setIsSearchBarVisible, onRangeSelected ) => ({
 	headerBackTitleVisible: false,
 	headerTitleAlign: 'center',
 	headerTintColor: '#fff',
@@ -83,7 +83,7 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible, isSearchBarVisible,
 	),
 });
 
-function LeagueStack({navigation}){
+function LeagueStack({ navigation }){
 	const [isPickerVisible, setIsPickerVisible] = useState(false);
 	// const [searchTerm, setSearchTerm] = useState('');
 	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
@@ -106,7 +106,8 @@ function LeagueStack({navigation}){
 	return (
 		<Stack.Navigator 
 			initialRouteName='LeaguesScreen'
-			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, 
+                isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
 		> 
 			<Stack.Screen
 				name='LeaguesScreen'
@@ -199,7 +200,7 @@ function LeagueStack({navigation}){
 
 export {LeagueStack};
 
-function HomeStack({navigation}){
+function HomeStack({ navigation }){
 	const [isPickerVisible, setIsPickerVisible] = useState(false);
 	// const [searchTerm, setSearchTerm] = useState('');
 	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
@@ -222,7 +223,8 @@ function HomeStack({navigation}){
 	return (
 		<Stack.Navigator 
 			initialRouteName='HomeScreen'
-			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, 
+                isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
 		>
 			<Stack.Screen
 				name='TestScreen'
