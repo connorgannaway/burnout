@@ -559,6 +559,7 @@ class TeamDetail(APIView):
             except:
                 result = []
 
+
             data["results"].append({
                 "year": year,
                 "position": constructorstandings.position,
@@ -570,6 +571,7 @@ class TeamDetail(APIView):
                     "code": driver.driverId.code,
                     "firstname": driver.driverId.firstname,
                     "surname": driver.driverId.surname,
+                    "position": DriverStandings.objects.get(raceId=raceid, driverId=driver.driverId.driverId).position
                 } for driver in result]
             })
 
