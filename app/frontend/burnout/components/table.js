@@ -22,14 +22,14 @@ export function TableManager({children, headings}){
                                                                     ><Text>{heading}</Text></Pressable>);
 
     return(
-        <SafeAreaView style={[styles.container, {margin: 0}]}>
+        <>
             <View style={{flexDirection: 'row'}}>
                 {tableSwitch}
             </View>
-            <View style={{height: Dimensions.get('screen').height/6.5, backgroundColor: '#efefef'}}>
+            <View style={{backgroundColor: '#efefef'}}>
                 {children[CurrentTable]}
             </View>
-        </SafeAreaView>
+        </>
     );
 }
 
@@ -42,6 +42,28 @@ export function TableManager({children, headings}){
  *          navigation: navigation stack
  */
 export function Table(props){
+
+    const data = props.data;
+    const cells = data.map((data, index) => <Cell key={"cell" + index}
+                                                  index={index}
+                                                  navigation={props.navigation}
+                                                  content={data}
+                                                  numColumns={props.numColumns}
+                                                />);
+
+    return(
+        <View style={styles.tableContainer}>
+            {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
+        </View>
+    );
+}
+
+/*
+ *
+ *
+ *
+ */
+export function ScrollTable(props){
 
     const data = props.data;
     const cells = data.map((data, index) => <Cell key={"cell" + index}
@@ -82,6 +104,11 @@ function Cell(props){
     );
 }
 
+/*
+ * Splits a list into specific sized chunks
+ *  list: the list to be chunked
+ *  size: the length of each chunk
+ */ 
 function chunk(list, size){
 
     let chunks = [];
@@ -97,7 +124,7 @@ const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'column',
-		width: screen.width/1.15,
+		width: screen.width,
     },
     tableContainer:{
         flexDirection: 'column',

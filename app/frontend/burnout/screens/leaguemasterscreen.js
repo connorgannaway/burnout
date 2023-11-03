@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
 import BaseCard, { buildCardsFromData } from '../components/card';
-import { Table, TableManager } from '../components/table';
+import { Table, ScrollTable, TableManager } from '../components/table';
 import BottomBar from '../components/bottombar';
 import Topbar from '../components/topbar';
 
@@ -28,7 +28,7 @@ export default class LeagueMasterScreen extends React.Component{
 			<View style={styles.container}>
 				<ScrollView>
 					<TableManager headings = {["first", "second","third","fourth"]}>
-						<Table
+						<ScrollTable
 							key={0}
 							data={DATA}
 							numColumns={1}
