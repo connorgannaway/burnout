@@ -1,12 +1,15 @@
 /*
- * Table.js
+ * table.js
+ * Andrew Lindstrom
+ * 10/27/2023
  *
  */
 import {React, useState} from "react";
 import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView} from "react-native";
 
 /*
- * Takes multiple Tables as children and adds functionality for switching between each table. Each table requires a defined key.
+ * Takes multiple Tables as children and adds functionality for switching between each table. 
+    Each table requires a defined key.
  *  props:
  *      children: a list of children props
  *      headings: names for the buttons used to select between each table
@@ -15,6 +18,11 @@ import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView
 
 export function TableManager({children, headings}){
     
+    const [CurrentTable, setCurrentTable] = useState(0);
+    const tableSwitch = headings.map((heading, index) => 
+        <Pressable key={index} style={CurrentTable === index ? styles.managerButtonActive : 
+            styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}><Text>{heading}</Text>
+            </Pressable>);
     let [CurrentTable, setCurrentTable] = useState(0);
     const tableSwitch = headings.map((heading, index) => <Pressable key={index}
                                                                     style={CurrentTable === index ? styles.managerButtonActive : styles.managerButton}

@@ -19,3 +19,18 @@ class MessageSerializer(serializers.ModelSerializer):
             "created_at": {"required": False},
             "updated_at": {"required": False},
         }
+
+
+class DisciplineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disciplines
+        fields = [
+            'disciplineId',
+            'name'
+        ]
+
+        
+class DriversSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Drivers
+        fields = '__all__'

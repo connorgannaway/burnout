@@ -1,4 +1,8 @@
 #!/bin/bash
+# lint.sh
+# Caleb Kornegay
+# 10/27/2023
+# Linting script to be used for development
 if [ -f "./errors.txt" ]; then
     echo -n "Would you like me to delete errors.txt (y|n)? "
     read yn

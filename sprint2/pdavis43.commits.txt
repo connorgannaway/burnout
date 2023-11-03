@@ -1,0 +1,161 @@
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400  7) import React, { useState } from 'react';
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400  8) import { View, StyleSheet } from 'react-native';
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400  9) import { Calendar } from 'react-native-calendars';
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 10)
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 11) const styles = StyleSheet.create({
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 12)     calendarContainer: {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 13)         padding: 100,
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 14)         paddingBottom: 50,
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 15)     },
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 16) });
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 17)
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 18) const DateRangePicker = ({ onRangeSelected }) => {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 19)     const [startDate, setStartDate] = useState(null);
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 20)     const [endDate, setEndDate] = useState(null);
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 21)
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 22)     const onDayPress = (day) => {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 23)         if (!startDate || (startDate && endDate)) {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 24)             setStartDate(day.dateString);
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 25)             setEndDate(null);
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 26)         } else if (!endDate) {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 27)         setEndDate(day.dateString);
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 28)         onRangeSelected(new Date(startDate), new Date(day.dateString));
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 29)         }
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 30)     };
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 31)
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 32)     return (
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 33)         <View>
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 34)             <Calendar
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 35)                 onDayPress={onDayPress}
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 36)                 markingType='period'
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 37)                 markedDates={{
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 38)                     [startDate]: {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 39)                         startingDay: true,
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 40)                         color: 'red',
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 41)                         textColor: 'white'
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 42)                     },
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 43)                     [endDate]: {
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 44)                         endingDay: true,
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 45)                         color: 'red',
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 46)                         textColor: 'white'
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 47)                     }
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 48)                 }}
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 49)             />
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 50)         </View>
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 51)     );
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 52) };
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 53)
+1a92c85e (Peyton Davis   2023-10-26 19:33:32 -0400 54) export default DateRangePicker;
+
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  1) import React, { useState } from 'react';
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  2) import { TextInput, View, StyleSheet } from 'react-native';
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  3)
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  4) const SearchBar = ({ onSearch }) => {
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  5)   const [term, setTerm] = useState('');
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  6)
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  7)   const handleInputChange = (newTerm) => {
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  8)     setTerm(newTerm);
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400  9)   };
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 10)
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 11)   const handleSubmitEditing = () => {
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 12)     onSearch(term);
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 13)   };
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 14)
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 15)   return (
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 16)     <View style={styles.container}>
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 17)       <TextInput
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 18)         style={styles.input}
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 19)         value={term}
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 20)         onChangeText={handleInputChange}
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 21)         placeholder="Search..."
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 22)         onSubmitEditing={handleSubmitEditing}
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 23)       />
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 24)     </View>
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 25)   );
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 26) };
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 27)
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 28) const styles = StyleSheet.create({
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 29)   container: {
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 30)     width: '100%',
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 31)     marginBottom: 10
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 32)   },
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 33)   input: {
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 34)     height: 40,
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 35)     borderWidth: 1,
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 36)     borderRadius: 8,
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 37)     paddingLeft: 10,
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 38)     borderColor: '#ddd'
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 39)   }
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 40) });
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 41)
+4ad76d39 (Peyton Davis 2023-10-26 20:20:41 -0400 42) export default SearchBar;
+
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400   8) import React, { useState } from 'react';
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  18) import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image, Modal, Text } from 'react-native';
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  20) import DateRangePicker from './DateRangePicker';
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  21) import SearchBar from './SearchBar';
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  25)
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  34) const ScreenOptions = ( isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected ) => ({
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  41)       headerTitle: () => (
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  42)               isSearchBarVisible
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  43)                       ? <SearchBar onSearch={(term) => console.log(term)} />
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  44)                       // set search bar title in text component
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  45)                       : <Text style={{color: 'white'}}>PLACEMENT TITLE</Text>
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  46)       ),
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  55)                                       onPress={() => setIsSearchBarVisible(!isSearchBarVisible)}
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  56)                               />
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  62)                                       onPress={() => setIsPickerVisible(true)}
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  63)                               />
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  65)                       {isPickerVisible && (
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  66)                               <Modal
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  67)                                       animationType="slide"
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  68)                                       transparent={true}
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  69)                                       visible={isPickerVisible}
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  70)                                       onRequestClose={() => {
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  71)                                               setIsPickerVisible(false);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  72)                                       }}
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  73)                               >
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  74)                                       <DateRangePicker onRangeSelected={onRangeSelected} />
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  75)                               </Modal>
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  76)                       )}
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  79) });
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  82)       const [isPickerVisible, setIsPickerVisible] = useState(false);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  83)       // const [searchTerm, setSearchTerm] = useState('');
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  84)       const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  85)
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  86)       const onRangeSelected = (startDate, endDate) => {
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  87)               setIsPickerVisible(false);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  88)
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  89)               const formattedStartDate = startDate.toLocaleDateString();
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  90)               const formattedEndDate = endDate.toLocaleDateString();
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  91)
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  92)               alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  93)               console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  94)       };
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400  95)
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  96)       const handleSearch = (term) => {
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  97)               setSearchTerm(term);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  98)               console.log('Searching for: ' + term);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400  99)       };
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 100)
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 104)                       screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 160)       const [isPickerVisible, setIsPickerVisible] = useState(false);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 161)       // const [searchTerm, setSearchTerm] = useState('');
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 162)       const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 163)
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 164)       const onRangeSelected = (startDate, endDate) => {
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 165)               setIsPickerVisible(false);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 166)
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 167)               const formattedStartDate = startDate.toLocaleDateString();
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 168)               const formattedEndDate = endDate.toLocaleDateString();
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 169)
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 170)               alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 171)               console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 172)       };
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 173)
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 174)       const handleSearch = (term) => {
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 175)               setSearchTerm(term);
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 176)               console.log('Searching for: ' + term);
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 177)       };
+1a92c85e (Peyton Davis     2023-10-26 19:33:32 -0400 178)
+4ad76d39 (Peyton Davis     2023-10-26 20:20:41 -0400 182)                       screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}

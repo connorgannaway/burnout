@@ -23,12 +23,11 @@
     },
     "rules": {
         "indent": [
-            "error",
-            "tab"
+            "off",
+            4
         ],
         "linebreak-style": [
-            "error",
-            "windows"
+            "off"
         ],
         "quotes": [
             "error",
@@ -113,7 +112,7 @@
         "max-len": [
             "error", 
             { 
-                "code": 80, 
+                "code": 120, 
                 "tabWidth": 4 
             }
         ]

@@ -1,5 +1,12 @@
+/*
+    bottombar.js
+    Nick Lindsey
+    10/27/2023
+    deprecated
+*/
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+
 
 const styles = StyleSheet.create({
 	container: {
@@ -29,7 +36,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function BottomBar({navigation}) {
+export default function BottomBar({ navigation }) {
 	const [selected, setSelected] = useState(0);
 	const buttons = ['Home', 'Leagues', 'Race', 'Stuff'];
 	const pages = ['HomeScreen', 'LeaguesScreen', 'TestScreen', 'TestScreen'];

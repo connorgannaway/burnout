@@ -1,23 +1,26 @@
-import { V1NEARESTRACESJSON } from "./urls";
-
-export default async function getnearestraces(){
-    const ret = await getdata();
-    return ret;
-}
+/*
+    nearestraces.js
+    Caleb Kornegay
+    10/27/2023
+    Fetches the nearest races array from /v1/nearest/
+*/
+import { V1NEARESTRACESJSON } from './urls';
 
 async function getdata(){
-    const response = await fetch(V1NEARESTRACESJSON)
-    .catch(error => {
-        console.warn(error);
-    }).then(async response => {
-        const races = await response.json();
-        return races;
-    }).catch(error => {
-        console.warn(error);
-    }).then(races => {
-        return JSON.parse(JSON.stringify(races));
-    }).catch(error => {
-        console.warn(error);
-    })
-    return response;
+    return fetch(V1NEARESTRACESJSON)
+        .catch(error => {
+            console.warn(error);
+        }).then(response => {
+            return response.json();
+        }).catch(error => {
+            console.warn(error);
+        }).then(races => {
+            return JSON.parse(JSON.stringify(races));
+        }).catch(error => {
+            console.warn(error);
+        });
+}
+
+export default async function getnearestraces(){
+	return getdata();
 }

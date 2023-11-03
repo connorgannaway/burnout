@@ -1,4 +1,11 @@
-import React from 'react';
+/*
+    stack.js
+    Caleb Kornegay
+    Aaron King
+    10/27/2023
+    Provides a stack navigator for the different tabs to be nested.
+*/
+import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TestScreen from '../screens/testscreen';
 import LeaguesScreen from '../screens/leaguesscreen';
@@ -6,19 +13,30 @@ import HomeScreen from '../screens/homescreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
-import { Button, StyleSheet, View, TouchableOpacity, MaterialIcons, SafeAreaView, Image } from 'react-native';
-import Topbar from './topbar';
+import TeamMasterScreen from '../screens/teammasterscreen';
+import RaceScreen from '../screens/racescreen';
+import { StyleSheet, View, SafeAreaView, Modal, Text, TouchableOpacity } from 'react-native';
+import DateRangePicker from './DateRangePicker';
+import SearchBar from './SearchBar';
+
 
 const Stack = createNativeStackNavigator();
+
 const styles = StyleSheet.create({
 	iconContainer: {
 		flexDirection: 'row',
 		width: 60,
 		justifyContent: 'space-between',
 	},
+	headerText: {
+		color: 'white',
+		fontWeight: '500', 
+		fontSize: 20,
+	},
 });
 
-const ScreenOptions = {
+const ScreenOptions = ( isPickerVisible, setIsPickerVisible, 
+    isSearchBarVisible, setIsSearchBarVisible, onDateSelected ) => ({
 	headerBackTitleVisible: false,
 	headerTitleAlign: 'center',
 	headerTintColor: '#fff',
@@ -33,47 +51,154 @@ const ScreenOptions = {
 					color={'black'} 
 					size={25} 
 					style={{paddingLeft: 20}}
-					onPress={() => 
-					{alert('This has not been implemented yet');}}/>
+					onPress={() => setIsSearchBarVisible(!isSearchBarVisible)}
+				/>
 				<MaterialCommunityIcons 
 					name='calendar-today' 
 					color={'black'}
 					style={{paddingLeft: 20}}
 					size={25} 
-					onPress={() => 
-					{alert('This has not been implemented yet');}}/>
+					onPress={() => setIsPickerVisible(true)}
+				/>
 			</View>
+			{isPickerVisible && (
+				<Modal
+					animationType="slide"
+					transparent={true}
+					visible={isPickerVisible}
+					onRequestClose={() => {
+						setIsPickerVisible(false);
+					}}
+				>
+					{/* Add an overlay to detect taps outside the DateRangePicker */}
+					<TouchableOpacity
+						style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+						activeOpacity={1}
+						onPressOut={() => {
+							setIsPickerVisible(false);
+						}}
+					>
+						<View>
+							{/* Pass the onDateSelected handler instead of onRangeSelected */}
+							<DateRangePicker onDateSelected={onDateSelected} />
+						</View>
+					</TouchableOpacity>
+				</Modal>
+			)}
 		</SafeAreaView>
 	),
-};
+});
 
-function LeagueStack({navigation}){
+function LeagueStack({ navigation }){
+	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	const [selectedDate, setSelectedDate] = useState(null);
+	// const [searchTerm, setSearchTerm] = useState('');
+	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+
+	const onDateSelected = (date) => {
+		setIsPickerVisible(false);
+		setSelectedDate(date);
+
+		const formattedDate = new Date(date).toLocaleDateString();
+		alert('Selected Date: ' + formattedDate);
+		console.log('Selected Date: ' + formattedDate);
+
+	};
+
+	const handleSearch = (term) => {
+		setSearchTerm(term);
+		console.log('Searching for: ' + term);
+	};
+
 	return (
 		<Stack.Navigator 
 			initialRouteName='LeaguesScreen'
-			screenOptions={ScreenOptions}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, 
+                isSearchBarVisible, setIsSearchBarVisible, onDateSelected)}
 		> 
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
 				options={{
-					title: 'Leagues Page',
+					headerTitle: () => (
+						isSearchBarVisible
+							? <SearchBar onSearch={(term) => console.log(term)} />
+							: <Text style={styles.headerText}>Leagues Page</Text>
+					),
+					
 				}}
 			></Stack.Screen>
 			<Stack.Screen
 				name='TestScreen'
 				component={TestScreen}
-				options={{
-					title: 'Testing Page',
-				}}
-			>
-			</Stack.Screen>
+				initialParams={{newTitle: 'Testing Page'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
-				options={{
-					title: 'League Master Screen',
-				}}
+				initialParams={{newTitle: 'League Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			></Stack.Screen>
+			<Stack.Screen
+				name='TeamMasterScreen'
+				component={TeamMasterScreen}
+				initialParams={{newTitle: 'Team Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			></Stack.Screen>
+			<Stack.Screen
+				name='DriverMasterScreen'
+				component={DriverMasterScreen}
+				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			></Stack.Screen>
+			<Stack.Screen
+				name='RaceScreen'
+				component={RaceScreen}
+				// options={{
+				// 	title: 'RaceScreen',
+				// }}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
 			>
 			</Stack.Screen>
 		</Stack.Navigator>
@@ -82,50 +207,126 @@ function LeagueStack({navigation}){
 
 export {LeagueStack};
 
-function HomeStack({navigation}){
+function HomeStack({ navigation }){
+	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	const [selectedDate, setSelectedDate] = useState(null);
+	// const [searchTerm, setSearchTerm] = useState('');
+	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+
+	const onDateSelected = (date) => {
+		setIsPickerVisible(false);
+		setSelectedDate(date);
+
+		const formattedDate = new Date(date).toLocaleDateString();
+        alert('Selected Date: ' + formattedDate);
+        console.log('Selected Date: ' + formattedDate);
+	};
+
+	const handleSearch = (term) => {
+		setSearchTerm(term);
+		console.log('Searching for: ' + term);
+	};
+
 	return (
 		<Stack.Navigator 
 			initialRouteName='HomeScreen'
-			screenOptions={ScreenOptions}
+			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, 
+                isSearchBarVisible, setIsSearchBarVisible, onDateSelected)}
 		>
 			<Stack.Screen
 				name='TestScreen'
 				component={TestScreen}
-				options={{
-					title: 'Testing Page',
-				}}
+				initialParams={{newTitle: 'Testing Page'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeaguesScreen'
 				component={LeaguesScreen}
 				options={{
-					title: 'Leagues Page',
+					headerTitle: () => (
+						isSearchBarVisible
+							? <SearchBar onSearch={(term) => console.log(term)} />
+							: <Text style={styles.headerText}>Leagues Page</Text>
+					),
+					
 				}}
 			></Stack.Screen>
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
 				options={{
-					title: 'Home Page',
-					// headerTitle: () => (
-					//     <SafeAreaView>
-					//         <Image 
-					//         style={{width: 75, height: 75, resizeMode: 'contain',}}
-					//         source={require('../images/mustangburnout.jpg')}/>
-					//     <Text>Burnout!!</Text>
-					//     </SafeAreaView>
-					// ),
-
+					headerTitle: () => (
+						isSearchBarVisible
+							? <SearchBar onSearch={(term) => console.log(term)} />
+							: <Text style={styles.headerText}>Home</Text>
+					),
+					
 				}}
+				// options={{
+				// 	title: 'Home Page',
+				// 	// headerTitle: () => (
+				// 	//     <SafeAreaView>
+				// 	//         <Image 
+				// 	//         style={{width: 75, height: 75, resizeMode: 'contain',}}
+				// 	//         source={require('../images/mustangburnout.jpg')}/>
+				// 	//     <Text>Burnout!!</Text>
+				// 	//     </SafeAreaView>
+				// 	// ),
+
+				// }}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
 				component={LeagueMasterScreen}
-				options={{
-					title: 'League Master Screen',
-				}}
+				initialParams={{newTitle: 'League Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
 			>
 			</Stack.Screen>
+			<Stack.Screen
+				name='TeamMasterScreen'
+				component={TeamMasterScreen}
+				initialParams={{newTitle: 'Team Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			>
+			</Stack.Screen>
+			<Stack.Screen
+				name='DriverMasterScreen'
+				component={DriverMasterScreen}
+				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			></Stack.Screen>
 		</Stack.Navigator>
 	);
 }

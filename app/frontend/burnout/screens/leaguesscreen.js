@@ -1,50 +1,13 @@
+/*
+    leaguesscreen.js
+    idk who
+    10/27/2023
+    Create cards to be clickable to actually get to the specified league
+*/
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import BaseCard from '../components/card';
-
-
-export default function LeaguesScreen({ navigation }) {
-	return (
-		<SafeAreaView style={styles.container}>
-			<ScrollView style={styles.scrollView} >
-				{/* This is where the cards for the leagues will go
-            currently we have cards for Formula 1, NASCAR, 
-            MotoGP and IndyCar */}
-				<BaseCard 
-					navigation={navigation}
-					name={'Formula 1'}
-					body={'Click to view the Formula 1 League Page'}
-					bgcolor={'#ff1801'}
-					where={'LeagueMasterScreen'}
-				/>
-				<BaseCard 
-					navigation={navigation} 
-					name={'NASCAR'}
-					body={'Click to view the NASCAR League Page'}
-					bgcolor={'#e4002b'}
-					where={'LeagueMasterScreen'}
-				/>
-				<BaseCard 
-					navigation={navigation} 
-					name={'MotoGP'}
-					body={'Click to view the MotoGP League Page'}
-					bgcolor={'#E0144C'}
-					where={'LeagueMasterScreen'}
-				/>
-				<BaseCard 
-					navigation={navigation} 
-					name={'IndyCar'}
-					body={'Click to view the IndyCar League Page'}
-					bgcolor={'#b92a30'}
-					where={'LeagueMasterScreen'}
-				/>
-				<StatusBar style="auto" />
-			</ScrollView>
-		</SafeAreaView>
-	);
-}
-
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -59,3 +22,48 @@ const styles = StyleSheet.create({
 		backgroundColor: '#d0d0d0',
 	},
 });
+
+export default function LeaguesScreen({ navigation }) {
+	return (
+		<SafeAreaView style={styles.container}>
+			<ScrollView style={styles.scrollView} >
+				{/* This is where the cards for the leagues will go
+            currently we have cards for Formula 1, NASCAR, 
+            MotoGP and IndyCar */}
+				<BaseCard 
+					navigation={navigation}
+					name={'Formula 1'}
+					body={'Click to view the Formula 1 League Page'}
+					bgcolor={'#ff1801'}
+					where={'LeagueMasterScreen'}
+					title={'Formula 1'}
+				/>
+				<BaseCard 
+					navigation={navigation} 
+					name={'NASCAR'}
+					body={'Click to view the NASCAR League Page'}
+					bgcolor={'#e4002b'}
+					where={'LeagueMasterScreen'}
+					title={'NASCAR'}
+				/>
+				<BaseCard 
+					navigation={navigation} 
+					name={'MotoGP'}
+					body={'Click to view the MotoGP League Page'}
+					bgcolor={'#E0144C'}
+					where={'LeagueMasterScreen'}
+					title={'MotoGP'}
+				/>
+				<BaseCard 
+					navigation={navigation} 
+					name={'IndyCar'}
+					body={'Click to view the IndyCar League Page'}
+					bgcolor={'#b92a30'}
+					where={'LeagueMasterScreen'}
+					title={'IndyCar'}
+				/>
+				<StatusBar style="auto" />
+			</ScrollView>
+		</SafeAreaView>
+	);
+}
