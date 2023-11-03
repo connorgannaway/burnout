@@ -30,33 +30,20 @@ export default class HomeScreen extends React.Component{
 			isLoading: true,
 			messages: getmessages(),
 			briefs: getbriefs(),
+            calendarbriefs: null,
 		};
 
 		this.state.briefs
-			.catch(error => {
-				console.warn(error);
-			}).then(() => {
-				this.setState({isLoading: false});
-			}).catch(error => {
-				console.warn(error);
-			});
+        .catch(error => {
+            console.warn(error);
+        }).then(() => {
+            this.setState({isLoading: false});
+        }).catch(error => {
+            console.warn(error);
+        });
 	}
 
 	put(cards){
-		// if(cards != null){
-		//     if(this.state.isLoading){
-		//         let c = [];
-		//         for(let i = 0; i < cards.length/2; i++){
-		//             c.push(cards[i]);
-		//         }
-		//         return(
-		//             <View>
-		//                 {c}
-		//             </View>
-		//         );
-		//     } else return <View>{cards}</View>
-		// }
-		// return null;
 		if(cards == null) return null;
 		return <View>{cards}</View>;
 	}

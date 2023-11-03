@@ -267,21 +267,8 @@ function HomeStack({ navigation }){
 						isSearchBarVisible
 							? <SearchBar onSearch={(term) => console.log(term)} />
 							: <Text style={styles.headerText}>Home</Text>
-					),
-					
+					),	
 				}}
-				// options={{
-				// 	title: 'Home Page',
-				// 	// headerTitle: () => (
-				// 	//     <SafeAreaView>
-				// 	//         <Image 
-				// 	//         style={{width: 75, height: 75, resizeMode: 'contain',}}
-				// 	//         source={require('../images/mustangburnout.jpg')}/>
-				// 	//     <Text>Burnout!!</Text>
-				// 	//     </SafeAreaView>
-				// 	// ),
-
-				// }}
 			></Stack.Screen>
 			<Stack.Screen
 				name='LeagueMasterScreen'
