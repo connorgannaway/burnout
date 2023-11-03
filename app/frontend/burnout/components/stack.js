@@ -15,7 +15,7 @@ import LeagueMasterScreen from '../screens/leaguemasterscreen';
 import DriverMasterScreen from '../screens/drivermasterscreen';
 import TeamMasterScreen from '../screens/teammasterscreen';
 import RaceScreen from '../screens/racescreen';
-import { StyleSheet, View, SafeAreaView, Modal, Text } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Modal, Text, TouchableOpacity } from 'react-native';
 import DateRangePicker from './DateRangePicker';
 import SearchBar from './SearchBar';
 
@@ -36,19 +36,13 @@ const styles = StyleSheet.create({
 });
 
 const ScreenOptions = ( isPickerVisible, setIsPickerVisible, 
-    isSearchBarVisible, setIsSearchBarVisible, onRangeSelected ) => ({
+    isSearchBarVisible, setIsSearchBarVisible, onDateSelected ) => ({
 	headerBackTitleVisible: false,
 	headerTitleAlign: 'center',
 	headerTintColor: '#fff',
 	headerStyle: {
 		backgroundColor: '#ff0000',
 	},
-	// headerTitle: () => (
-	// 	isSearchBarVisible
-	// 		? <SearchBar onSearch={(term) => console.log(term)} />
-	// 		// set search bar title in text component
-	// 		: <Text style={{color: 'white'}}>PLACEMENT TITLE</Text>
-	// ),
 	headerRight: () => (
 		<SafeAreaView>
 			<View style={{flexDirection:'row'}}>
@@ -68,7 +62,7 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible,
 				/>
 			</View>
 			{isPickerVisible && (
-				<Modal 
+				<Modal
 					animationType="slide"
 					transparent={true}
 					visible={isPickerVisible}
@@ -76,7 +70,19 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible,
 						setIsPickerVisible(false);
 					}}
 				>
-					<DateRangePicker onRangeSelected={onRangeSelected} />
+					{/* Add an overlay to detect taps outside the DateRangePicker */}
+					<TouchableOpacity
+						style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+						activeOpacity={1}
+						onPressOut={() => {
+							setIsPickerVisible(false);
+						}}
+					>
+						<View>
+							{/* Pass the onDateSelected handler instead of onRangeSelected */}
+							<DateRangePicker onDateSelected={onDateSelected} />
+						</View>
+					</TouchableOpacity>
 				</Modal>
 			)}
 		</SafeAreaView>
@@ -85,17 +91,18 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible,
 
 function LeagueStack({ navigation }){
 	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	const [selectedDate, setSelectedDate] = useState(null);
 	// const [searchTerm, setSearchTerm] = useState('');
 	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
-	const onRangeSelected = (startDate, endDate) => {
+	const onDateSelected = (date) => {
 		setIsPickerVisible(false);
+		setSelectedDate(date);
 
-		const formattedStartDate = startDate.toLocaleDateString();
-		const formattedEndDate = endDate.toLocaleDateString();
+		const formattedDate = new Date(date).toLocaleDateString();
+		alert('Selected Date: ' + formattedDate);
+		console.log('Selected Date: ' + formattedDate);
 
-		alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
-		console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
 	};
 
 	const handleSearch = (term) => {
@@ -107,7 +114,7 @@ function LeagueStack({ navigation }){
 		<Stack.Navigator 
 			initialRouteName='LeaguesScreen'
 			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, 
-                isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
+                isSearchBarVisible, setIsSearchBarVisible, onDateSelected)}
 		> 
 			<Stack.Screen
 				name='LeaguesScreen'
@@ -202,17 +209,17 @@ export {LeagueStack};
 
 function HomeStack({ navigation }){
 	const [isPickerVisible, setIsPickerVisible] = useState(false);
+	const [selectedDate, setSelectedDate] = useState(null);
 	// const [searchTerm, setSearchTerm] = useState('');
 	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 
-	const onRangeSelected = (startDate, endDate) => {
+	const onDateSelected = (date) => {
 		setIsPickerVisible(false);
+		setSelectedDate(date);
 
-		const formattedStartDate = startDate.toLocaleDateString();
-		const formattedEndDate = endDate.toLocaleDateString();
-
-		alert('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
-		console.log('Start Date: ' + formattedStartDate + '\nEnd Date: ' + formattedEndDate);
+		const formattedDate = new Date(date).toLocaleDateString();
+        alert('Selected Date: ' + formattedDate);
+        console.log('Selected Date: ' + formattedDate);
 	};
 
 	const handleSearch = (term) => {
@@ -224,7 +231,7 @@ function HomeStack({ navigation }){
 		<Stack.Navigator 
 			initialRouteName='HomeScreen'
 			screenOptions={ScreenOptions(isPickerVisible, setIsPickerVisible, 
-                isSearchBarVisible, setIsSearchBarVisible, onRangeSelected)}
+                isSearchBarVisible, setIsSearchBarVisible, onDateSelected)}
 		>
 			<Stack.Screen
 				name='TestScreen'

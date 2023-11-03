@@ -1,11 +1,5 @@
-/*
-    daterangepicker.js
-    Peyton Davis 
-    10/27/2023
-    Calendar is one day off, please fix, we also only need one day, not a range
-*/
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 const styles = StyleSheet.create({
@@ -15,37 +9,45 @@ const styles = StyleSheet.create({
     },
 });
 
-const DateRangePicker = ({ onRangeSelected }) => {
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+const DateRangePicker = ({ onDateSelected }) => {
+    const [selectedDate, setSelectedDate] = useState('');
 
     const onDayPress = (day) => {
-        if (!startDate || (startDate && endDate)) {
-            setStartDate(day.dateString);
-            setEndDate(null);
-        } else if (!endDate) {
-        setEndDate(day.dateString);
-        onRangeSelected(new Date(startDate), new Date(day.dateString));
+
+        const dateWithNoTimezoneIssues = new Date(day.year, day.month - 1, day.day, 12);
+
+        // Set the selected date
+        setSelectedDate(day.dateString);
+
+        // Log to console
+        console.log(day.dateString);
+
+        // Call the provided callback function with the new date
+        if (onDateSelected) {
+            onDateSelected(dateWithNoTimezoneIssues);
         }
     };
 
     return (
-        <View>
+        <View style={styles.calendarContainer}>
             <Calendar
                 onDayPress={onDayPress}
-                markingType='period'
                 markedDates={{
-                    [startDate]: {
-                        startingDay: true,
-                        color: 'red',
-                        textColor: 'white'
+                    [selectedDate]: {
+                        selected: true,
+                        selectedColor: 'red',
+                        textColor: 'white',
                     },
-                    [endDate]: {
-                        endingDay: true,
-                        color: 'red',
-                        textColor: 'white'
-                    }
                 }}
+                theme={{
+                    selectedDayBackgroundColor: 'red',
+                    todayTextColor: 'red',
+                    dotColor: 'red',
+                    arrowColor: 'red',
+                    monthTextColor: 'red',
+                }}
+                // The 'simple' marking type for single day selection
+                markingType='simple'
             />
         </View>
     );
