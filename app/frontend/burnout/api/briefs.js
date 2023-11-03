@@ -58,8 +58,6 @@ async function getdata(ids){
     return Promise.all(ret);
 }
 
-export default async function getbriefs(){
-	return await getdata(await getnearestraces());
+export default async function getbriefs(date){
+	return await getdata(await getnearestraces(date));
 }
-
-
