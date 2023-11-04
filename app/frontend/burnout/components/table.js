@@ -4,60 +4,12 @@
  * 10/27/2023
  *
  */
-import {React, useState} from 'react';
-import { View, FlatList, Text, StyleSheet, Dimensions, SafeAreaView, Pressable} from 'react-native';
-import { Button } from 'react-native-paper';
-
-const screen = Dimensions.get('screen');
-const styles = StyleSheet.create({
-    container:{
-        width: screen.width,
-        margin: 20,
-    },
-	cell:{
-        flex: 1,
-        padding: 10,
-        borderWidth: .25,
-        borderColor: '#777',
-        color: '#000',
-        justifyContent: 'center',
-	},
-    cellText:{
-        fontSize: 12,
-        color: '#575757',
-    },
-    heading:{
-        fontSize: 32,
-        fontWeight: 'bold',
-    },
-    managerButton:{
-        flex: 1,
-        backgroundColor: '#dfdfdf',
-        borderRadius: 0,
-        padding: 10,
-        justifyContent: 'center',
-        alignContent: 'center',
-        color: '#575757',
-    },
-    managerButtonActive:{
-        flex: 1,
-        backgroundColor: '#efefef',
-        padding: 10,
-        borderRadius: 0,
-        justifyContent: 'center',
-        alignContent: 'center',
-        color: '#575757',
-        shadowColor: 'black',
-        shadowRadius: 20,
-        shadowOpacity: .5,
-        shadowOffset: {width:0, height:0},
-        zIndex: 2,
-    }
-});
+import { React, useState } from "react";
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView} from "react-native";
 
 /*
  * Takes multiple Tables as children and adds functionality for switching between each table. 
-    Each table requires a defined key.
+ *  Each table requires a defined key.
  *  props:
  *      children: a list of children props
  *      headings: names for the buttons used to select between each table
@@ -73,11 +25,11 @@ export function TableManager({children, headings}){
             </Pressable>);
 
     return(
-        <SafeAreaView style={[styles.container, {margin: 0}]}>
+        <SafeAreaView style={styles.container}>
             <View style={{flexDirection: 'row'}}>
                 {tableSwitch}
             </View>
-            <View>
+            <View style={{backgroundColor: '#efefef'}}>
                 {children[CurrentTable]}
             </View>
         </SafeAreaView>
@@ -94,17 +46,43 @@ export function TableManager({children, headings}){
  */
 export function Table(props){
 
-    return( 
-        <FlatList
-            data = {props.data}
-            numColumns = {props.numColumns}
-            renderItem = {({item, index}) => <Cell 
-                                                index = {index} 
-                                                navigation = {props.navigation} 
-                                                content = {item} 
-                                                numColumns = {props.numColumns}/>}
-            keyExtractor={(item, index) => index}
-        />
+    const data = props.data;
+    const cells = data.map((data, index) => <Cell key={"cell" + index}
+                                                  index={index}
+                                                  navigation={props.navigation}
+                                                  content={data}
+                                                  numColumns={props.numColumns}
+                                                />);
+
+    return(
+        <View style={styles.container}>
+            {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
+        </View>
+    );
+}
+
+/*
+ *
+ *
+ *
+ */
+export function ScrollTable(data){
+
+    if(data === undefined) {
+        console.warn("prop data is undefined");
+        return null;
+    }
+    const cells = data.map((dat, index) => <Cell key={"cell" + index}
+                                                  index={index}
+                                                  navigation={props.navigation}
+                                                  content={dat}
+                                                  numColumns={props.numColumns}
+                                                />);
+
+    return(
+        <ScrollView style={styles.container}>
+            {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
+        </ScrollView>
     );
 }
 
@@ -118,16 +96,85 @@ export function Table(props){
 function Cell(props){
 
     const colors = ['#efefef','#e2e2e2'];
+    const stdFlex = [1,3,2,1];
 
     return(
         <View style={[styles.cell,
                     {backgroundColor:colors[Math.floor(props.index/props.numColumns)%2],
                     borderLeftWidth: 0,
                     borderRightWidth: 0,
+                    flex: stdFlex[props.index%props.numColumns],
                     }]}>
-            <Text style={styles.cellText}>
+            <Text style={[styles.cellText,{
+                fontWeight: (props.index < props.numColumns) ? '900':'400',
+            }]}>
                 {props.content}
             </Text>
         </View>
     );
 }
+
+/*
+ * Splits a list into specific sized chunks
+ *  list: the list to be chunked
+ *  size: the length of each chunk
+ */ 
+function chunk(list, size){
+
+    let chunks = [];
+
+    for(let i = 0; i < list.length; i+=size){
+        chunks.push(list.slice(i, i+size));
+    }
+
+    return chunks;
+}
+
+const screen = Dimensions.get('screen');
+const styles = StyleSheet.create({
+    container:{
+        flexDirection: 'column',
+		width: screen.width,
+    },
+    tableContainer:{
+        flexDirection: 'column',
+		width: screen.width/1.15,
+    },
+	cell:{
+        padding: 10,
+        borderWidth: .25,
+        borderColor: '#777',
+        color: '#000',
+        justifyContent: "center",
+	},
+    cellText:{
+        fontSize: 12,
+        color: '#575757',
+    },
+    heading:{
+        fontSize: 32,
+        fontWeight: 'bold',
+    },
+    managerButton:{
+        flex: 1,
+        backgroundColor: '#dfdfdf',
+        borderRadius: 0,
+        padding: 10,
+        justifyContent: 'center',
+    },
+    managerButtonActive:{
+        flex: 1,
+        backgroundColor: '#efefef',
+        padding: 10,
+        borderRadius: 0,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: '#575757',
+        textAlign: 'center',
+        shadowColor: 'black',
+        shadowRadius: 20,
+        shadowOpacity: .5,
+        shadowOffset: {width:0, height:0},
+        zIndex: 2,
+    }
+});
