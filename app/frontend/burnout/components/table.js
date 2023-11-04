@@ -4,12 +4,12 @@
  * 10/27/2023
  *
  */
-import {React, useState} from "react";
+import { React, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView} from "react-native";
 
 /*
  * Takes multiple Tables as children and adds functionality for switching between each table. 
-    Each table requires a defined key.
+ *  Each table requires a defined key.
  *  props:
  *      children: a list of children props
  *      headings: names for the buttons used to select between each table
@@ -23,21 +23,16 @@ export function TableManager({children, headings}){
         <Pressable key={index} style={CurrentTable === index ? styles.managerButtonActive : 
             styles.managerButton} title={heading} onPress={()=>{setCurrentTable(index)}}><Text>{heading}</Text>
             </Pressable>);
-    let [CurrentTable, setCurrentTable] = useState(0);
-    const tableSwitch = headings.map((heading, index) => <Pressable key={index}
-                                                                    style={CurrentTable === index ? styles.managerButtonActive : styles.managerButton}
-                                                                    onPress={()=>{setCurrentTable(index)}}
-                                                                    ><Text>{heading}</Text></Pressable>);
 
     return(
-        <>
+        <SafeAreaView style={styles.container}>
             <View style={{flexDirection: 'row'}}>
                 {tableSwitch}
             </View>
             <View style={{backgroundColor: '#efefef'}}>
                 {children[CurrentTable]}
             </View>
-        </>
+        </SafeAreaView>
     );
 }
 
@@ -60,7 +55,7 @@ export function Table(props){
                                                 />);
 
     return(
-        <View style={styles.tableContainer}>
+        <View style={styles.container}>
             {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
         </View>
     );
@@ -71,18 +66,21 @@ export function Table(props){
  *
  *
  */
-export function ScrollTable(props){
+export function ScrollTable(data){
 
-    const data = props.data;
-    const cells = data.map((data, index) => <Cell key={"cell" + index}
+    if(data === undefined) {
+        console.warn("prop data is undefined");
+        return null;
+    }
+    const cells = data.map((dat, index) => <Cell key={"cell" + index}
                                                   index={index}
                                                   navigation={props.navigation}
-                                                  content={data}
+                                                  content={dat}
                                                   numColumns={props.numColumns}
                                                 />);
 
     return(
-        <ScrollView style={styles.tableContainer}>
+        <ScrollView style={styles.container}>
             {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
         </ScrollView>
     );
@@ -98,14 +96,18 @@ export function ScrollTable(props){
 function Cell(props){
 
     const colors = ['#efefef','#e2e2e2'];
+    const stdFlex = [1,3,2,1];
 
     return(
         <View style={[styles.cell,
                     {backgroundColor:colors[Math.floor(props.index/props.numColumns)%2],
                     borderLeftWidth: 0,
                     borderRightWidth: 0,
+                    flex: stdFlex[props.index%props.numColumns],
                     }]}>
-            <Text style={styles.cellText}>
+            <Text style={[styles.cellText,{
+                fontWeight: (props.index < props.numColumns) ? '900':'400',
+            }]}>
                 {props.content}
             </Text>
         </View>
@@ -139,7 +141,6 @@ const styles = StyleSheet.create({
 		width: screen.width/1.15,
     },
 	cell:{
-        flex: 1,
         padding: 10,
         borderWidth: .25,
         borderColor: '#777',
