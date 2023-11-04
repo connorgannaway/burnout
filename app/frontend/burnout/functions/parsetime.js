@@ -6,7 +6,7 @@
     returns a separate hour, minute, and second int
 */
 
-function parseTime(timeString) {
+export function parseTime(timeString) {
     // Splits the time into HH MM SS
     const timeParts = timeString.split(':');
 
