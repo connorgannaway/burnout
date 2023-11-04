@@ -19,12 +19,12 @@ export function timeZoneCalc(timeString) {
     var minute = time.minutes;
     var second = time.seconds;
 
-    hour = (hour + utcOffset + 24) % 24;
+    hour = (hour - utcOffset + 24) % 24; // Subtract offset because offset is actually UTC-local, so the return type is opposite
 
     const formattedHours = hour.toString().padStart(2, '0');
     const formattedMinutes = minute.toString().padStart(2, '0');
     const formattedSeconds = second.toString().padStart(2, '0');
 
-    const returnString = formattedHours+':'+formattedMinutes+':'+formattedSeconds;
+    const returnString = formattedHours+':'+formattedMinutes; // Only returning HH:MM because seconds seem redundant
     return returnString;
 }
