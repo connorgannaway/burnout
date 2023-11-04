@@ -8,7 +8,7 @@
     timeString is HH:MM:SS as a string given from the API
 */
 
-import parseTime from 'parsetime.js'
+import { parseTime}  from '../functions/parsetime.js'
 
 export function timeZoneCalc(timeString) {
     const time = parseTime(timeString);
@@ -21,6 +21,10 @@ export function timeZoneCalc(timeString) {
 
     hour = (hour + utcOffset + 24) % 24;
 
-    const returnString = '$(hour):$(minute):$(second)';
+    const formattedHours = hour.toString().padStart(2, '0');
+    const formattedMinutes = minute.toString().padStart(2, '0');
+    const formattedSeconds = second.toString().padStart(2, '0');
+
+    const returnString = formattedHours+':'+formattedMinutes+':'+formattedSeconds;
     return returnString;
 }
