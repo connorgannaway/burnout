@@ -13,10 +13,7 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 
 export function dateFormat(dateString) {
     const dateParts = dateString.split('-');
-
-    // const year = parseInt(dateParts[0]);
-    const month = parseInt(dateParts[1]);
-    // const day = parseInt(dateParts[2]);
+    const month = parseInt(dateParts[1]) - 1;
 
     const formattedDate = monthNames[month]+' '+dateParts[2]+' '+dateParts[0]+' ';
     return formattedDate
