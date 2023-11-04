@@ -11,6 +11,7 @@ import { BASEURL } from './urls';
 import getnearestraces from './nearestraces';
 import BaseCard from '../components/card';
 import React from 'react';
+import { timeZoneCalc}  from '../functions/timezonecalc';
 
 async function grabcard(id){
     return fetch(BASEURL+'/v1/races/'+id+'/brief/?format=json')
@@ -29,7 +30,7 @@ async function grabcard(id){
                 where={null}
                 name={data['name']}
                 subName={data['track']}
-                body={data['time']+' '+data['date']+' '+data['rstatus']}
+                body={timeZoneCalc(data['time'])+' '+data['date']+' '+data['rstatus']}
                 bgcolor={'#ff0000'}
                 key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
                 message={'This is a race brief'}
