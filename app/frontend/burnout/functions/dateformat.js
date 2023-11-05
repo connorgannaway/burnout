@@ -9,12 +9,12 @@
     Ex 2023-11-04 will be 'Nov 4 2023'
 */
 
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export function dateFormat(dateString) {
     const dateParts = dateString.split('-');
     const month = parseInt(dateParts[1]) - 1;
 
     const formattedDate = monthNames[month]+' '+dateParts[2]+' '+dateParts[0]+' ';
-    return formattedDate
+    return formattedDate;
 }
