@@ -38,7 +38,7 @@ export function TableManager({children, headings}){
 
 
 /*
- * Creates a Table based on the given data
+ * Creates a Table without scrolling based on the given data
  *      props:
  *                data: an array of objects to be added to the table
  *          numColumns: number of columns in the table
@@ -56,32 +56,38 @@ export function Table(props){
 
     return(
         <View style={styles.container}>
-            {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
+            {chunk(cells, props.numColumns).map((item, index) =>
+            <Pressable key={"row" + index} onPress = {() => props.navigation != null ? props.navigation.navigate('DriverMasterScreen', {newTitle: data[index*props.numColumns+1], id: index}) : alert(1)}>
+                <View style={{flexDirection: 'row'}}>{item}</View>
+            </Pressable>)}
         </View>
     );
 }
 
 /*
- *
- *
- *
+ * Creates a Table with scrolling based on the given data
+ *      props:
+ *                data: an array of objects to be added to the table
+ *          numColumns: number of columns in the table
+ *          navigation: navigation stack
  */
-export function ScrollTable(data){
+export function ScrollTable(props){
 
-    if(data === undefined) {
-        console.warn("prop data is undefined");
-        return null;
-    }
-    const cells = data.map((dat, index) => <Cell key={"cell" + index}
+    const data = props.data;
+    const cells = data.map((data, index) => <Cell key={"cell" + index}
                                                   index={index}
                                                   navigation={props.navigation}
-                                                  content={dat}
+                                                  content={data}
                                                   numColumns={props.numColumns}
                                                 />);
 
     return(
         <ScrollView style={styles.container}>
+        <Pressable onPress = {props.navigation != null ? 
+                                props.navigation.navigate('DriverMasterScreen', {newTitle: props.content, id: props.key}) : alert(1)}>
+
             {chunk(cells, props.numColumns).map((item, index) => <View key={"row" + index} style={{flexDirection: 'row'}}>{item}</View>)}
+        </Pressable>
         </ScrollView>
     );
 }
@@ -96,7 +102,7 @@ export function ScrollTable(data){
 function Cell(props){
 
     const colors = ['#efefef','#e2e2e2'];
-    const stdFlex = [1,3,2,1];
+    const stdFlex = [1,9,6,3];
 
     return(
         <View style={[styles.cell,
