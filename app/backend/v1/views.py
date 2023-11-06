@@ -402,6 +402,7 @@ class League(APIView):
                     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         data['drivers'] = [{
+            'driverId': driver.driverId.driverId,
             'position': driver.position,
             'code': driver.driverId.code,
             'firstname': driver.driverId.firstname,
@@ -418,6 +419,7 @@ class League(APIView):
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         data['constructors'] = [{
+            'constructorId': constructor.constructorId.constructorId,
             'position': constructor.position,
             'name': constructor.constructorId.name,
             'nationality': constructor.constructorId.nationality,
