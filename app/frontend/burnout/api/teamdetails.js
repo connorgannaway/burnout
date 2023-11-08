@@ -2,7 +2,7 @@
     teamdetails.js
     Aaron King 
     11/2/2023
-    comment here 
+    Pulling data from API for TeamMasterScreen
 */
 import { BASEURL } from './urls';
 import BaseCard from '../components/card';
@@ -36,13 +36,14 @@ async function getdata(id, {navigation}){
                     <BaseCard 
                         key={i}
                         name={data.results[0].drivers[i].firstname + ' ' + data.results[0].drivers[i].surname}
-                        subName={'Driver Number: ' + data.results[0].drivers[i].number}
+                        subName={'Driver Position: ' + data.results[0].drivers[i].position}
                         body={'Click to view data on ' + data.results[0].drivers[i].firstname + ' ' +
                                 data.results[0].drivers[i].surname}
                         bgcolor={'#ff1801'}
                         where={'DriverMasterScreen'}
                         navigation={navigation}
                         title={data.results[0].drivers[i].firstname + ' ' + data.results[0].drivers[i].surname}
+                        id={data.results[0].drivers[i].driverId}
                     />
                 ))}
             </View>);
