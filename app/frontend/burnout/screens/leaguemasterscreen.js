@@ -7,12 +7,9 @@
 */
 import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
-import BaseCard, { buildCardsFromData } from '../components/card';
-import { Table, TableManager } from '../components/table';
-import StandingsCard, { standingsCard } from '../components/standingscard';
-import { getLeagues } from "../api/leagues";
-import { getConstructorDetails, getDriverDetails } from "../api/leaguedetails";
-
+import { ScrollTable, TableManager } from '../components/table';
+import { getConstructorDetails, getDriverDetails } from '../api/leaguedetails';
+import { getRaceDetails } from '../api/racedetails';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -36,8 +33,12 @@ export default class LeagueMasterScreen extends React.Component{
 		this.state = {
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
+			isLoadingRace: true,
 			constructorDetails: getConstructorDetails(),
 			driverDetails: getDriverDetails(),
+			nearestRace: getRaceDetails('1099'),
+			numConstructorColumns: 1,
+			numDriverColumns: 1,
 		};
 
 		this.state.constructorDetails
@@ -57,20 +58,28 @@ export default class LeagueMasterScreen extends React.Component{
 			}).catch(error => {
 				console.warn(error);
 			});
+
+		this.state.nearestRace
+			.catch(error => {
+				console.warn(error);
+			}).then(() => {
+				this.setState({isLoadingRace: false});
+			}).catch(error => {
+				console.warn(error);
+			});
 	}
 
 	shouldComponentUpdate(nextState){
 		if(this.state.constructorDetails != nextState.constructorDetails) return true;
 		if(this.state.driverDetails != nextState.driverDetails) return true;
-		if(nextState.isLoadingDrivers === false) return true;
-		if(nextState.isLoadingConstructors === false) return true;
+		if(nextState.isLoadingConstructors === false && 
+			nextState.isLoadingDrivers === false &&
+			nextState.isLoadingRace === false) return true;
 
 		return false;
 	}
 
 	put(data, loadCheck){
-		console.log(data);
-
 		if(data != null){
 			if(loadCheck){
 				const c = [];
@@ -80,31 +89,84 @@ export default class LeagueMasterScreen extends React.Component{
 				return c;
 			} else return data;
 		}
-
-		return [];
+		return [{id:0, data:['loading...']}];
 	}
 
 	render() {
 		const { navigation } = this.props;
-
+		
 		return(
 			<View style={styles.container}>
-				<ScrollView snapToAlignment='center'>
+				<View style = {{flexDirection: 'column-reverse',
+								height: 150,
+								width: '100%',
+								backgroundColor: '#f00',
+								color: '#fff',
+								shadowRadius: 1,
+								shadowOffset: {height: 2, width: 0},
+								shadowColor: 'black',
+								shadowOpacity: .3,
+								zIndex: 4,}}>
+					<Text style = {{paddingBottom: 10,
+									paddingHorizontal: 10,
+									color: '#fff',
+									fontWeight: '700',
+									fontSize: 12,
+									textTransform: 'capitalize',}}>
+						3rd:
+					</Text>
+					<Text style = {{paddingTop: 5,
+									paddingHorizontal: 10,
+									color: '#fff',
+									fontWeight: '700',
+									fontSize: 12,
+									textTransform: 'capitalize',}}>
+						2nd:
+					</Text>
+					<Text style = {{paddingBottom: 2,
+									paddingHorizontal: 10,
+									backgroundColor: '#fff',
+									color: '#f00',
+									fontWeight: '900',
+									fontSize: 15,
+									textTransform: 'capitalize',}}>
+						1st:
+					</Text>
+					<Text style = {{paddingHorizontal: 10,
+									backgroundColor: '#fff',
+									color: '#f00',
+									fontWeight: '900',
+									fontSize: 48,
+									textTransform: 'uppercase'}}>
+						{JSON.stringify(this.put(this.state.nearestRace['_j'], this.isLoadingRace))}
+					</Text>
+				</View>
+				<View snapToAlignment='center'>
 					<TableManager headings = {['Constructors', 'Drivers']}>
-						<Table
+						<ScrollTable
 							key={1}
-							data={this.put(this.state.constructorDetails['_j'], this.isLoadingConstructors)}
+							headings={['#', 'name', 'nationality', 'points']}
+							data={this.put(this.state.constructorDetails['_j'],
+											this.isLoadingConstructors).map((data) => data.data).flat()}
+							id={this.put(this.state.constructorDetails['_j'],
+											this.isLoadingConstructors).map((data) => data.id)}
 							numColumns={4}
 							navigation={navigation}
+							where={'TeamMasterScreen'}
 						/>
-						<Table
+						<ScrollTable
 							key={2}
-							data={this.put(this.state.driverDetails['_j'], this.isLoadingDrivers)}
+							headings={['#', 'name', 'podiums', 'points']}
+							data={this.put(this.state.driverDetails['_j'],
+											this.isLoadingDrivers).map((data) => data.data).flat()}
+							id={this.put(this.state.driverDetails['_j'],
+											this.isLoadingDrivers).map((data) => data.id)}
 							numColumns={4}
 							navigation={navigation}
+							where={'DriverMasterScreen'}
 						/>
 					</TableManager>
-				</ScrollView>
+				</View>
 			</View>
 		);
 	}
