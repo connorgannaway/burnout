@@ -1,10 +1,16 @@
 /*
- *
+ * leaguedetails.js
+ * Andrew Lindstrom
+ * 11/6/2023
  */
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { BASEURL } from './urls';
 
-async function getdata(id){
+/*
+ * getLeagueData makes a fetch request based on a given league ID
+ *      id: the ID for the desired league data
+ */
+async function getLeagueData(id){
+
     return await fetch(BASEURL+'/v1/leagues/' + id + '/?=format.json')
         .catch(error => {
             console.warn(error);
@@ -23,22 +29,49 @@ async function getdata(id){
         });
 }
 
+/*
+ * getConstructorDetails splits the constructor out of the league details 
+ * returned by getLeagueData
+ */
 export async function getConstructorDetails(){
 
-    const data = await getdata("1");
+    const data = await getLeagueData('1');
     const constructors = data.constructors;
-    const constructorDetails = constructors.map((constructor) => [constructor.position, constructor.name, constructor.nationality, constructor.stats.points]);
-    constructorDetails.unshift(["#", "name", "nationality", "points"]);
+    const constructorDetails = constructors.map((constructor) => {return {id:constructor.constructorId, 
+                                                                        data:[constructor.position, 
+                                                                              constructor.name,
+                                                                              constructor.nationality,
+                                                                              constructor.stats.points]};
+                                                                            });
 
     return constructorDetails.flat();
 }
 
+/*
+ * getDriverDetails splits the constructor out of the league details 
+ * returned by getLeagueData
+ */
 export async function getDriverDetails(){
 
-    const data = await getdata("1");
+    const data = await getLeagueData('1');
     const drivers = data.drivers;
-    const driverDetails = drivers.map((driver) => [driver.position, driver.firstname + " " + driver.surname, driver.nationality, driver.statistics.points]);
-    driverDetails.unshift(["#", "name", "nationality", "points"]);
+    const driverDetails = drivers.map((driver) => {return {id:driver.driverId,
+                                                         data:[driver.position, 
+                                                               driver.firstname + ' ' + driver.surname, 
+                                                               driver.statistics.podiums, 
+                                                               driver.statistics.points]};
+                                                            });
 
     return driverDetails.flat();
+}
+
+/*
+ * getRaces splits the constructor out of the league details 
+ * returned by getLeagueData
+ */
+export async function getRaces(){
+    const data = await getLeagueData('1');
+    const races = data.races;
+    
+    return races;
 }
