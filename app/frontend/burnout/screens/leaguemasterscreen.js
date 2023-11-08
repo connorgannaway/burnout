@@ -6,10 +6,9 @@
     comment here pls
 */
 import * as React from 'react';
-import { View, ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
+import { View, Dimensions, StyleSheet, Text } from 'react-native';
 import { ScrollTable, TableManager } from '../components/table';
 import { getConstructorDetails, getDriverDetails } from '../api/leaguedetails';
-import { getRaceDetails } from '../api/racedetails';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -33,10 +32,8 @@ export default class LeagueMasterScreen extends React.Component{
 		this.state = {
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
-			isLoadingRace: true,
 			constructorDetails: getConstructorDetails(),
 			driverDetails: getDriverDetails(),
-			nearestRace: getRaceDetails('1099'),
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
 		};
@@ -55,15 +52,6 @@ export default class LeagueMasterScreen extends React.Component{
 				console.warn(error);
 			}).then(() => {
 				this.setState({isLoadingDrivers: false});
-			}).catch(error => {
-				console.warn(error);
-			});
-
-		this.state.nearestRace
-			.catch(error => {
-				console.warn(error);
-			}).then(() => {
-				this.setState({isLoadingRace: false});
 			}).catch(error => {
 				console.warn(error);
 			});
@@ -138,7 +126,7 @@ export default class LeagueMasterScreen extends React.Component{
 									fontWeight: '900',
 									fontSize: 48,
 									textTransform: 'uppercase'}}>
-						{JSON.stringify(this.put(this.state.nearestRace['_j'], this.isLoadingRace))}
+						Race
 					</Text>
 				</View>
 				<View snapToAlignment='center'>
