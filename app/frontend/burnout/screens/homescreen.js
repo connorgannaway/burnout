@@ -51,7 +51,7 @@ export default class HomeScreen extends React.Component{
             for (let i = 0; i < Math.floor(cards.length/2); i++) {
                 ret.push(cards[i]);
             }
-            return <View>{ret}</View>
+            return <View>{ret}</View>;
         }
 		return <View>{cards}</View>;
 	}
