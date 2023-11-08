@@ -20,7 +20,7 @@ export default function MyTab() {
                         tabBarInactiveTintColor: '#000',
                         headerShown: false,
                         tabBarLabelStyle: {
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: 'bold',
                         },
                         tabBarStyle: {
@@ -32,7 +32,7 @@ export default function MyTab() {
                         name='HomeStack'
                         component={HomeStack}
                         options={{
-                            title: 'HOME',
+                            title: 'Home',
                             tabBarIcon: ({ focused, size }) => (
                                 <MaterialCommunityIcons
                                     name={focused ? 'home' : 'home-outline'}
@@ -46,7 +46,7 @@ export default function MyTab() {
                         name='LeaguesStack'
                         component={LeagueStack}
                         options={{
-                            title: 'LEAGUES',
+                            title: 'Leagues',
                             tabBarIcon: ({ focused, size }) => (
                                 <View style={{
                                     width: size,
@@ -69,7 +69,7 @@ export default function MyTab() {
                         name='Test'
                         component={TestScreen}
                         options={{
-                            title: 'TEST',
+                            title: 'Test',
                             tabBarIcon: ({ focused, size }) => (
                                 <MaterialCommunityIcons
                                     name={focused ? 'calendar-blank' : 'calendar-blank-outline'}
