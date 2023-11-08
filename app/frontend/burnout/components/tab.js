@@ -1,26 +1,20 @@
-/*
-    tab.js
-    Caleb Kornegay
-    10/27/2023
-    Provides a tab navigator so that stacks can be nested and separate
-    Allows us to render different screens outside of each other.
-*/
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
+import { View } from 'react-native';
 import TestScreen from '../screens/testscreen';
 import { HomeStack, LeagueStack } from './stack';
 
-
 const Tab = createBottomTabNavigator();
 
-export default function MyTab(){
-	return (
-		<SafeAreaProvider>
-			<NavigationContainer Tab>
-				<Tab.Navigator initialRouteName='HomeStack'
+export default function MyTab() {
+    return (
+        <SafeAreaProvider>
+            <NavigationContainer>
+                <Tab.Navigator
+                    initialRouteName='HomeStack'
                     screenOptions={{
                         tabBarActiveTintColor: '#f00',
                         tabBarInactiveTintColor: '#000',
@@ -30,64 +24,63 @@ export default function MyTab(){
                             fontWeight: 'bold',
                         },
                         tabBarStyle: {
-                            paddingVertical: 5, // padding for taller bar
+                            paddingVertical: 5,
                         },
                     }}
                 >
-					<Tab.Screen
-						name='HomeStack'
-						component={HomeStack}
-						options={{
-							title: 'HOME',
-							tabBarIcon: ({focused, size}) => (
-                                focused ? <MaterialCommunityIcons 
-                                name='home'
-                                size={size} 
-                                color={'#f00'}
-                                /> : <MaterialCommunityIcons 
-                                name='home'
-                                size={size} 
-                                color={'#000'}
+                    <Tab.Screen
+                        name='HomeStack'
+                        component={HomeStack}
+                        options={{
+                            title: 'HOME',
+                            tabBarIcon: ({ focused, size }) => (
+                                <MaterialCommunityIcons
+                                    name={focused ? 'home' : 'home-outline'}
+                                    size={size}
+                                    color={focused ? '#f00' : '#000'}
                                 />
-								
-							),
-						}}></Tab.Screen>
-					<Tab.Screen
-						name='LeaguesStack'
-						component={LeagueStack}
-						options={{
-							title: 'LEAGUES',
-							tabBarIcon: ({ focused, size }) => (
-								focused ? <MaterialCommunityIcons 
-                                name='racing-helmet'
-                                size={size} 
-                                color={'#f00'}
-                                /> : <MaterialCommunityIcons 
-                                name='racing-helmet'
-                                size={size} 
-                                color={'#000'}
+                            ),
+                        }}
+                    />
+                    <Tab.Screen
+                        name='LeaguesStack'
+                        component={LeagueStack}
+                        options={{
+                            title: 'LEAGUES',
+                            tabBarIcon: ({ focused, size }) => (
+                                <View style={{
+                                    width: size,
+                                    height: size,
+                                    borderRadius: size / 2,
+                                    backgroundColor: focused ? 'transparent' : '#fff', // solid background when not focused
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                    <MaterialCommunityIcons
+                                        name='racing-helmet'
+                                        size={size}
+                                        color={focused ? '#f00' : '#000'} // white icon on black background when not focused
+                                    />
+                                </View>
+                            ),
+                        }}
+                    />
+                    <Tab.Screen
+                        name='Test'
+                        component={TestScreen}
+                        options={{
+                            title: 'TEST',
+                            tabBarIcon: ({ focused, size }) => (
+                                <MaterialCommunityIcons
+                                    name={focused ? 'calendar-blank' : 'calendar-blank-outline'}
+                                    size={size}
+                                    color={focused ? '#f00' : '#000'}
                                 />
-							),
-						}}></Tab.Screen>
-					<Tab.Screen
-						name='Test'
-						component={TestScreen}
-						options={{
-							title: 'TEST',
-							tabBarIcon: ({ focused, size }) => (
-								focused ? <MaterialCommunityIcons 
-                                name='calendar-today'
-                                size={size} 
-                                color={'#f00'}
-                                /> : <MaterialCommunityIcons 
-                                name='calendar-today'
-                                size={size} 
-                                color={'#000'}
-                                />
-							)
-						}}></Tab.Screen>
-				</Tab.Navigator>
-			</NavigationContainer>
-		</SafeAreaProvider>
-	);
+                            )
+                        }}
+                    />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
+    );
 }
