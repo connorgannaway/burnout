@@ -45,6 +45,14 @@ export default class HomeScreen extends React.Component{
 
 	put(cards){
 		if(cards == null) return null;
+        if(Object.values(cards[0])[4]['message'] == 'This is a race brief') {
+            console.log('worked');
+            const ret = [];
+            for (let i = 0; i < Math.floor(cards.length/2); i++) {
+                ret.push(cards[i]);
+            }
+            return <View>{ret}</View>
+        }
 		return <View>{cards}</View>;
 	}
 
