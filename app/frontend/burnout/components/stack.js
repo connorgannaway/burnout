@@ -100,8 +100,12 @@ function LeagueStack({ navigation }){
 		setSelectedDate(date);
 
 		const formattedDate = new Date(date).toLocaleDateString();
+		setSelectedDate(formattedDate); // update state with selected date
+
 		alert('Selected Date: ' + formattedDate);
 		console.log('Selected Date: ' + formattedDate);
+		
+		navigation.navigate('HomeScreen', { selectedDate: formattedDate });
 
 	};
 
@@ -218,8 +222,13 @@ function HomeStack({ navigation }){
 		setSelectedDate(date);
 
 		const formattedDate = new Date(date).toLocaleDateString();
-        alert('Selected Date: ' + formattedDate);
-        console.log('Selected Date: ' + formattedDate);
+		setSelectedDate(formattedDate); // update state with selected date
+
+		alert('Selected Date: ' + formattedDate);
+		console.log('Selected Date: ' + formattedDate);
+
+		navigation.navigate('HomeScreen', { selectedDate: formattedDate });
+
 	};
 
 	const handleSearch = (term) => {
@@ -262,6 +271,7 @@ function HomeStack({ navigation }){
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
+				initialParams={{ selectedDate: selectedDate }}
 				options={{
 					headerTitle: () => (
 						isSearchBarVisible
