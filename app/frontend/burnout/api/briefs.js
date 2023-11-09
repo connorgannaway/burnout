@@ -33,7 +33,7 @@ async function grabcard(id){
                 subName={data['track']}
                 body={timeZoneCalc(data['time'])+' '+dateFormat(data['date'])+' '+data['rstatus']}
                 bgcolor={'#ff0000'}
-                key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
+                key={data['date']+data['time']}
                 message={'This is a race brief'}
             />
             );
@@ -47,7 +47,7 @@ async function getdata(ids){
     let i;
     const today = ids['today'];
     const past = ids['past'];
-    const future = ids['past'];
+    const future = ids['future'];
     for(i = 0; i < future.length; i++){
         ret.push(grabcard(future[i]));
     }
