@@ -1,0 +1,191 @@
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):        headerText: {
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                color: 'white',
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                fontWeight: '500',
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                fontSize: 20,
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):        },
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                options={
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                        headerTitle: () => (
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                isSearchBarVisible
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                        ? <SearchBar onSearch={(term) => console.log(term)} />
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                        : <Text style={styles.headerText}>Leagues Page</Text>
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                        ),
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                }
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                options={
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                        ({ route }) => ({
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                headerTitle: () => (
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                        isSearchBarVisible
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                                ? <SearchBar onSearch={(term) => console.log(term)} />
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                                : <Text style={styles.headerText}>{route.params.newTitle}</Text>
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                )
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                        })
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                }
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                options={
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                        headerTitle: () => (
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                isSearchBarVisible
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                        ? <SearchBar onSearch={(term) => console.log(term)} />
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                                        : <Text style={styles.headerText}>Home</Text>
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                        ),
+stack.js     (aaronpig9 on 10/29/2023 at 19:01):                                }
+
+SearchBar.js (aaronpig9 on 10/29/2023 at 19:01):     width: '70%',
+SearchBar.js (aaronpig9 on 10/29/2023 at 19:01):     paddingRight: 20,
+
+card.js      (aaronpig9 on 11/01/2023 at 09:49):                const {navigation, name, subName, body, bgcolor, where, message, title, id } = this.props;
+card.js      (aaronpig9 on 11/01/2023 at 09:49):                                        onPress={() => navigation != null ? navigation.navigate(JSON.stringify(where).substring(1, where.length+1), {newTitle: title, id: id}) : alert(message)}>
+
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): import {BASEURL} from './urls';
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): import BaseCard from '../components/card';
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): import {Text, View} from 'react-native';
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): export default async function getteamdetails(id, {navigation}){
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):      return await getdata(id, {navigation});
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): }
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): async function getdata(id, {navigation}){
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):     // const {id} = this.props;
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):      return await fetch(BASEURL+'/v1/teams/'+id+'/?=format.json')
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              .catch(error => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      console.warn(error);
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              }).then(response => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      return response.json();
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              }).catch(error => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      console.warn(error);
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              }).then(json => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      return JSON.parse(JSON.stringify(json));
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              }).catch(error => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      console.warn(error);
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              }).then(data => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             return (<View>
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                 <BaseCard
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                     where={null}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                     message={"scrum master"}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                     name={data['name']}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                     body={'Total Team Points: ' + data.results[0].points}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                     subName={'Position: '+data.results[0].position}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                     bgcolor={'#ff0000'}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                 />
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                 {Array.from({ length: data.results[0].drivers.length }).map((_,i) => (      
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                      <BaseCard
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                         key={i}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              name={data.results[0].drivers[i].firstname + ' ' + data.results[0].drivers[i].surname}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              subName={'Driver Number: ' + data.results[0].drivers[i].number}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              body={'Click to view data on ' + data.results[0].drivers[i].firstname + ' ' +
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                 data.results[0].drivers[i].surname}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              bgcolor={'#ff1801'}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              where={'DriverMasterScreen'}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              navigation={navigation}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                              title={data.results[0].drivers[i].firstname + ' ' + data.results[0].drivers[i].surname}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                                      />
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                              ))}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             </View>)
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      // return (<View><Text>{data.name}:{'\n'}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             // Points: {data.results[0].points}{'\n'}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             // Drivers:{'\n'}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             // {data.results[0].drivers.map(item =>
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             // <Text>           {item.firstname} {item.surname} {'\n'} </Text>)}
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):             // </Text></View>);
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              }).catch(error => {
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):                      console.warn(error);
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49):              });
+teamdetails.js (aaronpig9 on 11/01/2023 at 09:49): }
+
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49): import getteamdetails from '../api/teamdetails';
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):         constructor({navigation, route}){
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                 const id = route.params?.id;
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                         teamdetails: getteamdetails(id, {navigation}),
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                         this.state.teamdetails
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                         .catch(error => {
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                                 console.warn(error);
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                         }).then(() => {
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                                 this.setState({isLoading: false});
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                         }).catch(error => {
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                                 console.warn(error);
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                         });
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                 if(this.state.teamdetails !== nextState.teamdetails) return true;  
+teammasterscreen.js (aaronpig9 on 11/01/2023 at 09:49):                                         {this.put(this.state.teamdetails['_j'])} 
+
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): /* 
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):     driverdetails.js
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):     Aaron King
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):     11/8/2023
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):     pulling data from API for driver screen
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): */
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): import { BASEURL } from './urls';
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): import BaseCard from '../components/card';
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): import { View, Text, StyleSheet } from 'react-native';
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): import React from 'react';
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): async function getdata(id, {navigation}){
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):     // const {id} = this.props;
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):     return await fetch(BASEURL+'/v1/drivers/'+id+'/?=format.json')
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         .catch(error => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             console.warn(error);
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         }).then(response => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             return response.json();
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         }).catch(error => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             console.warn(error);
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         }).then(json => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             return JSON.parse(JSON.stringify(json));
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         }).catch(error => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             console.warn(error);
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         }).then(data => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             return (<View>
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                 <BaseCard
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                     where={null}
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                     message={'scrum master'}
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                     name={data.firstname + ' ' + data.surname}
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                     body={'Number: ' + data.number + '\n' +
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                           'Team: ' + data.results[0].constructor + '\n' +
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                           'Total Driver Points: ' + data.results[0].points + '\n' +       
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                           'Wins: ' + data.results[0].wins +
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                           '\n' + 'Driver Position: ' + data.results[0].position + '\n' +  
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                           'Date of Birth: ' + data.dob + '\n' +
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                           'Nationality: ' + data.nationality}
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                     subName={data.code}
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                     bgcolor={'#ff0000'}
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):                 />
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             </View>
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             );
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         }).catch(error => {
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):             console.warn(error);
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):         });
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): }
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): export default async function getdriverdetails(id, {navigation}){
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07):    return await getdata(id, {navigation});
+driverdetails.js (aaronpig9 on 11/08/2023 at 11:07): }
+
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07): import getdriverdetails from '../api/driverdetails';
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):       constructor({navigation, route}){
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               const id = route.params?.id;
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       isLoading: true,
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       driverdetails: getdriverdetails(id, {navigation}),
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       this.state.driverdetails
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       .catch(error => {
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               console.warn(error);
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       }).then(() => {
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               this.setState({isLoading: false});
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       }).catch(error => {
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               console.warn(error);
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       });
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):       }
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):       put(cards){
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               if(cards != null){
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       if(this.state.isLoading){
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               const c = [];
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               for(let i = 0; i < cards.length/2; i++){
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                       c.push(cards[i]);
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               }
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               return(
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                       <View>
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                               {c}
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                       </View>
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                               );
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                       } else return <View>{cards}</View>;
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               }
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               return null;
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):       }
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):       shouldComponentUpdate(nextState){
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               if(this.state.driverdetails !== nextState.driverdetails) return true;  
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               if(nextState.isLoading === false) return true;
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):               return false;
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                       {this.put(this.state.driverdetails['_j'])}     
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                       {/* <BaseCard
+drivermasterscreen.js (aaronpig9 on 11/08/2023 at 11:07):                                       /> */}
+
