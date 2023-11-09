@@ -30,7 +30,6 @@ export default class HomeScreen extends React.Component{
 			isLoading: true,
 			messages: getmessages(),
 			briefs: getbriefs(),
-            calendarbriefs: null,
 			selectedDate: '', // hold selected date
 		};
 
@@ -57,34 +56,38 @@ export default class HomeScreen extends React.Component{
 	retrieveSelectedDate = () => {
 		const selectedDate = this.props.route.params?.selectedDate;
 		if (selectedDate) {
-			this.setState({ selectedDate });
+            const formattedDate = selectedDate.split('/')[2]
+            + '-' + selectedDate.split('/')[0] + '-' + selectedDate.split('/')[1];
+            getbriefs(formattedDate)
+            .catch(error => {
+                console.warn(error);
+            }).then(data => {
+                this.setState({briefs: data});
+                // this.forceUpdate();
+            }).catch(error => {
+                console.warn(error);
+            });
+            this.setState({ selectedDate });
 		}
-	}
+	};
 	
 
 	put(cards){
 		if(cards == null) return null;
-        if(Object.values(cards[0])[4]['message'] == 'This is a race brief') {
-            console.log('worked');
-            const ret = [];
-            for (let i = 0; i < Math.floor(cards.length/2); i++) {
-                ret.push(cards[i]);
-            }
-            return <View>{ret}</View>;
-        }
-		return <View>{cards}</View>;
+        if(cards['_j'] === undefined) return <View>{cards}</View>;
+        else return <View>{cards['_j']}</View>;
 	}
 
 	shouldComponentUpdate(nextState){
 		if(this.state.briefs !== nextState.briefs) return true;
 		if(this.state.messages !== nextState.messages) return true;
-		if(nextState.isLoading === false) return true;
+		if(this.isLoading === nextState.isLoading) return false;
+        if(this.selectedDate !== nextState.selectedDate) return true;
 		return false;
 	}
 
 	render(){
 		const { selectedDate } = this.state;
-
 		return (
 			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
 				<View style={styles.container}>
@@ -95,8 +98,8 @@ export default class HomeScreen extends React.Component{
 
 					{/* Put things that should be rendered into the ScrolLView element */}
 					<ScrollView>
-						{this.put(this.state.messages['_j'])}
-						{this.put(this.state.briefs['_j'])}
+						{this.put(this.state.messages)}
+						{this.put(this.state.briefs)}
 					</ScrollView>
 					<StatusBar style="auto" />
 				</View>
