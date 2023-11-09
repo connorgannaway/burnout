@@ -24,13 +24,14 @@ const styles = StyleSheet.create({
 });
 
 export default class HomeScreen extends React.Component{
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			isLoading: true,
 			messages: getmessages(),
 			briefs: getbriefs(),
             calendarbriefs: null,
+			selectedDate: '', // hold selected date
 		};
 
 		this.state.briefs
@@ -43,8 +44,34 @@ export default class HomeScreen extends React.Component{
         });
 	}
 
+	componentDidMount() {
+		this.retrieveSelectedDate();
+	}
+	
+	componentDidUpdate(prevProps) {
+		if (prevProps.route.params?.selectedDate !== this.props.route.params?.selectedDate) {
+			this.retrieveSelectedDate();
+		}
+	}
+	
+	retrieveSelectedDate = () => {
+		const selectedDate = this.props.route.params?.selectedDate;
+		if (selectedDate) {
+			this.setState({ selectedDate });
+		}
+	}
+	
+
 	put(cards){
 		if(cards == null) return null;
+        if(Object.values(cards[0])[4]['message'] == 'This is a race brief') {
+            console.log('worked');
+            const ret = [];
+            for (let i = 0; i < Math.floor(cards.length/2); i++) {
+                ret.push(cards[i]);
+            }
+            return <View>{ret}</View>;
+        }
 		return <View>{cards}</View>;
 	}
 
@@ -56,10 +83,16 @@ export default class HomeScreen extends React.Component{
 	}
 
 	render(){
-		const { navigation } = this.props;
+		const { selectedDate } = this.state;
+
 		return (
 			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
 				<View style={styles.container}>
+					{/* Display selected Date */}
+					<Text style={{ fontSize: 18, margin: 16 }}>
+						Selected date: {selectedDate}
+					</Text>
+
 					{/* Put things that should be rendered into the ScrolLView element */}
 					<ScrollView>
 						{this.put(this.state.messages['_j'])}

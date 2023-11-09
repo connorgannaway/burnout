@@ -8,6 +8,7 @@ import * as React from 'react';
 import { View, ScrollView, Dimensions, StyleSheet, SafeAreaView } from 'react-native';
 import BaseCard from '../components/card';
 import { buildCardsFromData } from '../components/card';
+import getdriverdetails from '../api/driverdetails';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -22,11 +23,45 @@ const styles = StyleSheet.create({
 });
 
 export default class DriverMasterScreen extends React.Component{
-	constructor(){
+	constructor({navigation, route}){
+		const id = route.params?.id;
 		super();
 		this.state = {
-			showComponent: true,
+			isLoading: true,
+			driverdetails: getdriverdetails(id, {navigation}),
 		};
+
+			this.state.driverdetails
+			.catch(error => {
+				console.warn(error);
+			}).then(() => {
+				this.setState({isLoading: false});
+			}).catch(error => {
+				console.warn(error);
+			});
+	}
+
+	put(cards){
+		if(cards != null){
+			if(this.state.isLoading){
+				const c = [];
+				for(let i = 0; i < cards.length/2; i++){
+					c.push(cards[i]);
+				}
+				return(
+					<View>
+						{c}
+					</View>
+				);
+			} else return <View>{cards}</View>;
+		}
+		return null;
+	}
+
+	shouldComponentUpdate(nextState){
+		if(this.state.driverdetails !== nextState.driverdetails) return true;
+		if(nextState.isLoading === false) return true;
+		return false;
 	}
 
 	render() {
@@ -44,15 +79,16 @@ export default class DriverMasterScreen extends React.Component{
 		return(
 			<SafeAreaView style={styles.container}>
 				<ScrollView>
+					{this.put(this.state.driverdetails['_j'])}
 					{/* {driverCards} */}
-					<BaseCard
+					{/* <BaseCard
 						name={'Max Verstappen'}
 						subName={'Total Driver Points: All of em'}
 						body={'Current Driver Standing: First'}
 						bgcolor={'#ff1801'}
 						where={null}
 						navigation={null}
-					/>
+					/> */}
 				</ScrollView>
 			</SafeAreaView>
 		);

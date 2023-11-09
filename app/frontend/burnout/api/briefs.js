@@ -11,6 +11,8 @@ import { BASEURL } from './urls';
 import getnearestraces from './nearestraces';
 import BaseCard from '../components/card';
 import React from 'react';
+import { timeZoneCalc}  from '../functions/timezonecalc';
+import { dateFormat } from '../functions/dateformat';
 
 
 async function getRaceDetails(id){
@@ -36,14 +38,15 @@ async function getRaceDetails(id){
 async function grabcard(id){
     const data = await getRaceDetails(id);
     return (<BaseCard 
-        where={null}
-        name={data['name']}
-        subName={data['track']}
-        body={data['time']+' '+data['date']+' '+data['rstatus']}
-        bgcolor={'#ff0000'}
-        key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
-        message={'This is a race brief'}
-    />);
+                where={null}
+                name={data['name']}
+                subName={data['track']}
+                body={timeZoneCalc(data['time'])+' '+dateFormat(data['date'])+' '+data['rstatus']}
+                bgcolor={'#ff0000'}
+                key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
+                message={'This is a race brief'}
+            />
+    );
 }
 
 async function getdata(ids){
