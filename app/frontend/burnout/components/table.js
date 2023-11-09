@@ -4,8 +4,8 @@
  * 10/27/2023
  *
  */
-import { React, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView} from 'react-native';
+import { React, useState} from 'react';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView, Animated} from 'react-native';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
