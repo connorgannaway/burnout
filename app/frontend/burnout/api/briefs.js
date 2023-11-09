@@ -14,7 +14,8 @@ import React from 'react';
 import { timeZoneCalc}  from '../functions/timezonecalc';
 import { dateFormat } from '../functions/dateformat';
 
-async function grabcard(id){
+
+async function getRaceDetails(id){
     return fetch(BASEURL+'/v1/races/'+id+'/brief/?format=json')
         .catch(error => {
             console.warn(error);
@@ -27,7 +28,16 @@ async function grabcard(id){
         }).catch(error => {
             console.warn(error);
         }).then(data => {
-            return (<BaseCard 
+            console.log(data);
+            return data;
+        }).catch(error => {
+            console.warn(error);
+        });
+}
+
+async function grabcard(id){
+    const data = await getRaceDetails(id);
+    return (<BaseCard 
                 where={null}
                 name={data['name']}
                 subName={data['track']}
@@ -36,10 +46,7 @@ async function grabcard(id){
                 key={data['date']+data['time']}
                 message={'This is a race brief'}
             />
-            );
-        }).catch(error => {
-            console.warn(error);
-        });
+    );
 }
 
 async function getdata(ids){
@@ -62,4 +69,8 @@ async function getdata(ids){
 
 export default async function getbriefs(date){
 	return await getdata(await getnearestraces(date));
+}
+
+export async function getRace(id){
+    return await getRaceDetails(id);
 }
