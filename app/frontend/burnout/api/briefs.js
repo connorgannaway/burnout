@@ -12,7 +12,8 @@ import getnearestraces from './nearestraces';
 import BaseCard from '../components/card';
 import React from 'react';
 
-async function grabcard(id){
+
+async function getRaceDetails(id){
     return fetch(BASEURL+'/v1/races/'+id+'/brief/?format=json')
         .catch(error => {
             console.warn(error);
@@ -25,19 +26,24 @@ async function grabcard(id){
         }).catch(error => {
             console.warn(error);
         }).then(data => {
-            return (<BaseCard 
-                where={null}
-                name={data['name']}
-                subName={data['track']}
-                body={data['time']+' '+data['date']+' '+data['rstatus']}
-                bgcolor={'#ff0000'}
-                key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
-                message={'This is a race brief'}
-            />
-            );
+            console.log(data);
+            return data;
         }).catch(error => {
             console.warn(error);
         });
+}
+
+async function grabcard(id){
+    const data = await getRaceDetails(id);
+    return (<BaseCard 
+        where={null}
+        name={data['name']}
+        subName={data['track']}
+        body={data['time']+' '+data['date']+' '+data['rstatus']}
+        bgcolor={'#ff0000'}
+        key={data['date']+data['time']+Math.floor(Math.random()*6500000 + 1)}
+        message={'This is a race brief'}
+    />);
 }
 
 async function getdata(ids){
@@ -60,4 +66,8 @@ async function getdata(ids){
 
 export default async function getbriefs(date){
 	return await getdata(await getnearestraces(date));
+}
+
+export async function getRace(id){
+    return await getRaceDetails(id);
 }
