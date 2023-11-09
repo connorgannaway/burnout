@@ -394,3 +394,11 @@ homescreen.js (caleb kornegay on 11/03/2023 at 13:52):         }).catch(error =>
 homescreen.js (caleb kornegay on 11/03/2023 at 13:52):             console.warn(error);
 homescreen.js (caleb kornegay on 11/03/2023 at 13:52):         });
 homescreen.js (caleb kornegay on 11/02/2023 at 15:18): 		const { navigation } = this.props;
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):         if(Object.values(cards[0])[4]['message'] == 'This is a race brief') {
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):             console.log('worked');
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):             const ret = [];
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):             for (let i = 0; i < Math.floor(cards.length/2); i++) {
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):                 ret.push(cards[i]);
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):             }
+homescreen.js (calebkornegay on 11/08/2023 at 10:42):             return <View>{ret}</View>;
+homescreen.js (calebkornegay on 11/08/2023 at 10:40):         }
