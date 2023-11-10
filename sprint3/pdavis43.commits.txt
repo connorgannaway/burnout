@@ -1,0 +1,157 @@
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500  1) import React from 'react';
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500  2) import { View, StyleSheet } from 'react-native';
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500  6)   calendarContainer: {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500  7)     padding: 100,
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500  8)     paddingBottom: 50,
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500  9)   },
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 12) class DateRangePicker extends React.Component {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 14)   constructor(props) {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 15)     super(props);
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 16)     this.state = {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 17)       selectedDate: '',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 18)     };
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 19)   }
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 21)   onDayPress = (day) => {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 22)     const dateString = `${day.year}-${day.month}-${day.day}`;
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 23)     const dateWithNoTimezoneIssues = new Date(day.year, day.month - 1, day.day, 12);
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 25)     // Set the selected date
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 26)     this.setState({ selectedDate: dateString });
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 28)     // Log to console
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 29)     console.log(dateString);
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 31)     // Call the provided callback function with the new date
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 32)     if (this.props.onDateSelected) {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 33)       this.props.onDateSelected(dateWithNoTimezoneIssues);
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 34)     }
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 35)
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 36)   };
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 38)   render() {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 40)       <View style={styles.calendarContainer}>
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 41)         <Calendar
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 42)           onDayPress={this.onDayPress}
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 43)           markedDates={{
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 44)             [this.state.selectedDate]: {
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 45)               selected: true,
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 46)               selectedColor: 'red',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 47)               textColor: 'white',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 48)             },
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 49)           }}
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 50)           theme={{
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 51)             selectedDayBackgroundColor: 'red',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 52)             todayTextColor: 'red',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 53)             dotColor: 'red',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 54)             arrowColor: 'red',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 55)             monthTextColor: 'red',
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 56)           }}
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 57)           markingType='simple'
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 58)         />
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 59)       </View>
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 61)   }
+11c9c411 (Peyton Davis 2023-11-08 12:41:36 -0500 62) }
+
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 103)               setSelectedDate(formattedDate); // update state with selected date
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 104)
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 107)
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 108)               navigation.navigate('HomeScreen', { selectedDate: formattedDate });
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 226)               setSelectedDate(formattedDate); // update state with selected date
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 227)
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 228)               alert('Selected Date: ' + formattedDate);
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 229)               console.log('Selected Date: ' + formattedDate);
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 230)
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 231)               navigation.navigate('HomeScreen', { selectedDate: formattedDate });
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 232)
+11c9c411 (Peyton Davis     2023-11-08 12:41:36 -0500 275)                               initialParams={{ selectedDate: selectedDate }}
+
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500  6) import { View } from 'react-native';
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 12) export default function MyTab() {
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 13)     return (
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 14)         <SafeAreaProvider>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 15)             <NavigationContainer>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 16)                 <Tab.Navigator
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 17)                     initialRouteName='HomeStack'
+af29e5f1 (Peyton Davis   2023-11-07 18:46:52 -0500 22)                         tabBarLabelStyle: {
+b14b3815 (Peyton Davis   2023-11-07 20:40:15 -0500 23)                             fontSize: 14,
+af29e5f1 (Peyton Davis   2023-11-07 18:46:52 -0500 24)                             fontWeight: 'bold',
+af29e5f1 (Peyton Davis   2023-11-07 18:46:52 -0500 25)                         },
+af29e5f1 (Peyton Davis   2023-11-07 18:46:52 -0500 26)                         tabBarStyle: {
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 27)                             paddingVertical: 5,
+af29e5f1 (Peyton Davis   2023-11-07 18:46:52 -0500 28)                         },
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 31)                     <Tab.Screen
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 32)                         name='HomeStack'
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 33)                         component={HomeStack}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 34)                         options={{
+b14b3815 (Peyton Davis   2023-11-07 20:40:15 -0500 35)                             title: 'Home',
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 36)                             tabBarIcon: ({ focused, size }) => (
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 37)                                 <MaterialCommunityIcons
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 38)                                     name={focused ? 'home' : 'home-outline'}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 39)                                     size={size}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 40)                                     color={focused ? '#f00' : '#000'}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 42)                             ),
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 43)                         }}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 44)                     />
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 45)                     <Tab.Screen
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 46)                         name='LeaguesStack'
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 47)                         component={LeagueStack}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 48)                         options={{
+b14b3815 (Peyton Davis   2023-11-07 20:40:15 -0500 49)                             title: 'Leagues',
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 50)                             tabBarIcon: ({ focused, size }) => (
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 51)                                 <View style={{
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 52)                                     width: size,
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 53)                                     height: size,
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 54)                                     borderRadius: size / 2,
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 55)                                     backgroundColor: focused ? 'transparent' : '#fff', // solid background when not focused
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 56)                                     justifyContent: 'center',
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 57)                                     alignItems: 'center'
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 58)                                 }}>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 59)                                     <MaterialCommunityIcons
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 60)                                         name='racing-helmet'
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 61)                                         size={size}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 62)                                         color={focused ? '#f00' : '#000'} // white icon on black background when not focused
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 63)                                     />
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 64)                                 </View>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 65)                             ),
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 66)                         }}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 67)                     />
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 68)                     <Tab.Screen
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 69)                         name='Test'
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 70)                         component={TestScreen}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 71)                         options={{
+b14b3815 (Peyton Davis   2023-11-07 20:40:15 -0500 72)                             title: 'Test',
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 73)                             tabBarIcon: ({ focused, size }) => (
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 74)                                 <MaterialCommunityIcons
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 75)                                     name={focused ? 'calendar-blank' : 'calendar-blank-outline'}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 76)                                     size={size}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 77)                                     color={focused ? '#f00' : '#000'}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 79)                             )
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 80)                         }}
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 81)                     />
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 82)                 </Tab.Navigator>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 83)             </NavigationContainer>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 84)         </SafeAreaProvider>
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 85)     );
+c3102860 (Peyton Davis   2023-11-07 20:38:12 -0500 86) }
+
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  27)         constructor(props){
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  28)                 super(props);
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  33)                         selectedDate: '', // hold selected date
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  46)         componentDidMount() {
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  47)                 this.retrieveSelectedDate();
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  48)         }
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  49)
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  50)         componentDidUpdate(prevProps) {
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  51)                 if (prevProps.route.params?.selectedDate !== this.props.route.params?.selectedDate) {
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  52)                         this.retrieveSelectedDate();
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  53)                 }
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  54)         }
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  55)
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  56)         retrieveSelectedDate = () => {
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  57)                 const selectedDate = this.props.route.params?.selectedDate;
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  58)                 if (selectedDate) {
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  71)                 }
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  73)
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  74)
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  90)                 const { selectedDate } = this.state;
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  94)                                         {/* Display selected Date */}
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  95)                                         <Text style={{ fontSize: 18, margin: 16 }}>
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  96)                                                 Selected date: {selectedDate}
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  97)                                         </Text>
+11c9c411 (Peyton Davis   2023-11-08 12:41:36 -0500  98)
