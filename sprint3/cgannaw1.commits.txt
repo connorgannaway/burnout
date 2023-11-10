@@ -1,0 +1,146 @@
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 25)     path('drivers/<int:pk>/', views.Driver.as_view()),
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 26)     path('teams/', views.Teams.as_view()),
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 27)     path('teams/<int:pk>/', views.TeamDetail.as_view()),
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 150)         #print(raceId[0])
+c84b043d (Connor Gannaway 2023-11-06 11:37:54 -0500 405)             'driverId': driver.driverId.driverId,
+c84b043d (Connor Gannaway 2023-11-06 11:37:54 -0500 422)             'constructorId': constructor.constructorId.constructorId,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 443) # /v1/drivers/<int:pk>/
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 444) class Driver(APIView):
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 445)     def get(self, request, pk, format=None):
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 446)         try:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 447)             driver = Drivers.objects.get(driverId=pk)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 448)         except:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 449)             return Response(status=status.HTTP_404_NOT_FOUND)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 450) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 451)         data = {
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 452)             "driverId": driver.driverId,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 453)             "number": driver.number,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 454)             "code": driver.code,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 455)             "firstname": driver.firstname,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 456)             "surname": driver.surname,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 457)             "dob": driver.dob,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 458)             "nationality": driver.nationality,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 459)             "results": []
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 460)         }
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 461) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 462)         now = timezone.now()
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 463)         year = now.year
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 464) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 465)         found = False
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 466)         while 1:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 467)             season = Seasons.objects.get(year=year)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 468)             races = season.races_set.all().order_by('-date')
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 469)             driverstandings = 0
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 470)             raceid = races[0].raceId
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 471)             numraces = len(races)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 472)             count = 0
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 473)             breakouter = False
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 474)             while driverstandings == 0:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 475)                 try:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 476)                     driverstandings = DriverStandings.objects.get(raceId=raceid, driverId=driver.driverId)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 477)                     found = True
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 478) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 479)                 except:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 480)                     driverstandings = 0
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 481)                     raceid -= 1
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 482)                     count += 1
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 483)                     if (count > numraces):
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 484)                         breakouter = True
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 485)                         break
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 486)                         #return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 487) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 488)             if breakouter and found:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 489)                 break
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 490)             if not found:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 491)                 year -= 1
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 492)                 continue
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 493) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 494)             try:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 495)                 result = Results.objects.get(raceId=raceid, driverId=driver.driverId)
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 496)                 constructor = result.constructorId.name
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 497)             except:
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 498)                 constructor = None
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 499) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 500)             data["results"].append({
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 501)                 "year": year,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 502)                 "position": driverstandings.position,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 503)                 "wins": driverstandings.wins,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 504)                 "points": driverstandings.points,
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 505)                 "constructor": constructor
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 506)             })
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 507) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 508)             year -= 1
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 509) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 510) 
+bab91f39 (Connor Gannaway 2023-10-31 12:25:57 -0400 511)         return Response(data=data, status=status.HTTP_200_OK)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 512) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 513) class TeamDetail(APIView):
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 514)     def get(self, request, pk, format=None):
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 515)         try:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 516)             constructor = Constructors.objects.get(constructorId=pk)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 517)         except:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 518)             return Response(status=status.HTTP_404_NOT_FOUND)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 519) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 520)         data = {
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 521)             "constructorId": constructor.constructorId,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 522)             "name": constructor.name,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 523)             "nationality": constructor.nationality,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 524)             "results": []
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 525)         }
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 526) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 527)         now = timezone.now()
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 528)         year = now.year
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 529) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 530)         found = False
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 531)         while 1:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 532)             season = Seasons.objects.get(year=year)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 533)             races = season.races_set.all().order_by('-date')
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 534)             constructorstandings = 0
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 535)             raceid = races[0].raceId
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 536)             numraces = len(races)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 537)             count = 0
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 538)             breakouter = False
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 539)             while constructorstandings == 0:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 540)                 try:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 541)                     constructorstandings = ConstructorStandings.objects.get(raceId=raceid, constructorId=constructor.constructorId)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 542)                     found = True
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 543) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 544)                 except:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 545)                     constructorstandings = 0
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 546)                     raceid -= 1
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 547)                     count += 1
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 548)                     if (count > numraces):
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 549)                         breakouter = True
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 550)                         break
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 551)                         # return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 552) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 553)             if breakouter and found:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 554)                 break
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 555)             if not found:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 556)                 year -= 1
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 557)                 continue
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 558) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 559)             try:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 560)                 result = Results.objects.filter(raceId=raceid, constructorId=constructor.constructorId)
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 561)             except:
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 562)                 result = []
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 563) 
+6a0f7a98 (Connor Gannaway 2023-11-03 08:22:50 -0400 564) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 565)             data["results"].append({
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 566)                 "year": year,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 567)                 "position": constructorstandings.position,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 568)                 "wins": constructorstandings.wins,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 569)                 "points": constructorstandings.points,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 570)                 "drivers": [{
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 571)                     "driverId": driver.driverId.driverId,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 572)                     "number": driver.number,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 573)                     "code": driver.driverId.code,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 574)                     "firstname": driver.driverId.firstname,
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 575)                     "surname": driver.driverId.surname,
+6a0f7a98 (Connor Gannaway 2023-11-03 08:22:50 -0400 576)                     "position": DriverStandings.objects.get(raceId=raceid, driverId=driver.driverId.driverId).position
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 577)                 } for driver in result]
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 578)             })
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 579) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 580)             year -= 1
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 581) 
+ca14f0ec (Connor Gannaway 2023-10-31 15:34:00 -0400 582)         return Response(data=data, status=status.HTTP_200_OK)
