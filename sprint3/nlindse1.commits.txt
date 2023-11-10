@@ -1,0 +1,221 @@
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  1) import { BASEURL } from './urls';
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  2) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  3) /*
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  4)  * getRaceData makes a fetch request based on a given race ID
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  5)  *      id: the ID for the desired race data
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  6)  */
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  7) async function getRaceData(id) {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  8)     const url = `${BASEURL}/v1/races/${id}/?=format.json`;
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  9) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 10)     try {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 11)         const response = await fetch(url);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 12)         const json = await response.json();
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 13)         return json; 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 14)     } catch (error) {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 15)         console.warn('Error fetching race data:', error);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 16)         throw error; 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 17)     }
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 18) }
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 19) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 20) /*
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 21)  * getRaceBrief extracts the brief for a race from the race details 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 22)  * returned by getRaceData
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 23)  */
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 24) export async function getRaceBrief(id) {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 25)     const raceData = await getRaceData(id);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 26)     const brief = raceData.brief;
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 27)     return brief;
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 28) }
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 29) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 30) /*
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 31)  * getRaceResults extracts the results for a race from the race details 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 32)  * returned by getRaceData
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 33)  */
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 34) export async function getRaceResults(id) {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 35)     const raceData = await getRaceData(id);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 36)     const results = raceData.results;
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 37)     return results.map(result => ({
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 38)         id: result.driverId,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 39)         data: [
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 40)             result.position,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 41)             result.driverName,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 42)             result.laps,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 43)             result.time,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 44)             result.status,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 45)         ],
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 46)     })).flat();
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 47) }
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 48) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 49) /*
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 50)  * getRaceSchedule extracts the schedule of events for a race from the race details 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 51)  * returned by getRaceData
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 52)  */
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 53) export async function getRaceSchedule(id) {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 54)     const raceData = await getRaceData(id);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 55)     const schedule = {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 56)         practice: [raceData.fp1_date, raceData.fp1_time, raceData.fp2_date, raceData.fp2_time, raceData.fp3_date, 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 57)             raceData.fp3_time],
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 58)         qualifying: [raceData.quali_date, raceData.quali_time],
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 59)         sprint: [raceData.sprint_date, raceData.sprint_time],
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 60)         race: [raceData.date, raceData.time],
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 61)     };
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 62)     return schedule; 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 63) }
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 64) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 65) export default {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 66)     getRaceData,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 67)     getRaceBrief,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 68)     getRaceResults,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 69)     getRaceSchedule,
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 70) };
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  1) import { V1RACESJSON } from './urls';
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  2) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  3) async function getdata(){
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  4)     return await fetch(V1RACESJSON)
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  5)         .catch(error => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  6)             console.warn(error);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  7)         }).then(response => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  8)             return response.json();
+517a8dca (nryanl 2023-11-09 23:45:49 -0500  9)         }).catch(error => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 10)             console.warn(error);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 11)         }).then(json => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 12)             return JSON.parse(JSON.stringify(json));
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 13)         }).catch(error => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 14)             console.warn(error);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 15)         }).then(data => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 16)             return data;
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 17)         }).catch(error => {
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 18)             console.warn(error);
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 19)         });
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 20) }
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 21) 
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 22) export async function getRaces(){
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 23) 	return getdata();
+517a8dca (nryanl 2023-11-09 23:45:49 -0500 24) }
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400   2) 	racescreen.js
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400   3) 	Nick Lindsey
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400   4) 	10/27/2023
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400   5)     This screen is displayed when a user clicks on a race preview card.
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400   6) 	Resolved styling redundancy 
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400   8) 
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  10) import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native';
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  11) import { getRaceBrief, getRaceResults, getRaceSchedule } from '../api/racedetails'; 
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  19) 	header: {
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  20) 		flexDirection: 'row',
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  21) 		alignItems: 'center',
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  22) 		marginBottom: 20,
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  23) 	},
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  28) 		flex: 1,
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  33) 		marginLeft: 10,
+39ecf59d (nryanl          2023-10-27 19:06:57 -0400  72) 	tableHeaderText: {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  78)     constructor(props) {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  79)         super(props);
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  80)         this.state = {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  81)             isLoading: true,
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  82)             raceBrief: null,
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  83)             raceResults: [],
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  84)             raceSchedule: {},
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  85)         };
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  86)     }
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  88)     componentDidMount() {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  89)         this.loadRaceDetails();
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  90)     }
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  92)     loadRaceDetails = async () => {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  93)         const raceId = this.props.route.params.raceId;
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  94)         try {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  95)             const raceBrief = await getRaceBrief(raceId);
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  96)             const raceResults = await getRaceResults(raceId);
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  97)             const raceSchedule = await getRaceSchedule(raceId);
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  98)             this.setState({
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500  99)                 raceBrief,
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 100)                 raceResults,
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 101)                 raceSchedule,
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 102)                 isLoading: false,
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 103)             });
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 104)         } catch (error) {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 105)             console.warn('Error fetching race details:', error);
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 106)             this.setState({ isLoading: false }); 
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 107)         }
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 108)     };
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 110)     render() {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 111)         const { isLoading, raceBrief, raceResults, raceSchedule } = this.state;
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 113)         if (isLoading) {
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 114)             return (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 115)                 <View style={styles.container}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 116)                     <ActivityIndicator size="large" />
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 117)                 </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 118)             );
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 119)         }
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 120) 
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 121)         return (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 122)             <ScrollView style={styles.container}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 123)               <View style={styles.header}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 124)                 <Text style={styles.title}>{raceBrief.name}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 125)                 <Text style={styles.date}>{raceBrief.date}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 126)               </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 127)           
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 128)               <Text style={styles.sectionTitle}>Race Results</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 129)               {raceResults.length > 0 ? (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 130)                 raceResults.map((result, index) => (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 131)                   <View key={index} style={styles.listItem}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 132)                     <Text>Position: {result.position}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 133)                     <Text>Driver: {result.driverName}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 134)                     <Text>Laps: {result.laps}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 135)                     <Text>Time: {result.time}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 136)                     <Text>Status: {result.status}</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 137)                   </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 138)                 ))
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 139)               ) : (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 140)                 <Text>No race results available.</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 141)               )}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 142)           
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 143)               <Text style={styles.sectionTitle}>Race Schedule</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 144)               {raceSchedule.practice ? (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 145)                 <View style={styles.list}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 146)                   <Text style={styles.listItem}>Practice Sessions:</Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 147)                   {raceSchedule.practice.map((session, index) => (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 148)                     <Text key={index} style={styles.listItem}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 149)                       {`Session ${index + 1}: ${session.date} at ${session.time}`}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 150)                     </Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 151)                   ))}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 152)                 </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 153)               ) : null}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 154)               {raceSchedule.qualifying ? (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 155)                 <View style={styles.list}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 156)                   <Text style={styles.listItem}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 157)                     Qualifying: {raceSchedule.qualifying.date} at {raceSchedule.qualifying.time}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 158)                   </Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 159)                 </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 160)               ) : null}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 161)               {raceSchedule.sprint ? (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 162)                 <View style={styles.list}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 163)                   <Text style={styles.listItem}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 164)                     Sprint: {raceSchedule.sprint.date} at {raceSchedule.sprint.time}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 165)                   </Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 166)                 </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 167)               ) : null}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 168)               {raceSchedule.race ? (
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 169)                 <View style={styles.list}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 170)                   <Text style={styles.listItem}>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 171)                     Race: {raceSchedule.race.date} at {raceSchedule.race.time}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 172)                   </Text>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 173)                 </View>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 174)               ) : null}
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 175)               </ScrollView>
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 176)           );
+ca1ea884 (nryanl          2023-11-09 23:44:24 -0500 177)     }
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 112) 
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 328)             <Stack.Screen
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 329) 				name='RaceScreen'
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 330) 				component={RaceScreen}
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 331) 				initialParams={{newTitle: 'Race Screen'}}
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 332) 				options={
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 333) 					({ route }) => ({ 
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 334) 						headerTitle: () => (
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 335) 							isSearchBarVisible
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 336) 								? <SearchBar onSearch={(term) => console.log(term)} />
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 337) 								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 338) 						)
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 339) 					})
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 340) 				}
+bf632d76 (nryanl          2023-11-09 23:46:35 -0500 341) 			></Stack.Screen>
