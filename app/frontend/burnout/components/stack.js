@@ -109,6 +109,7 @@ function LeagueStack({ navigation }){
 
 	};
 
+
 	const handleSearch = (term) => {
 		setSearchTerm(term);
 		console.log('Searching for: ' + term);
@@ -314,6 +315,20 @@ function HomeStack({ navigation }){
 				name='DriverMasterScreen'
 				component={DriverMasterScreen}
 				initialParams={{newTitle: 'Driver Master Screen'}}
+				options={
+					({ route }) => ({ 
+						headerTitle: () => (
+							isSearchBarVisible
+								? <SearchBar onSearch={(term) => console.log(term)} />
+								: <Text style={styles.headerText}>{route.params.newTitle}</Text>
+						)
+					})
+				}
+			></Stack.Screen>
+            <Stack.Screen
+				name='RaceScreen'
+				component={RaceScreen}
+				initialParams={{newTitle: 'Race Screen'}}
 				options={
 					({ route }) => ({ 
 						headerTitle: () => (
