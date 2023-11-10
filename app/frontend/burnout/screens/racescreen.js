@@ -7,7 +7,8 @@
 */
 
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native';
+import { getRaceBrief, getRaceResults, getRaceSchedule } from '../api/racedetails'; 
 
 const styles = StyleSheet.create({
 	container: {
@@ -74,56 +75,104 @@ const styles = StyleSheet.create({
 });
 
 export default class RaceScreen extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			raceTitle: 'Grand Prix',
-			raceDate: '10/8/2021',
-			drivers: [
-				{ name: 'Max Verstappen', score: '1' },
-				{ name: 'Lewis Hamilton', score: '2' },
-				{ name: 'Valtteri Bottas', score: '3' },
-			],
-			outcome: 'X team won!',
-			additionalInfo: 'This race was part of the a world championship series.'
-		};
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            raceBrief: null,
+            raceResults: [],
+            raceSchedule: {},
+        };
+    }
 
-	render() {
-		const { raceTitle, raceDate, drivers, outcome, additionalInfo } = this.state;
+    componentDidMount() {
+        this.loadRaceDetails();
+    }
 
-		return (
-			<ScrollView style={styles.container}>
-				<View style={styles.header}>
-					<Text style={styles.title}>{raceTitle}</Text>
-					<Text style={styles.date}>{raceDate}</Text>
-				</View>
+    loadRaceDetails = async () => {
+        const raceId = this.props.route.params.raceId;
+        try {
+            const raceBrief = await getRaceBrief(raceId);
+            const raceResults = await getRaceResults(raceId);
+            const raceSchedule = await getRaceSchedule(raceId);
+            this.setState({
+                raceBrief,
+                raceResults,
+                raceSchedule,
+                isLoading: false,
+            });
+        } catch (error) {
+            console.warn('Error fetching race details:', error);
+            this.setState({ isLoading: false }); 
+        }
+    };
 
-				<Text style={styles.sectionTitle}>Results</Text>
-				<View style={styles.table}>
-					<View style={styles.tableRow}>
-						<View style={styles.tableCell}>
-                            <Text style={[styles.tableText, styles.tableHeaderText]}>Driver</Text>
-                        </View>
-						<View style={styles.tableCell}>
-                            <Text style={[styles.tableText, styles.tableHeaderText]}>Score</Text>
-                        </View>
-					</View>
-					{drivers.map((driver) => (
-						<View key={driver.name} style={styles.tableRow}>
-							<View style={styles.tableCell}><Text style={styles.tableText}>{driver.name}</Text></View>
-							<View style={styles.tableCell}><Text style={styles.tableText}>{driver.score}</Text></View>
-						</View>
-					))}
-				</View>
+    render() {
+        const { isLoading, raceBrief, raceResults, raceSchedule } = this.state;
 
-				{additionalInfo ? (
-					<>
-						<Text style={styles.sectionTitle}>Additional Information</Text>
-						<Text style={styles.outcome}>{additionalInfo}</Text>
-					</>
-				) : null}
-			</ScrollView>
-		);
-	}
+        if (isLoading) {
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" />
+                </View>
+            );
+        }
+
+        return (
+            <ScrollView style={styles.container}>
+              <View style={styles.header}>
+                <Text style={styles.title}>{raceBrief.name}</Text>
+                <Text style={styles.date}>{raceBrief.date}</Text>
+              </View>
+          
+              <Text style={styles.sectionTitle}>Race Results</Text>
+              {raceResults.length > 0 ? (
+                raceResults.map((result, index) => (
+                  <View key={index} style={styles.listItem}>
+                    <Text>Position: {result.position}</Text>
+                    <Text>Driver: {result.driverName}</Text>
+                    <Text>Laps: {result.laps}</Text>
+                    <Text>Time: {result.time}</Text>
+                    <Text>Status: {result.status}</Text>
+                  </View>
+                ))
+              ) : (
+                <Text>No race results available.</Text>
+              )}
+          
+              <Text style={styles.sectionTitle}>Race Schedule</Text>
+              {raceSchedule.practice ? (
+                <View style={styles.list}>
+                  <Text style={styles.listItem}>Practice Sessions:</Text>
+                  {raceSchedule.practice.map((session, index) => (
+                    <Text key={index} style={styles.listItem}>
+                      {`Session ${index + 1}: ${session.date} at ${session.time}`}
+                    </Text>
+                  ))}
+                </View>
+              ) : null}
+              {raceSchedule.qualifying ? (
+                <View style={styles.list}>
+                  <Text style={styles.listItem}>
+                    Qualifying: {raceSchedule.qualifying.date} at {raceSchedule.qualifying.time}
+                  </Text>
+                </View>
+              ) : null}
+              {raceSchedule.sprint ? (
+                <View style={styles.list}>
+                  <Text style={styles.listItem}>
+                    Sprint: {raceSchedule.sprint.date} at {raceSchedule.sprint.time}
+                  </Text>
+                </View>
+              ) : null}
+              {raceSchedule.race ? (
+                <View style={styles.list}>
+                  <Text style={styles.listItem}>
+                    Race: {raceSchedule.race.date} at {raceSchedule.race.time}
+                  </Text>
+                </View>
+              ) : null}
+              </ScrollView>
+          );
+    }
 }
