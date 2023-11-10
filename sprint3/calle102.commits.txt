@@ -1,0 +1,193 @@
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  1) /*
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  2)     dateformat.js
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  3)     Cody Allen
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  4)     11/4/23
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  5) 
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  6)     Takes date in YYYY-MM-DD format and formats it
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  7)     to the month as a word
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  8) 
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400  9)     Ex 2023-11-04 will be 'Nov 4 2023'
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 10) */
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 11) 
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 12) const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 13) 
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 14) export function dateFormat(dateString) {
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 15)     const dateParts = dateString.split('-');
+4e236807 (codyallen9202 2023-11-04 18:32:11 -0400 16)     const month = parseInt(dateParts[1]) - 1;
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 17) 
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 18)     const formattedDate = monthNames[month]+' '+dateParts[2]+' '+dateParts[0]+' ';
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 19)     return formattedDate;
+0c16dfc9 (codyallen9202 2023-11-04 18:23:50 -0400 20) }
+
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  1) /* 
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  2)     parsetime.js
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  3)     Cody Allen
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  4)     11/4/23
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  5)     Function to take time as a string HH:MM:SS and 
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  6)     returns a separate hour, minute, and second int
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  7) */
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400  8) 
+adae1337 (codyallen9202 2023-11-04 15:19:09 -0400  9) export function parseTime(timeString) {
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 10)     // Splits the time into HH MM SS
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 11)     const timeParts = timeString.split(':');
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 12) 
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 13)     // Ensure there are exactly three parts (hours, minutes, and seconds)
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 14)     if (timeParts.length !== 3) {
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 15)         throw new Error('Invalid time format. Should be HH:MM:SS');
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 16)     }
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 17) 
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 18)     // Converts each part of the split string into ints
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 19)     const hours = parseInt(timeParts[0]);
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 20)     const minutes = parseInt(timeParts[1]);
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 21)     const seconds = parseInt(timeParts[2]);
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 22) 
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 23)     // Check if the parsed values are within valid ranges
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 24)     if (
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 25)         isNaN(hours) ||
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 26)         isNaN(minutes) ||
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 27)         isNaN(seconds) ||
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 28)         hours < 0 || hours > 23 ||
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 29)         minutes < 0 || minutes > 59 ||
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 30)         seconds < 0 || seconds > 59
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 31)     ) {
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 32)         throw new Error('Invalid time values. Check the hours, minutes, and seconds.');
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 33)     }
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 34) 
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 35)     return { hours, minutes, seconds };
+a0fd5d47 (codyallen9202 2023-11-04 15:16:51 -0400 36) }
+
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  1) /* 
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  2)     timezonecalc.js
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  3)     Cody Allen
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  4)     11/4/23
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  5)     Will get the race time and convert it to the correct time zone for
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  6)     the user
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  7)     
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  8)     timeString is HH:MM:SS as a string given from the API
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400  9) */
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 10) 
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 11) import { parseTime}  from '../functions/parsetime.js';
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 12) 
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 13) export function timeZoneCalc(timeString) {
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 14)     const time = parseTime(timeString);
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 15)     const now = new Date();
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 16)     // Divide by 60 because method returns offset in minutes
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 17)     const utcOffset = now.getTimezoneOffset() / 60;
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 18) 
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 19)     let hour = time.hours;
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 20)     const minute = time.minutes;
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 21) 
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 22)     // Subtract offset because offset is actually UTC-local, so the return type is opposite
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 23)     hour = (hour - utcOffset + 24) % 24;
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 24) 
+75687f5f (codyallen9202 2023-11-04 15:58:29 -0400 25)     const formattedHours = hour.toString().padStart(2, '0');
+75687f5f (codyallen9202 2023-11-04 15:58:29 -0400 26)     const formattedMinutes = minute.toString().padStart(2, '0');
+75687f5f (codyallen9202 2023-11-04 15:58:29 -0400 27) 
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 28)     // Only returning HH:MM because seconds seem redundant
+ce27c857 (codyallen9202 2023-11-04 23:27:06 -0400 29)     const returnString = formattedHours+':'+formattedMinutes;
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 30)     return returnString;
+00b4d3eb (codyallen9202 2023-11-04 15:36:05 -0400 31) }
+
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  11) import { Card, Title, Paragraph } from 'react-native-paper';
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  12) import { StyleSheet, Dimensions } from 'react-native';
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  18) 		justifyContent: 'left',
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  19) 		alignItems: 'left',
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  20) 		textAlign: 'left',
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  21) 		width: screen.width/1.05,
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  22) 		padding: screen.width/200,
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  23) 		marginTop: screen.height/100,
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  24) 		marginBottom: screen.height/100,
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  30) 		textAlign: 'left',
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  32) 	},
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  33) 	raceStart:{
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500  34) 		
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  37) const raceCardStyle = StyleSheet.create({
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  38) 	title: {
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  39) 		fontSize: 18,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  40) 		fontWeight: 'bold',
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  41) 		marginBottom: 0,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  42) 		color: 'white',
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  43) 	},
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  44) 	track: {
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  45) 		fontSize: 14,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  46) 		marginBottom: 5,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  47) 		color: 'white',
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  48) 	},
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  49) 	date: {
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  50) 		fontSize: 14,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  51) 		fontWeight: 'bold',
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  52) 		position: 'absolute',
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  53) 		top: 20,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  54) 		right: 15,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  55) 		color:'white',
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  56) 	},
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  57) 	time: {
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  58) 		fontSize: 14,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  59) 		fontWeight: 'bold',
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  60) 		position: 'absolute',
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  61) 		top: 45,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  62) 		right: 19,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  63) 		color:'white',
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  64) 	},
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  65) 	drivers: {
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  66) 		fontSize: 14,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  67) 		marginTop: 1,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  68) 		color: 'white',
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  69) 	},
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  70) 	driver: {
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  71) 		textAlign: 'center',
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  72) 		marginBottom: 5,
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  73) 		color: 'white',
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500  74) 	},
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  75) });
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  86) 		// const {navigation, name, subName, body, bgcolor, where, message, title, id } = this.props;
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  87) 		// const screenName = where;
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  88) 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  89) 		// return (
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  90) 		// 	<View style={styles.cardStyle}>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  91) 		// 	<Card 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  92) 		// 	style={[styles.container, {backgroundColor: bgcolor}]} 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  93) 		// 	onPress={() => navigation != null ? 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  94)         //             navigation.navigate(JSON.stringify(where).substring(1, where.length+1), 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  95)         //             {newTitle: title, id: id}) : alert(message)}>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  96) 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  97) 		// 	<Card.Title  
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  98) 		// 	subtitleStyle={raceCardStyle.track} 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500  99) 		// 	titleStyle={raceCardStyle.title} 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 100) 		// 	title={name} 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 101) 		// 	subtitle={subName}>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 102) 		// 	</Card.Title>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 103) 		// 	<Card.Content style={raceCardStyle.date}>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 104) 		// 	<Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 105) 		// 	</Card.Content>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 106) 		// 	</Card>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 107) 		// 	</View>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 108) 		// );
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 109) 		const { navigation, where, bgcolor, raceTitle, track, 
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 110) 			time, date, raceStatus, frst, scnd, thrd, message } = this.props;
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 113) 			<Card 
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 114) 			style={[styles.container, {backgroundColor: bgcolor}]}
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 115) 			onPress={() => navigation != null ? 
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 118) 			<Card.Content>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 119) 			<Title style={raceCardStyle.title}>{raceTitle}</Title>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 120) 			<Paragraph style={raceCardStyle.track}>{track}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 121) 			<Paragraph style={raceCardStyle.date}>{date}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 122) 			<Paragraph style={raceCardStyle.time}>{time}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 123) 			</Card.Content>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 124) 			<Card.Content style={raceCardStyle.drivers}>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 125) 			<Paragraph style={raceCardStyle.driver}>{raceStatus}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 126) 			<Paragraph style={raceCardStyle.driver}>1. {frst}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 127) 			<Paragraph style={raceCardStyle.driver}>2. {scnd}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 128) 			<Paragraph style={raceCardStyle.driver}>3. {thrd}</Paragraph>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 129) 			</Card.Content>
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 130) 			</Card>
+32813a8d (codyallen9202    2023-11-09 20:22:06 -0500 131) 		);
+
+75687f5f (codyallen9202    2023-11-04 15:58:29 -0400 14) import { timeZoneCalc}  from '../functions/timezonecalc';
+0c16dfc9 (codyallen9202    2023-11-04 18:23:50 -0400 15) import { dateFormat } from '../functions/dateformat';
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 42)                 raceTitle={data['name']}
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 43)                 track={data['track']}
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 44)                 time={timeZoneCalc(data['time'])}
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 45)                 date={dateFormat(data['date'])}
+2a1d1ced (codyallen9202    2023-11-09 20:09:40 -0500 46)                 raceStatus={data['rstatus']}
+117be931 (codyallen9202    2023-11-09 12:25:23 -0500 47)                 body={timeZoneCalc(data['time'])+'\n'+dateFormat(data['date'])+'\n'+data['rstatus']}
