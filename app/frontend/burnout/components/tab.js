@@ -35,7 +35,7 @@ export default function MyTab() {
                             title: 'Home',
                             tabBarIcon: ({ focused, size }) => (
                                 <MaterialCommunityIcons
-                                    name={focused ? 'home' : 'home-outline'}
+                                    name={'home'}
                                     size={size}
                                     color={focused ? '#f00' : '#000'}
                                 />
@@ -48,20 +48,20 @@ export default function MyTab() {
                         options={{
                             title: 'Leagues',
                             tabBarIcon: ({ focused, size }) => (
-                                <View style={{
-                                    width: size,
-                                    height: size,
-                                    borderRadius: size / 2,
-                                    backgroundColor: focused ? 'transparent' : '#fff', // solid background when not focused
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
+                                // <View style={{
+                                //     width: size,
+                                //     height: size,
+                                //     borderRadius: size / 2,
+                                //     backgroundColor:'#fff', // solid background when not focused
+                                //     justifyContent: 'center',
+                                //     alignItems: 'center'
+                                // }}>
                                     <MaterialCommunityIcons
                                         name='racing-helmet'
                                         size={size}
                                         color={focused ? '#f00' : '#000'} // white icon on black background when not focused
                                     />
-                                </View>
+                                // </View>
                             ),
                         }}
                     />
@@ -72,7 +72,7 @@ export default function MyTab() {
                             title: 'Test',
                             tabBarIcon: ({ focused, size }) => (
                                 <MaterialCommunityIcons
-                                    name={focused ? 'calendar-blank' : 'calendar-blank-outline'}
+                                    name={'calendar-today'}
                                     size={size}
                                     color={focused ? '#f00' : '#000'}
                                 />
