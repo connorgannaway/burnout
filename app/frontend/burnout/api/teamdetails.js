@@ -28,15 +28,15 @@ async function getdata(id, {navigation}){
                     where={null}
                     message={'scrum master'}
                     name={data['name']}
-                    body={'Total Team Points: ' + data.results[0].points}
-                    subName={'Position: '+data.results[0].position}
+                    body={'Nationality: ' + data.nationality }
+                    // subName={'Current Position: '+data.results[0].position}
                     bgcolor={'#ff0000'}
                 />
                 {Array.from({ length: data.results[0].drivers.length }).map((_,i) => (
                     <BaseCard 
                         key={i}
                         name={data.results[0].drivers[i].firstname + ' ' + data.results[0].drivers[i].surname}
-                        subName={'Driver Position: ' + data.results[0].drivers[i].position}
+                        subName={'Current Position: ' + data.results[0].drivers[i].position}
                         body={'Click to view data on ' + data.results[0].drivers[i].firstname + ' ' +
                                 data.results[0].drivers[i].surname}
                         bgcolor={'#ff1801'}
@@ -46,6 +46,19 @@ async function getdata(id, {navigation}){
                         id={data.results[0].drivers[i].driverId}
                     />
                 ))}
+                {Array.from({ length: data.results.length}).map((_,i) => (
+                    <BaseCard
+                        key={i}
+                        name={data.name}
+                        bgcolor={'#ff1801'}
+                        where={null}
+                        body={'Year: ' + data.results[i].year + '\n' + 
+                              'Position: ' + data.results[i].position + '\n' +
+                              'Wins: ' + data.results[i].wins + '\n' + 
+                              'Points: ' + data.results[i].points}
+                    />
+                ))}
+
             </View>);
             // return (<View><Text>{data.name}:{'\n'}
             // Points: {data.results[0].points}{'\n'}
