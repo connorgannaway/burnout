@@ -1,0 +1,16 @@
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                     body={'Nationality: ' + data.nationality }
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                     // subName={'Current Position: '+data.results[0].position}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                         subName={'Current Position: ' + data.results[0].drivers[i].position}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                 {Array.from({ length: data.results.length}).map((_,i) => (        
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                     <BaseCard
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                         key={i}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                         name={data.name}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                         bgcolor={'#ff1801'}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                         where={null}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                         body={'Year: ' + data.results[i].year + '\n' +
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                               'Position: ' + data.results[i].position + '\n' +    
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                               'Wins: ' + data.results[i].wins + '\n' +
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                               'Points: ' + data.results[i].points}
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                     />
+teamdetails.js (aaronpig9 on 11/15/2023 at 08:24):                 ))}
+
