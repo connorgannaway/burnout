@@ -50,7 +50,7 @@ export default class BaseCard extends React.Component{
 					style={[styles.container, {backgroundColor: bgcolor}]} 
 					onPress={() => navigation != null ? 
                     navigation.navigate(JSON.stringify(where).substring(1, where.length+1), 
-                    {newTitle: title, id: id}) : alert(message)}>
+                    {newTitle: title, id: id}) : null}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 

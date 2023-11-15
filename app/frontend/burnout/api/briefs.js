@@ -5,7 +5,6 @@
     Grabs nearest races from the /v1/nearest/ endpoint
     Then async fetches all the race briefs from /v1/<int:pk>/brief endpoint
     And returns cards for them.
-    Bug -- Resolves twice because of Promise.all(), don't know how to fix yet.
 */
 import { BASEURL } from './urls';
 import getnearestraces from './nearestraces';
@@ -28,7 +27,6 @@ async function getRaceDetails(id){
         }).catch(error => {
             console.warn(error);
         }).then(data => {
-            console.log(data);
             return data;
         }).catch(error => {
             console.warn(error);

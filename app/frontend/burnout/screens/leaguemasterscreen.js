@@ -32,7 +32,7 @@ function ScrollText(props){
 
     const scrollValue = useRef(new Animated.Value(screen.width+50)).current;
     const scroll = () =>{
-		console.log("scroll props: " + JSON.stringify(props));
+		// console.log("scroll props: " + JSON.stringify(props));
 		Animated.loop(
 			Animated.timing(scrollValue,
 				{

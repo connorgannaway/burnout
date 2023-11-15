@@ -25,8 +25,6 @@ class DateRangePicker extends React.Component {
     // Set the selected date
     this.setState({ selectedDate: dateString });
 
-    // Log to console
-    console.log(dateString);
 
     // Call the provided callback function with the new date
     if (this.props.onDateSelected) {

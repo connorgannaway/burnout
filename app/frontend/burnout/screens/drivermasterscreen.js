@@ -42,20 +42,8 @@ export default class DriverMasterScreen extends React.Component{
 	}
 
 	put(cards){
-		if(cards != null){
-			if(this.state.isLoading){
-				const c = [];
-				for(let i = 0; i < cards.length/2; i++){
-					c.push(cards[i]);
-				}
-				return(
-					<View>
-						{c}
-					</View>
-				);
-			} else return <View>{cards}</View>;
-		}
-		return null;
+		if(cards == null) return null;
+        else return <View>{cards}</View>;
 	}
 
 	shouldComponentUpdate(nextState){
