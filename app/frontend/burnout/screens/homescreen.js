@@ -63,7 +63,6 @@ export default class HomeScreen extends React.Component{
                 console.warn(error);
             }).then(data => {
                 this.setState({briefs: data});
-                // this.forceUpdate();
             }).catch(error => {
                 console.warn(error);
             });

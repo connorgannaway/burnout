@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing } from 'react-native';
 import { ScrollTable, TableManager } from '../components/table';
 import { getConstructorDetails, getDriverDetails } from '../api/leaguedetails';
+import  getnearestraces  from '../api/nearestraces';
 import { getRace } from '../api/briefs';
 
 const screen = Dimensions.get('screen');
@@ -69,7 +70,8 @@ export default class LeagueMasterScreen extends React.Component{
 			isLoadingRace: true,
 			constructorDetails: getConstructorDetails(),
 			driverDetails: getDriverDetails(),
-			raceDetails: getRace('1109'),
+			// raceDetails: getnearestraces(),
+            raceDetails: getRace('1109'),
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
 			};
@@ -96,7 +98,15 @@ export default class LeagueMasterScreen extends React.Component{
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
-				this.setState({isLoadingRace: false});
+                this.setState({isLoadingRace: false});
+                // getRace(data['past'][0])
+                // .catch(error => {
+                //     console.warn(error);
+                // }).then(data => {
+                //     this.setState({raceDetails: data});
+                //     console.log(data);
+                //     this.setState({isLoadingRace: false});
+                // });
 			}).catch(error => {
 				console.warn(error);
 			});
