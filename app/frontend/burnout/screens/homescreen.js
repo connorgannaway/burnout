@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
 });
 
 export default class HomeScreen extends React.Component{
-	constructor(props){
-		super(props);
+	constructor({navigation}){
+		super();
 		this.state = {
 			isLoading: true,
 			messages: getmessages(),
-			briefs: getbriefs(),
+			briefs: getbriefs(null, {navigation}),
 			selectedDate: '', // hold selected date
 		};
 
@@ -55,10 +55,11 @@ export default class HomeScreen extends React.Component{
 	
 	retrieveSelectedDate = () => {
 		const selectedDate = this.props.route.params?.selectedDate;
+        const { navigation } = this.props;
 		if (selectedDate) {
             const formattedDate = selectedDate.split('/')[2]
             + '-' + selectedDate.split('/')[0] + '-' + selectedDate.split('/')[1];
-            getbriefs(formattedDate)
+            getbriefs(formattedDate, {navigation})
             .catch(error => {
                 console.warn(error);
             }).then(data => {
