@@ -90,7 +90,8 @@ export default class RaceScreen extends React.Component {
     }
 
     loadRaceDetails = async () => {
-        const raceId = this.props.route.params.raceId;
+        const raceId = this.props.route.params?.raceId;
+        console.log(raceId);
         try {
             const raceBrief = await getRaceBrief(raceId);
             const raceResults = await getRaceResults(raceId);
@@ -103,7 +104,7 @@ export default class RaceScreen extends React.Component {
             });
         } catch (error) {
             console.warn('Error fetching race details:', error);
-            this.setState({ isLoading: false }); 
+            // this.setState({ isLoading: false }); 
         }
     };
 
