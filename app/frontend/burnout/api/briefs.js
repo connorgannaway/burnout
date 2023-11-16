@@ -33,40 +33,42 @@ async function getRaceDetails(id){
         });
 }
 
-async function grabcard(id){
+async function grabcard(id, {navigation}){
     const data = await getRaceDetails(id);
     return (<BaseCard 
-                where={null}
+                where={'RaceScreen'}
+                navigation={navigation}
                 name={data['name']}
                 subName={data['track']}
                 body={timeZoneCalc(data['time'])+' '+dateFormat(data['date'])+' '+data['rstatus']}
                 bgcolor={'#ff0000'}
                 key={data['date']+data['time']}
                 message={'This is a race brief'}
+                raceID={id}
             />
     );
 }
 
-async function getdata(ids){
+async function getdata(ids, {navigation}){
     const ret = [];
     let i;
     const today = ids['today'];
     const past = ids['past'];
     const future = ids['future'];
     for(i = 0; i < future.length; i++){
-        ret.push(grabcard(future[i]));
+        ret.push(grabcard(future[i], {navigation}));
     }
     for(i = 0; i < today.length; i++){
-        ret.push(grabcard(today[i]));
+        ret.push(grabcard(today[i], {navigation}));
     }
     for(i = 0; i < past.length; i++){
-        ret.push(grabcard(past[i]));
+        ret.push(grabcard(past[i], {navigation}));
     }
     return Promise.all(ret);
 }
 
-export default async function getbriefs(date){
-	return await getdata(await getnearestraces(date));
+export default async function getbriefs(date, {navigation}){
+	return await getdata(await getnearestraces(date), {navigation});
 }
 
 export async function getRace(id){
