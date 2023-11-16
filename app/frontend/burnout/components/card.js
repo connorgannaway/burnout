@@ -41,8 +41,7 @@ export default class BaseCard extends React.Component{
 		this.GoHere = this.GoHere.bind(this);
 	}
 	render () {
-		const {navigation, name, subName, body, bgcolor, where, message, title, id } = this.props;
-		const screenName = where;
+		const {navigation, name, subName, body, bgcolor, where, message, title, id, raceID} = this.props;
 
 		return (
 			<View style={styles.cardStyle}>
@@ -50,7 +49,7 @@ export default class BaseCard extends React.Component{
 					style={[styles.container, {backgroundColor: bgcolor}]} 
 					onPress={() => navigation != null ? 
                     navigation.navigate(JSON.stringify(where).substring(1, where.length+1), 
-                    {newTitle: title, id: id}) : null}>
+                    {newTitle: title, id: id, raceId: raceID}) : null}>
 
 					<Card.Title  
 						subtitleStyle={styles.title} 
