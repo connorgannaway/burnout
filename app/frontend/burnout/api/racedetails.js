@@ -5,12 +5,13 @@ import { BASEURL } from './urls';
  *      id: the ID for the desired race data
  */
 async function getRaceData(id) {
-    const url = `${BASEURL}/v1/races/${id}/?=format.json`;
+    const url = `${BASEURL}/v1/races/${id}/?format=json`;
+    console.log(url);
 
     try {
         const response = await fetch(url);
         const json = await response.json();
-        return json; 
+        return JSON.parse(JSON.stringify(json));
     } catch (error) {
         console.warn('Error fetching race data:', error);
         throw error; 
@@ -61,10 +62,3 @@ export async function getRaceSchedule(id) {
     };
     return schedule; 
 }
-
-export default {
-    getRaceData,
-    getRaceBrief,
-    getRaceResults,
-    getRaceSchedule,
-};
