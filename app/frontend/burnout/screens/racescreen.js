@@ -8,7 +8,8 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native';
-import { getRaceBrief, getRaceResults, getRaceSchedule } from '../api/racedetails'; 
+import getRaceData from '../api/racedetails'; 
+import BaseCard from '../components/card';
 
 const styles = StyleSheet.create({
 	container: {
@@ -79,41 +80,38 @@ export default class RaceScreen extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
-            raceBrief: null,
+            raceData: getRaceData(this.props.route.params?.raceId),
             raceResults: [],
             raceSchedule: {},
         };
+
+        this.state.raceData.catch(error => {
+            console.warn(error);
+        }).then(raceData => {
+            this.setState({raceSchedule: {
+                practiceDate: [raceData.fp1_date, raceData.fp2_date, raceData.fp3_date],
+                practiceTime: [raceData.fp1_time, raceData.fp2_time, raceData.fp3_time],
+                qualifying: [raceData.quali_date, raceData.quali_time],
+                sprint: [raceData.sprint_date, raceData.sprint_time],
+                race: [raceData.date, raceData.time],
+            }});
+            this.setState({raceResults: raceData['grid']});
+            this.setState({isLoading: false});
+            this.forceUpdate();
+        }).catch(error => {
+            console.warn(error);
+        });
     }
 
-    componentDidMount() {
-        this.loadRaceDetails();
+    getTime(result) {
+        return result.time.substring(0,1) === '\\' ? result.status : result.time;
     }
-
-    loadRaceDetails = async () => {
-        const raceId = this.props.route.params?.raceId;
-        console.log(raceId);
-        try {
-            const raceBrief = await getRaceBrief(raceId);
-            const raceResults = await getRaceResults(raceId);
-            const raceSchedule = await getRaceSchedule(raceId);
-            this.setState({
-                raceBrief,
-                raceResults,
-                raceSchedule,
-                isLoading: false,
-            });
-        } catch (error) {
-            console.warn('Error fetching race details:', error);
-            // this.setState({ isLoading: false }); 
-        }
-    };
 
     render() {
-        const { isLoading, raceBrief, raceResults, raceSchedule } = this.state;
-
-        if (isLoading) {
+        if (this.state.isLoading) {
             return (
                 <View style={styles.container}>
+                    <Text>Loading Results...</Text>
                     <ActivityIndicator size="large" />
                 </View>
             );
@@ -121,58 +119,80 @@ export default class RaceScreen extends React.Component {
 
         return (
             <ScrollView style={styles.container}>
-              <View style={styles.header}>
-                <Text style={styles.title}>{raceBrief.name}</Text>
-                <Text style={styles.date}>{raceBrief.date}</Text>
-              </View>
-          
               <Text style={styles.sectionTitle}>Race Results</Text>
-              {raceResults.length > 0 ? (
-                raceResults.map((result, index) => (
-                  <View key={index} style={styles.listItem}>
-                    <Text>Position: {result.position}</Text>
-                    <Text>Driver: {result.driverName}</Text>
-                    <Text>Laps: {result.laps}</Text>
-                    <Text>Time: {result.time}</Text>
-                    <Text>Status: {result.status}</Text>
-                  </View>
+              {this.state.raceResults !== undefined && this.state.raceResults.length > 0 ? (
+                this.state.raceResults.map((result, index) => (
+                <View key={index}>
+                    <BaseCard 
+                        navigation={null}
+                        where={null}
+                        bgcolor={'#808080'}
+                        name={result.name}
+                        subName={result.constructor}
+                        body={
+                            'Ending Position: ' + result.position + 
+                            '\nStarting Position: ' + result.startingPosition + 
+                            '\nPoints: ' + result.points +
+                            '\nTime: ' + this.getTime(result) + 
+                            '\nLaps: ' + result.laps
+                        }
+                    />
+                </View>
                 ))
               ) : (
                 <Text>No race results available.</Text>
               )}
           
               <Text style={styles.sectionTitle}>Race Schedule</Text>
-              {raceSchedule.practice ? (
+              {this.state.raceSchedule.practiceDate ? (
                 <View style={styles.list}>
                   <Text style={styles.listItem}>Practice Sessions:</Text>
-                  {raceSchedule.practice.map((session, index) => (
-                    <Text key={index} style={styles.listItem}>
-                      {`Session ${index + 1}: ${session.date} at ${session.time}`}
-                    </Text>
+                  {this.state.raceSchedule.practiceDate.map((session, index) => (
+                    session !== null ? <Text key={index} style={styles.listItem}>
+                      {`Session ${index + 1}: ${session} at ${this.state.raceSchedule.practiceTime[index]}`}
+                    </Text> : null
                   ))}
                 </View>
               ) : null}
-              {raceSchedule.qualifying ? (
+
+              {this.state.raceSchedule.qualifying[0] !== null ? (
                 <View style={styles.list}>
                   <Text style={styles.listItem}>
-                    Qualifying: {raceSchedule.qualifying.date} at {raceSchedule.qualifying.time}
+                    Qualifying: {this.state.raceSchedule.qualifying[0]} at {this.state.raceSchedule.qualifying[1]}
                   </Text>
                 </View>
-              ) : null}
-              {raceSchedule.sprint ? (
+              ) : 
+                <View style={styles.list}>
+                    <Text style={styles.listItem}>
+                        No qualifying data at this time
+                    </Text>
+                </View>}
+
+              {this.state.raceSchedule.sprint[0] !== null ? (
                 <View style={styles.list}>
                   <Text style={styles.listItem}>
-                    Sprint: {raceSchedule.sprint.date} at {raceSchedule.sprint.time}
+                    Sprint: {this.state.raceSchedule.sprint[0]} at {this.state.raceSchedule.sprint[1]}
                   </Text>
                 </View>
-              ) : null}
-              {raceSchedule.race ? (
+              ) : 
+                <View style={styles.list}>
+                    <Text style={styles.listItem}>
+                        No sprint data at this time
+                    </Text>
+                </View>}
+
+              {this.state.raceSchedule.race[0] !== null ? (
                 <View style={styles.list}>
                   <Text style={styles.listItem}>
-                    Race: {raceSchedule.race.date} at {raceSchedule.race.time}
+                    Race: {this.state.raceSchedule.race[0]} at {this.state.raceSchedule.race[1]}
                   </Text>
                 </View>
-              ) : null}
+              ) : 
+                <View style={styles.list}>
+                    <Text style={styles.listItem}>
+                        No race data at this time
+                    </Text>
+                </View>}
               </ScrollView>
           );
     }
