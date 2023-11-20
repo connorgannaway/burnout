@@ -1,0 +1,140 @@
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57): import getRaceData from '../api/racedetails'; 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57): import BaseCard from '../components/card';
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             raceData: getRaceData(this.props.route.params?.raceId),
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):         this.state.raceData.catch(error => {
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             console.warn(error);
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):         }).then(raceData => {
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             this.setState({raceSchedule: {
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 practiceDate: [raceData.fp1_date, raceData.fp2_date, raceData.fp3_date],
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 practiceTime: [raceData.fp1_time, raceData.fp2_time, raceData.fp3_time],
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 qualifying: [raceData.quali_date, raceData.quali_time],
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 sprint: [raceData.sprint_date, raceData.sprint_time],
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 race: [raceData.date, raceData.time],
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             }});
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             this.setState({raceResults: raceData['grid']});
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             this.setState({isLoading: false});
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             this.forceUpdate();
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):         }).catch(error => {
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):             console.warn(error);
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):         });
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):     getTime(result) {
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):         return result.time.substring(0,1) === '\\' ? result.status : result.time;
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):     }
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):         if (this.state.isLoading) {
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <Text>Loading Results...</Text>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               {this.state.raceResults !== undefined && this.state.raceResults.length > 0 ? (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 this.state.raceResults.map((result, index) => (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 <View key={index}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <BaseCard 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         navigation={null}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         where={null}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         bgcolor={'#808080'}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         name={result.name}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         subName={result.constructor}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         body={
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                             'Ending Position: ' + result.position + 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                             '\nStarting Position: ' + result.startingPosition + 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                             '\nPoints: ' + result.points +
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                             '\nTime: ' + this.getTime(result) + 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                             '\nLaps: ' + result.laps
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         }
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     />
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 </View>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               {this.state.raceSchedule.practiceDate ? (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                   {this.state.raceSchedule.practiceDate.map((session, index) => (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     session !== null ? <Text key={index} style={styles.listItem}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                       {`Session ${index + 1}: ${session} at ${this.state.raceSchedule.practiceTime[index]}`}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     </Text> : null
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               {this.state.raceSchedule.qualifying[0] !== null ? (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     Qualifying: {this.state.raceSchedule.qualifying[0]} at {this.state.raceSchedule.qualifying[1]}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               ) : 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 <View style={styles.list}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <Text style={styles.listItem}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         No qualifying data at this time
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     </Text>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 </View>}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               {this.state.raceSchedule.sprint[0] !== null ? (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     Sprint: {this.state.raceSchedule.sprint[0]} at {this.state.raceSchedule.sprint[1]}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               ) : 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 <View style={styles.list}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <Text style={styles.listItem}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         No sprint data at this time
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     </Text>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 </View>}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               {this.state.raceSchedule.race[0] !== null ? (
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     Race: {this.state.raceSchedule.race[0]} at {this.state.raceSchedule.race[1]}
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               ) : 
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 <View style={styles.list}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <Text style={styles.listItem}>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         No race data at this time
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     </Text>
+racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 </View>}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14): async function buildcards(data) {
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     const ret = [];
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     ret.push(<BaseCard
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         where={null}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         message={'scrum master'}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         name={data.firstname + ' ' + data.surname}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         body={'Short name: ' + data.code + '\nNumber: ' + data.number + '\n' + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):               'Date of Birth: ' + data.dob + '\n' + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):               'Nationality: ' + data.nationality}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         key={data.driverId}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         bgcolor={'#ff0000'}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     />);
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     for (let i = 0; i < data.results.length; ++i) {
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         ret.push(<BaseCard 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             where={null}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             message={'scrum master'}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             name={data.surname}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             body={'Year: ' + data.results[i].year + '\nTeam: ' + data.results[i].constructor + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             '\nPosition: ' + data.results[i].position + '\nWins: ' + data.results[i].wins + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             '\nPoints: ' + data.results[i].points
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             }
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             bgcolor={'#ff0000'}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             key={data.results[i].year}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             />);
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     }
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     return ret;
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14): }
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         }).then(async data => {
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             // return (<View>
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 // <BaseCard
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //     where={null}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //     message={'scrum master'}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //     name={data.firstname + ' ' + data.surname}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //     body={'Number: ' + data.number + '\n' + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //           'Team: ' + data.results[0].constructor + '\n' +
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //           'Total Driver Points: ' + data.results[0].points + '\n' +
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //           'Wins: ' + data.results[0].wins +
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //           '\n' + 'Driver Position: ' + data.results[0].position + '\n' + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //           'Date of Birth: ' + data.dob + '\n' + 
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //           'Nationality: ' + data.nationality}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //     subName={data.code}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 //     bgcolor={'#ff0000'}
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):                 // />
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             // </View>
+driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             return await buildcards(data);
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57): export default async function getRaceData(id) {
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     return fetch (BASEURL+'/v1/races/'+id+'/?format=json')
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     .catch(error => {
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         console.warn(error);
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     }).then(response => {
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         return response.json();
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     }).catch(error => {
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         console.warn(error);
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     }).then(data => {
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         return JSON.parse(JSON.stringify(data));
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     }).catch(error => {
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         console.warn(error);
+racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     });
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                     name={'home'}
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 // <View style={{
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     width: size,
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     height: size,
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     borderRadius: size / 2,
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     backgroundColor:'#fff', // solid background when not focused
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     justifyContent: 'center',
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     alignItems: 'center'
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 // }}>
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 // </View>
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                     name={'calendar-today'}
