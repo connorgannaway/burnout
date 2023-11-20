@@ -7,8 +7,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Button } from 'react-native-paper';
-import BaseCard from '../components/card';
 
 const styles = StyleSheet.create({
 	container: {

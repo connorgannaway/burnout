@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
-import { View } from 'react-native';
 import TestScreen from '../screens/testscreen';
 import { HomeStack, LeagueStack } from './stack';
 

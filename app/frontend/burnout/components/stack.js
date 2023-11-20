@@ -16,8 +16,8 @@ import DriverMasterScreen from '../screens/drivermasterscreen';
 import TeamMasterScreen from '../screens/teammasterscreen';
 import RaceScreen from '../screens/racescreen';
 import { StyleSheet, View, SafeAreaView, Modal, Text, TouchableOpacity } from 'react-native';
-import DateRangePicker from './DateRangePicker';
-import SearchBar from './SearchBar';
+import DateRangePicker from './daterangepicker';
+import SearchBar from './searchbar';
 
 
 const Stack = createNativeStackNavigator();

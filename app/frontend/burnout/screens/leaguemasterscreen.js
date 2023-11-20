@@ -157,7 +157,8 @@ export default class LeagueMasterScreen extends React.Component{
 									fontSize: 12,
 									textTransform: 'capitalize',}}>
 						3rd:
-						{this.state.raceDetails['_j'] !== null? this.state.raceDetails['_j']['grid'][2]['name'] : 'loading...'}
+						{this.state.raceDetails['_j'] !== null? 
+                        this.state.raceDetails['_j']['grid'][2]['name'] : 'loading...'}
 
 					</Text>
 					<Text style = {{paddingTop: 5,
@@ -167,7 +168,8 @@ export default class LeagueMasterScreen extends React.Component{
 									fontSize: 12,
 									textTransform: 'capitalize',}}>
 						2nd:
-						{this.state.raceDetails['_j'] !== null? this.state.raceDetails['_j']['grid'][1]['name']  : 'loading...'}
+						{this.state.raceDetails['_j'] !== null? 
+                        this.state.raceDetails['_j']['grid'][1]['name']  : 'loading...'}
 
 					</Text>
 					<Text style = {{paddingBottom: 2,
@@ -178,7 +180,8 @@ export default class LeagueMasterScreen extends React.Component{
 									fontSize: 24,
 									textTransform: 'capitalize',}}>
 						1st: 
-						{this.state.raceDetails['_j'] !== null? this.state.raceDetails['_j']['grid'][0]['name'] : 'loading...'}
+						{this.state.raceDetails['_j'] !== null? 
+                        this.state.raceDetails['_j']['grid'][0]['name'] : 'loading...'}
 
 					</Text>
 					<ScrollView horizontal={true} scrollEnabled={false} style = {{paddingHorizontal: 10,
@@ -189,7 +192,8 @@ export default class LeagueMasterScreen extends React.Component{
 										fontSize: 48,
 										textTransform: 'uppercase',
 										}}>
-							{this.state.raceDetails['_j'] !== null? this.state.raceDetails['_j']['name'] : 'loading...'}
+							{this.state.raceDetails['_j'] !== null? 
+                            this.state.raceDetails['_j']['name'] : 'loading...'}
 						</ScrollText>
 					</ScrollView>
 				</View>
