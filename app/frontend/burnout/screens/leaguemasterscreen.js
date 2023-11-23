@@ -10,8 +10,9 @@ import { useRef } from 'react';
 import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing } from 'react-native';
 import { ScrollTable, TableManager } from '../components/table';
 import { getConstructorDetails, getDriverDetails } from '../api/leaguedetails';
-import  getnearestraces  from '../api/nearestraces';
+import  getNearestRaceDetails  from '../api/nearestraces';
 import { getRace } from '../api/briefs';
+import getnearestraces from '../api/nearestraces';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -68,15 +69,14 @@ export default class LeagueMasterScreen extends React.Component{
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
 			isLoadingRace: true,
-			constructorDetails: getConstructorDetails(),
-			driverDetails: getDriverDetails(),
-			// raceDetails: getnearestraces(),
-            raceDetails: getRace('1109'),
+			constructorDetails: getConstructorDetails(), // load constructors into screen state
+			driverDetails: getDriverDetails(),			 // load drivers into screen state
+			raceDetails: getRace(),						 // load races into screen state
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
 			};
 
-		this.state.constructorDetails
+		this.state.constructorDetails //check if the constructors have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
@@ -85,7 +85,7 @@ export default class LeagueMasterScreen extends React.Component{
 				console.warn(error);
 			});
 
-		this.state.driverDetails
+		this.state.driverDetails //check if the drivers have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
@@ -94,19 +94,11 @@ export default class LeagueMasterScreen extends React.Component{
 				console.warn(error);
 			});
 
-		this.state.raceDetails
+		this.state.raceDetails // check if the races have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
                 this.setState({isLoadingRace: false});
-                // getRace(data['past'][0])
-                // .catch(error => {
-                //     console.warn(error);
-                // }).then(data => {
-                //     this.setState({raceDetails: data});
-                //     console.log(data);
-                //     this.setState({isLoadingRace: false});
-                // });
 			}).catch(error => {
 				console.warn(error);
 			});
