@@ -9,10 +9,8 @@ import * as React from 'react';
 import { useRef } from 'react';
 import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing } from 'react-native';
 import { ScrollTable, TableManager } from '../components/table';
-import { getConstructorDetails, getDriverDetails } from '../api/leaguedetails';
-import  getNearestRaceDetails  from '../api/nearestraces';
+import { getConstructorDetails, getDriverDetails, getLeagueDetails } from '../api/leaguedetails';
 import { getRace } from '../api/briefs';
-import getnearestraces from '../api/nearestraces';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
@@ -34,7 +32,6 @@ function ScrollText(props){
 
     const scrollValue = useRef(new Animated.Value(screen.width+50)).current;
     const scroll = () =>{
-		// console.log("scroll props: " + JSON.stringify(props));
 		Animated.loop(
 			Animated.timing(scrollValue,
 				{
@@ -63,14 +60,15 @@ function ScrollText(props){
  *			navigation: navigation prop created by React Navigation
  */
 export default class LeagueMasterScreen extends React.Component{
-	constructor(){
+	constructor(props){
 		super();
+		console.log(props.route.params.id);
 		this.state = {
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
 			isLoadingRace: true,
-			constructorDetails: getConstructorDetails(), // load constructors into screen state
-			driverDetails: getDriverDetails(),			 // load drivers into screen state
+			constructorDetails: getConstructorDetails(props.route.params.id), // load constructors into screen state
+			driverDetails: getDriverDetails(props.route.params.id),			 // load drivers into screen state
 			raceDetails: getRace(),						 // load races into screen state
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
