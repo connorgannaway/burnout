@@ -33,9 +33,9 @@ async function getLeagueData(id){
  * getConstructorDetails splits the constructor out of the league details 
  * returned by getLeagueData
  */
-export async function getConstructorDetails(){
+export async function getConstructorDetails(league){
 
-    const data = await getLeagueData('1');
+    const data = await getLeagueData(league);
     const constructors = data.constructors;
     const constructorDetails = constructors.map((constructor) => {return {id:constructor.constructorId, 
                                                                         data:[constructor.position, 
@@ -51,9 +51,9 @@ export async function getConstructorDetails(){
  * getDriverDetails splits the constructor out of the league details 
  * returned by getLeagueData
  */
-export async function getDriverDetails(){
+export async function getDriverDetails(league){
 
-    const data = await getLeagueData('1');
+    const data = await getLeagueData(league);
     const drivers = data.drivers;
     const driverDetails = drivers.map((driver) => {return {id:driver.driverId,
                                                          data:[driver.position, 
@@ -69,8 +69,8 @@ export async function getDriverDetails(){
  * getRaces splits the constructor out of the league details 
  * returned by getLeagueData
  */
-export async function getRaces(){
-    const data = await getLeagueData('1');
+export async function getRaces(league){
+    const data = await getLeagueData(league);
     const races = data.races;
     
     return races;

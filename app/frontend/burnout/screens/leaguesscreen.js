@@ -6,7 +6,8 @@
 */
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { getLeagues } from '../api/leagues';
 import BaseCard from '../components/card';
 
 const screen = Dimensions.get('screen');
@@ -24,27 +25,52 @@ const styles = StyleSheet.create({
 });
 
 export default function LeaguesScreen({ navigation }) {
+
+	const [leagues, setLeagues] = React.useState();
+	let leagueCards = null;
+
+	React.useEffect( () => {
+		let isLoadingLeagues = true;
+
+		getLeagues().then(result => {
+			if(isLoadingLeagues){
+				setLeagues(result);
+			}
+		});
+
+		return( () => {
+			isLoadingLeagues = false;
+		});
+
+	}, []);
+
+	leagueCards = leagues?.map((league, index) => {return(<BaseCard
+										key = {league.name + index} 
+										navigation={navigation}
+										name={league.name}
+										body={'Click to view the Formula 1 League Page'}
+										bgcolor={'#ff1801'}
+										where={'LeagueMasterScreen'}
+										title={league.name}
+										id = {league.disciplineId}
+									/>);});
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<ScrollView style={styles.scrollView} >
 				{/* This is where the cards for the leagues will go
             currently we have cards for Formula 1, NASCAR, 
             MotoGP and IndyCar */}
+				{leagueCards}
 				<BaseCard 
 					navigation={navigation}
-					name={'Formula 1'}
-					body={'Click to view the Formula 1 League Page'}
-					bgcolor={'#ff1801'}
-					where={'LeagueMasterScreen'}
-					title={'Formula 1'}
-				/>
-				<BaseCard 
-					navigation={navigation} 
 					name={'NASCAR'}
 					body={'Click to view the NASCAR League Page'}
 					bgcolor={'#e4002b'}
 					where={'LeagueMasterScreen'}
 					title={'NASCAR'}
+					id = {'1'}
+
 				/>
 				<BaseCard 
 					navigation={navigation} 
@@ -53,6 +79,8 @@ export default function LeaguesScreen({ navigation }) {
 					bgcolor={'#E0144C'}
 					where={'LeagueMasterScreen'}
 					title={'MotoGP'}
+					id = {'1'}
+
 				/>
 				<BaseCard 
 					navigation={navigation} 
@@ -61,6 +89,8 @@ export default function LeaguesScreen({ navigation }) {
 					bgcolor={'#b92a30'}
 					where={'LeagueMasterScreen'}
 					title={'IndyCar'}
+					id = {'1'}
+
 				/>
 				<StatusBar style="auto" />
 			</ScrollView>

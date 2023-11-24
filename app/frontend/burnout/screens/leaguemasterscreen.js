@@ -9,8 +9,7 @@ import * as React from 'react';
 import { useRef } from 'react';
 import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing } from 'react-native';
 import { ScrollTable, TableManager } from '../components/table';
-import { getConstructorDetails, getDriverDetails } from '../api/leaguedetails';
-import  getnearestraces  from '../api/nearestraces';
+import { getConstructorDetails, getDriverDetails, getLeagueDetails } from '../api/leaguedetails';
 import { getRace } from '../api/briefs';
 
 const screen = Dimensions.get('screen');
@@ -33,7 +32,6 @@ function ScrollText(props){
 
     const scrollValue = useRef(new Animated.Value(screen.width+50)).current;
     const scroll = () =>{
-		// console.log("scroll props: " + JSON.stringify(props));
 		Animated.loop(
 			Animated.timing(scrollValue,
 				{
@@ -62,21 +60,21 @@ function ScrollText(props){
  *			navigation: navigation prop created by React Navigation
  */
 export default class LeagueMasterScreen extends React.Component{
-	constructor(){
+	constructor(props){
 		super();
+		console.log(props.route.params.id);
 		this.state = {
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
 			isLoadingRace: true,
-			constructorDetails: getConstructorDetails(),
-			driverDetails: getDriverDetails(),
-			// raceDetails: getnearestraces(),
-            raceDetails: getRace('1109'),
+			constructorDetails: getConstructorDetails(props.route.params.id), // load constructors into screen state
+			driverDetails: getDriverDetails(props.route.params.id),			 // load drivers into screen state
+			raceDetails: getRace(),						 // load races into screen state
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
 			};
 
-		this.state.constructorDetails
+		this.state.constructorDetails //check if the constructors have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
@@ -85,7 +83,7 @@ export default class LeagueMasterScreen extends React.Component{
 				console.warn(error);
 			});
 
-		this.state.driverDetails
+		this.state.driverDetails //check if the drivers have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
@@ -94,19 +92,11 @@ export default class LeagueMasterScreen extends React.Component{
 				console.warn(error);
 			});
 
-		this.state.raceDetails
+		this.state.raceDetails // check if the races have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
                 this.setState({isLoadingRace: false});
-                // getRace(data['past'][0])
-                // .catch(error => {
-                //     console.warn(error);
-                // }).then(data => {
-                //     this.setState({raceDetails: data});
-                //     console.log(data);
-                //     this.setState({isLoadingRace: false});
-                // });
 			}).catch(error => {
 				console.warn(error);
 			});

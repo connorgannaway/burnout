@@ -1,6 +1,7 @@
 /*
     briefs.js
     Caleb Kornegay
+    Andrew Lindstrom
     10/27/2023
     Grabs nearest races from the /v1/nearest/ endpoint
     Then async fetches all the race briefs from /v1/<int:pk>/brief endpoint
@@ -71,6 +72,12 @@ export default async function getbriefs(date, {navigation}){
 	return await getdata(await getnearestraces(date), {navigation});
 }
 
-export async function getRace(id){
-    return await getRaceDetails(id);
+/*
+ * Gets the race closest to the specified date
+ *  params:
+ *      date: date to begin search for races
+ */
+export async function getRace(date){
+    const races = await getnearestraces(date);
+    return await getRaceDetails(races.past[0]);
 }

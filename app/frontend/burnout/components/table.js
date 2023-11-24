@@ -5,7 +5,7 @@
  *
  */
 import { React, useState} from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView, Animated} from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, Pressable, ScrollView} from 'react-native';
 
 const screen = Dimensions.get('screen');
 const styles = StyleSheet.create({
