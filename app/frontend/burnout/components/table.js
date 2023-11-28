@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: 'column',
 		width: screen.width,
+        height: screen.height-357,
     },
     tableContainer:{
         flexDirection: 'column',
@@ -158,17 +159,20 @@ export function Table(props){
                                                 />);
 
     return(
-        <View style={styles.container}>
-            <View style={{flexDirection: 'row'}}>{headingCells}</View>
-            {chunk(cells, props.numColumns).map((item, index) =>
-            <Pressable key={'row' + index} onPress = {() => props.navigation != null ?
-                                                            props.navigation.navigate(props.where,
-                                                                {newTitle: data[index*props.numColumns+1],
-                                                                    id: props.id[index]}) :
-                                                            alert(1)}>
-                <View style={{flexDirection: 'row'}}>{item}</View>
-            </Pressable>)}
-        </View>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
+                <View style={{flexDirection: 'row'}}>{headingCells}</View>
+                {chunk(cells, props.numColumns).map((item, index) =>
+                <Pressable key={'row' + index} onPress = {() => props.navigation != null ?
+                                                                props.navigation.navigate(props.where,
+                                                                    {newTitle: data[index*props.numColumns+1],
+                                                                        id: props.id[index]}) :
+                                                                alert(1)}>
+                    <View style={{flexDirection: 'row'}}>{item}</View>
+                </Pressable>)}
+            </View>
+        </SafeAreaView>
+
     );
 }
 
