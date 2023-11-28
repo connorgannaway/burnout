@@ -18,7 +18,7 @@ async function buildcards(data) {
               'Date of Birth: ' + data.dob + '\n' + 
               'Nationality: ' + data.nationality}
         key={data.driverId}
-        bgcolor={'#ff0000'}
+        bgcolor={data['color']}
     />);
 
     for (let i = 0; i < data.results.length; ++i) {
@@ -30,7 +30,7 @@ async function buildcards(data) {
             '\nPosition: ' + data.results[i].position + '\nWins: ' + data.results[i].wins + 
             '\nPoints: ' + data.results[i].points
             }
-            bgcolor={'#ff0000'}
+            bgcolor={data['color']}
             key={data.results[i].year}
             />);
     }
