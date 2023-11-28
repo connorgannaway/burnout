@@ -41,24 +41,25 @@ export default class BaseCard extends React.Component{
 		this.GoHere = this.GoHere.bind(this);
 	}
 	render () {
-		const {navigation, name, subName, body, bgcolor, where, message, title, id, raceID} = this.props;
+		const {navigation, name, subName, body, bgcolor, fgcolor, where, message, title, id, raceID} = this.props;
 
 		return (
-			<View style={styles.cardStyle}>
+			<View style={[styles.cardStyle]}>
 				<Card 
-					style={[styles.container, {backgroundColor: bgcolor}]} 
+					style={[styles.container, {borderLeftColor: bgcolor, borderLeftWidth: '20px', backgroundColor: '#ffffff'}]} 
 					onPress={() => navigation != null ? 
                     navigation.navigate(JSON.stringify(where).substring(1, where.length+1), 
                     {newTitle: title, id: id, raceId: raceID}) : null}>
 
 					<Card.Title  
-						subtitleStyle={styles.title} 
-						titleStyle={styles.title} 
+						subtitleStyle={[styles.title, {color: fgcolor}]} 
+						titleStyle={[styles.title, {color: fgcolor}]} 
 						title={name} 
-						subtitle={subName}>
+						subtitle={subName}
+						>
 					</Card.Title>
 					<Card.Content style={styles.title}>
-						<Text style={{color: 'black'}} variant="bodyMedium">{body}</Text>
+						<Text style={{color: fgcolor}} variant="bodyMedium">{body}</Text>
 					</Card.Content>
 				</Card>
 			</View>
