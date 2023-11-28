@@ -306,9 +306,14 @@ class Race(APIView):
 # /v1/leagues/
 class AllLeagues(APIView):
     def get(self, request, format=None):
-        disciplines = Disciplines.objects.all()
-        serializer = DisciplineSerializer(disciplines, many=True)
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+        disciplines = Disciplines.objects.all().order_by("disciplineId")
+        #serializer = DisciplineSerializer(disciplines, many=True)
+        data = [{
+            "disciplineId": discipline.disciplineId,
+            "name": discipline.name,
+            "color": discipline.color,
+        } for discipline in disciplines]
+        return Response(data=data, status=status.HTTP_200_OK)
 
 
 # /v1/leagues/<int:pk>/
