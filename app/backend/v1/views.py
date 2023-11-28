@@ -159,7 +159,8 @@ class Teams(APIView):
         standings = standings.values_list('constructorId', flat=True).order_by('constructorId')
         teams = Constructors.objects.filter(constructorId__in=standings).order_by('constructorId').values_list('name', flat=True)
         points = ConstructorStandings.objects.filter(raceId=raceId[i]).order_by('constructorId').values_list('points', flat=True)
-        data = [{'id' : id, 'team': team, 'points': points} for id,team,points in zip(standings,teams,points)]
+        colors = Constructors.objects.filter(constructorId__in=standings).order_by('constructorId').values_list('color', flat=True)
+        data = [{'id' : id, 'team': team, 'points': points, 'color':color} for id,team,points,color in zip(standings,teams,points,colors)]
         data.sort(key=lambda x: x['points'], reverse=True)
         # data = ConstructorResults.objects.filter(constructorId__in=standings)#.select_related('name').order_by('constructorId')
         # data = StandingsSerializer(data).data
@@ -377,7 +378,10 @@ class League(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         races = season.races_set.all().order_by('date')
-        data = {'races': []}
+        data = {
+            'races': [],
+            'color': season.disciplineId.color
+        }
 
         for race in races:
             data['races'].append(race.raceId)
@@ -408,6 +412,7 @@ class League(APIView):
             'firstname': driver.driverId.firstname,
             'surname': driver.driverId.surname,
             'nationality': driver.driverId.nationality,
+            'color': driver.driverId.color,
             'statistics': self.calcDriverStatistics(driver, data['races'], raceid)
         } for driver in driverstandings]
 
@@ -423,6 +428,7 @@ class League(APIView):
             'position': constructor.position,
             'name': constructor.constructorId.name,
             'nationality': constructor.constructorId.nationality,
+            'color': constructor.constructorId.color,
             'stats': self.calcConstructorStatistics(constructor, data['races'], raceid)
         } for constructor in constructorstandings]
 
@@ -456,6 +462,7 @@ class Driver(APIView):
             "surname": driver.surname,
             "dob": driver.dob,
             "nationality": driver.nationality,
+            "color": driver.color,
             "results": []
         }
 
@@ -521,6 +528,7 @@ class TeamDetail(APIView):
             "constructorId": constructor.constructorId,
             "name": constructor.name,
             "nationality": constructor.nationality,
+            "color": constructor.color,
             "results": []
         }
 

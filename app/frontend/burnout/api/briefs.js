@@ -42,7 +42,7 @@ async function grabcard(id, {navigation}){
                 name={data['name']}
                 subName={data['track']}
                 body={timeZoneCalc(data['time'])+' '+dateFormat(data['date'])+' '+data['rstatus']}
-                bgcolor={'#ff0000'}
+                bgcolor={'#e0e3e0'}
                 key={data['date']+data['time']}
                 message={'This is a race brief'}
                 raceID={id}

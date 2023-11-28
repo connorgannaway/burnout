@@ -7,6 +7,7 @@ from django.utils import timezone
 class Disciplines(models.Model):
     disciplineId = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
+    color = models.CharField(max_length=7, default="#C80815")
     
 class Seasons(models.Model):
     seasonId = models.IntegerField(primary_key=True)
@@ -20,6 +21,7 @@ class Constructors(models.Model):
     name = models.CharField(max_length=255)
     nationality = models.CharField(max_length=255)
     url = models.CharField(max_length=255, blank=True, null=True)
+    color = models.CharField(max_length=7, default="#C80815")
     
 class Drivers(models.Model):
     driverId = models.IntegerField(primary_key=True)
@@ -31,6 +33,7 @@ class Drivers(models.Model):
     dob = models.DateField(blank=True, null=True)
     nationality = models.CharField(max_length=255)
     url = models.CharField(max_length=255, blank=True, null=True)
+    color = models.CharField(max_length=7, default="#C80815")
     
 class Circuits(models.Model):
     circuitId = models.IntegerField(primary_key=True)
