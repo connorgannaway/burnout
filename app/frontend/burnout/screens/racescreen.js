@@ -124,9 +124,10 @@ export default class RaceScreen extends React.Component {
                 this.state.raceResults.map((result, index) => (
                 <View key={index}>
                     <BaseCard 
-                        navigation={null}
-                        where={null}
-                        bgcolor={'#808080'}
+                        navigation={this.props.navigation}
+                        where={'DriverMasterScreen'}
+                        id={result['driverId']}
+                        bgcolor={result['color']}
                         name={result.name}
                         subName={result.constructor}
                         body={
