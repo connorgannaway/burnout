@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		height: screen.height-250,
 		width: screen.width,
-		backgroundColor: '#efefef',
+		backgroundColor: '#d0d0d0',
 		alignItems: 'center',
 	},
 });
