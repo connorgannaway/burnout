@@ -95,6 +95,7 @@ class RaceBrief(APIView):
                 {
                     "position": finisher.position,
                     "number": finisher.number,
+                    "driverId": finisher.driverId,
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
@@ -110,6 +111,7 @@ class RaceBrief(APIView):
                 {
                     "position": finisher.position,
                     "number": finisher.number,
+                    "driverId": finisher.driverId,
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
@@ -245,6 +247,7 @@ class Race(APIView):
                     {
                         "position": self.positionTextConversion(finisher.positionText),
                         "number": finisher.number,
+                        "driverId": finisher.driverId,
                         "name": finisher.driverId.surname,
                         "code": finisher.driverId.code,
                         "constructor": finisher.constructorId.name,
@@ -271,6 +274,7 @@ class Race(APIView):
                 {
                     "position": finisher.position,
                     "number": finisher.number,
+                    "driverId": finisher.driverId,
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
@@ -291,6 +295,7 @@ class Race(APIView):
                 {
                     "position": self.positionTextConversion(finisher.positionText),
                     "number": finisher.number,
+                    "driverId": finisher.driverId,
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
