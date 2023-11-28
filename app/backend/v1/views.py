@@ -98,6 +98,7 @@ class RaceBrief(APIView):
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
+                    "color": finisher.constructorId.color,
                     "time": finisher.q1
                 } for finisher in finishers
             ]
@@ -112,6 +113,7 @@ class RaceBrief(APIView):
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
+                    "color": finisher.constructorId.color,
                     "time": finisher.time
                 } for finisher in finishers
             ]
@@ -251,6 +253,7 @@ class Race(APIView):
                         "points": finisher.points,
                         "laps": finisher.laps,
                         "startingPosition": finisher.grid,
+                        "color": finisher.constructorId.color,
 
                     } for finisher in sprintresults
                 ]
@@ -271,6 +274,7 @@ class Race(APIView):
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
+                    "color": finisher.constructorId.color,
                     "q1": finisher.q1,
                     "q2": finisher.q2,
                     "q3": finisher.q3,
@@ -295,6 +299,7 @@ class Race(APIView):
                     "points": finisher.points,
                     "laps": finisher.laps,
                     "startingPosition": finisher.grid,
+                    "color": finisher.constructorId.color,
 
                 } for finisher in finishers
             ]
