@@ -9,9 +9,24 @@ import { BASEURL } from './urls';
  * getLeagueData makes a fetch request based on a given league ID
  *      id: the ID for the desired league data
  */
-async function getLeagueData(id){
+async function getLeagueData(id, year){
 
-    return await fetch(BASEURL+'/v1/leagues/' + id + '/?=format.json')
+    return year !== undefined && year !== null ? await fetch(BASEURL+'/v1/leagues/'+id+'/?=format.json&year='+year)
+        .catch(error => {
+            console.warn(error);
+        }).then(response => {
+            return response.json();
+        }).catch(error => {
+            console.warn(error);
+        }).then(json => {
+            return JSON.parse(JSON.stringify(json));
+        }).catch(error => {
+            console.warn(error);
+        }).then(data => {
+            return data;
+        }).catch(error => {
+            console.warn(error);
+        }) : await fetch(BASEURL+'/v1/leagues/'+id+'/?=format.json')
         .catch(error => {
             console.warn(error);
         }).then(response => {
@@ -33,9 +48,9 @@ async function getLeagueData(id){
  * getConstructorDetails splits the constructor out of the league details 
  * returned by getLeagueData
  */
-export async function getConstructorDetails(league){
+export async function getConstructorDetails(league, year){
 
-    const data = await getLeagueData(league);
+    const data = await getLeagueData(league, year);
     const constructors = data.constructors;
     const constructorDetails = constructors.map((constructor) => {return {id:constructor.constructorId, 
                                                                         data:[constructor.position, 
