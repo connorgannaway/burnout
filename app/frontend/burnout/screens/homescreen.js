@@ -87,15 +87,9 @@ export default class HomeScreen extends React.Component{
 	}
 
 	render(){
-		const { selectedDate } = this.state;
 		return (
-			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left', }}>
+			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left'}}>
 				<View style={styles.container}>
-					{/* Display selected Date */}
-					<Text style={{ fontSize: 18, margin: 16 }}>
-						Selected date: {selectedDate}
-					</Text>
-
 					{/* Put things that should be rendered into the ScrolLView element */}
 					<ScrollView>
 						{this.put(this.state.messages)}

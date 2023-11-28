@@ -47,20 +47,11 @@ export default function MyTab() {
                         options={{
                             title: 'Leagues',
                             tabBarIcon: ({ focused, size }) => (
-                                // <View style={{
-                                //     width: size,
-                                //     height: size,
-                                //     borderRadius: size / 2,
-                                //     backgroundColor:'#fff', // solid background when not focused
-                                //     justifyContent: 'center',
-                                //     alignItems: 'center'
-                                // }}>
                                     <MaterialCommunityIcons
                                         name='racing-helmet'
                                         size={size}
-                                        color={focused ? '#f00' : '#000'} // white icon on black background when not focused
+                                        color={focused ? '#f00' : '#000'}
                                     />
-                                // </View>
                             ),
                         }}
                     />
@@ -68,10 +59,10 @@ export default function MyTab() {
                         name='Test'
                         component={TestScreen}
                         options={{
-                            title: 'Test',
+                            title: 'Settings',
                             tabBarIcon: ({ focused, size }) => (
                                 <MaterialCommunityIcons
-                                    name={'calendar-today'}
+                                    name={'cog'}
                                     size={size}
                                     color={focused ? '#f00' : '#000'}
                                 />
