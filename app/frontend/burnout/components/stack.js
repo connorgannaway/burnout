@@ -105,7 +105,7 @@ function LeagueStack({ navigation }){
 		alert('Selected Date: ' + formattedDate);
 		console.log('Selected Date: ' + formattedDate);
 		
-		navigation.navigate('HomeScreen', { selectedDate: formattedDate });
+		navigation.navigate('LeaguesScreen', { selectedDate: formattedDate });
 
 	};
 
