@@ -79,6 +79,7 @@ class RaceBrief(APIView):
             "date": race.date,
             "time": race.time,
             "track": race.circuitId.name,
+            "color": race.seasonId.disciplineId.color,
         }
 
         now = timezone.now()
@@ -223,6 +224,7 @@ class Race(APIView):
             "track": race.circuitId.name,
             "location": race.circuitId.location,
             "country": race.circuitId.country,
+            "color": race.seasonId.disciplineId.color,
         }
 
         now = timezone.now()
