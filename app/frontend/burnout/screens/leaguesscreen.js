@@ -62,36 +62,6 @@ export default function LeaguesScreen({ navigation }) {
             currently we have cards for Formula 1, NASCAR, 
             MotoGP and IndyCar */}
 				{leagueCards}
-				<BaseCard 
-					navigation={navigation}
-					name={'NASCAR'}
-					body={'Click to view the NASCAR League Page'}
-					bgcolor={'#e4002b'}
-					where={'LeagueMasterScreen'}
-					title={'NASCAR'}
-					id = {'1'}
-
-				/>
-				<BaseCard 
-					navigation={navigation} 
-					name={'MotoGP'}
-					body={'Click to view the MotoGP League Page'}
-					bgcolor={'#E0144C'}
-					where={'LeagueMasterScreen'}
-					title={'MotoGP'}
-					id = {'1'}
-
-				/>
-				<BaseCard 
-					navigation={navigation} 
-					name={'IndyCar'}
-					body={'Click to view the IndyCar League Page'}
-					bgcolor={'#b92a30'}
-					where={'LeagueMasterScreen'}
-					title={'IndyCar'}
-					id = {'1'}
-
-				/>
 				<StatusBar style="auto" />
 			</ScrollView>
 		</SafeAreaView>
