@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     container:{
         flexDirection: 'column',
 		width: screen.width,
+        height: screen.height-357,
     },
     tableContainer:{
         flexDirection: 'column',
