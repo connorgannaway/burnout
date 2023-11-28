@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		textAlign: 'center',
-		color: 'white',
+		color: 'black',
 	}
 });
 
@@ -58,7 +58,7 @@ export default class BaseCard extends React.Component{
 						subtitle={subName}>
 					</Card.Title>
 					<Card.Content style={styles.title}>
-						<Text style={{color: 'white'}} variant="bodyMedium">{body}</Text>
+						<Text style={{color: 'black'}} variant="bodyMedium">{body}</Text>
 					</Card.Content>
 				</Card>
 			</View>
