@@ -48,8 +48,8 @@ export default function LeaguesScreen({ navigation }) {
 										key = {league.name + index} 
 										navigation={navigation}
 										name={league.name}
-										body={'Click to view the Formula 1 League Page'}
-										bgcolor={'#ff1801'}
+										body={`Click to view the ${league.name} League Page`}
+										bgcolor={league.color}
 										where={'LeagueMasterScreen'}
 										title={league.name}
 										id = {league.disciplineId}
