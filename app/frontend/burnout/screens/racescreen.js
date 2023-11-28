@@ -14,7 +14,7 @@ import BaseCard from '../components/card';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#f0f0f0',
+		backgroundColor: '#d0d0d0',
 		padding: 20,
 	},
 	header: {

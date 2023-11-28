@@ -7,7 +7,7 @@
 */
 import * as React from 'react';
 import { useRef } from 'react';
-import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing } from 'react-native';
+import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing, Image } from 'react-native';
 import { ScrollTable, TableManager } from '../components/table';
 import { getConstructorDetails, getDriverDetails, getLeagueDetails } from '../api/leaguedetails';
 import { getRace } from '../api/briefs';
@@ -127,6 +127,12 @@ export default class LeagueMasterScreen extends React.Component{
 
 	render() {
 		const { navigation } = this.props;
+        if (this.props.route.params?.id !== 1) {
+            return <View style={styles.container}>
+                <Image 
+                source={require('../images/reid_eyes.jpg')}
+            /></View>;
+        }
 		
 		return(
 			<View style={styles.container}>

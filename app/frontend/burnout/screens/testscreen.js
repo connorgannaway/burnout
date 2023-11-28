@@ -11,7 +11,7 @@ import React from 'react';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#d0d0d0',
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

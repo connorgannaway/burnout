@@ -16,7 +16,7 @@ import getbriefs from '../api/briefs';
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#d0d0d0',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		textAlign: 'left',

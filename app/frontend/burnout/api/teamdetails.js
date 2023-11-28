@@ -30,7 +30,7 @@ async function getdata(id, {navigation}){
                     name={data['name']}
                     body={'Nationality: ' + data.nationality }
                     // subName={'Current Position: '+data.results[0].position}
-                    bgcolor={'#ff0000'}
+                    bgcolor={data['color']}
                 />
                 {Array.from({ length: data.results[0].drivers.length }).map((_,i) => (
                     <BaseCard 
@@ -39,7 +39,7 @@ async function getdata(id, {navigation}){
                         subName={'Current Position: ' + data.results[0].drivers[i].position}
                         body={'Click to view data on ' + data.results[0].drivers[i].firstname + ' ' +
                                 data.results[0].drivers[i].surname}
-                        bgcolor={'#ff1801'}
+                        bgcolor={data['color']}
                         where={'DriverMasterScreen'}
                         navigation={navigation}
                         title={data.results[0].drivers[i].firstname + ' ' + data.results[0].drivers[i].surname}
@@ -50,7 +50,7 @@ async function getdata(id, {navigation}){
                     <BaseCard
                         key={i}
                         name={data.name}
-                        bgcolor={'#ff1801'}
+                        bgcolor={data['color']}
                         where={null}
                         body={'Year: ' + data.results[i].year + '\n' + 
                               'Position: ' + data.results[i].position + '\n' +
