@@ -28,7 +28,7 @@ async function getdata(id, {navigation}){
                     where={null}
                     message={'scrum master'}
                     name={data['name']}
-                    body={'Nationality: ' + data.nationality }
+                    body={'Origin: ' + data.nationality}
                     // subName={'Current Position: '+data.results[0].position}
                     bgcolor={data['color']}
                 />
@@ -51,7 +51,10 @@ async function getdata(id, {navigation}){
                         key={i}
                         name={data.name}
                         bgcolor={data['color']}
-                        where={null}
+                        where={'LeagueMasterScreen'}
+                        raceID={data.results[i].year}
+                        id={1}
+                        navigation={navigation}
                         body={'Year: ' + data.results[i].year + '\n' + 
                               'Position: ' + data.results[i].position + '\n' +
                               'Wins: ' + data.results[i].wins + '\n' + 
