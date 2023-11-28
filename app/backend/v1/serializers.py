@@ -24,10 +24,7 @@ class MessageSerializer(serializers.ModelSerializer):
 class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Disciplines
-        fields = [
-            'disciplineId',
-            'name'
-        ]
+        fields = '__all__'
 
         
 class DriversSerializer(serializers.ModelSerializer):
