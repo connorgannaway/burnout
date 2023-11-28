@@ -61,15 +61,15 @@ function ScrollText(props){
  */
 export default class LeagueMasterScreen extends React.Component{
 	constructor(props){
-		super();
-		console.log(props.route.params.id);
+		super(props);
 		this.state = {
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
 			isLoadingRace: true,
-			constructorDetails: getConstructorDetails(props.route.params.id), // load constructors into screen state
-			driverDetails: getDriverDetails(props.route.params.id),			 // load drivers into screen state
-			raceDetails: getRace(),						 // load races into screen state
+			constructorDetails: getConstructorDetails(props.route.params.id, 
+                props.route.params?.raceId), // load constructors into screen state
+			driverDetails: getDriverDetails(props.route.params.id),	// load drivers into screen state
+			raceDetails: getRace(),	// load races into screen state
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
 			};
@@ -128,10 +128,15 @@ export default class LeagueMasterScreen extends React.Component{
 	render() {
 		const { navigation } = this.props;
         if (this.props.route.params?.id !== 1) {
-            return <View style={styles.container}>
+            return (<View style={{
+                flex: 1,
+                backgroundColor: '#d0d0d0',
+                alignItems: 'center',
+                justifyContent: 'center',
+                }}>
                 <Image 
-                source={require('../images/reid_eyes.jpg')}
-            /></View>;
+                source={require('../images/reid_eyes.jpg')}/>
+            </View>);
         }
 		
 		return(
