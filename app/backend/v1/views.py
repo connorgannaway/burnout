@@ -95,7 +95,7 @@ class RaceBrief(APIView):
                 {
                     "position": finisher.position,
                     "number": finisher.number,
-                    "driverId": finisher.driverId,
+                    "driverId": finisher.driverId.driverId,
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
@@ -111,7 +111,7 @@ class RaceBrief(APIView):
                 {
                     "position": finisher.position,
                     "number": finisher.number,
-                    "driverId": finisher.driverId,
+                    "driverId": finisher.driverId.driverId,
                     "name": finisher.driverId.surname,
                     "code": finisher.driverId.code,
                     "constructor": finisher.constructorId.name,
