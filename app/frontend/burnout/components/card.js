@@ -23,6 +23,15 @@ const styles = StyleSheet.create({
 		marginTop: screen.height/96,
 		marginBottom: screen.height/96,
 		borderRadius: 15,
+
+		shadowColor: 'black', 
+        shadowOffset: { 
+            width: 0, 
+            height: 4, 
+        }, 
+        shadowOpacity: 0.3, 
+        shadowRadius: 3, 
+        elevation: 5, 
 	},
 	title:{
 		justifyContent: 'center',
