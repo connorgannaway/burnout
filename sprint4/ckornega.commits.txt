@@ -26,9 +26,6 @@ racescreen.js (caleb kornegay on 11/18/2023 at 13:57):               {this.state
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 this.state.raceResults.map((result, index) => (
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 <View key={index}>
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <BaseCard 
-racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         navigation={null}
-racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         where={null}
-racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         bgcolor={'#808080'}
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         name={result.name}
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         subName={result.constructor}
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         body={
@@ -69,6 +66,18 @@ racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     <Text
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                         No race data at this time
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                     </Text>
 racescreen.js (caleb kornegay on 11/18/2023 at 13:57):                 </View>}
+racescreen.js (caleb kornegay on 11/20/2023 at 12:22): }
+stack.js     (caleb kornegay on 11/20/2023 at 12:22): import DateRangePicker from './daterangepicker';
+stack.js     (caleb kornegay on 11/20/2023 at 12:22): import SearchBar from './searchbar';
+tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                     name={'home'}
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22): 						{this.state.raceDetails['_j'] !== null? 
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22):                         this.state.raceDetails['_j']['grid'][2]['name'] : 'loading...'}
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22): 						{this.state.raceDetails['_j'] !== null? 
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22):                         this.state.raceDetails['_j']['grid'][1]['name']  : 'loading...'}
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22): 						{this.state.raceDetails['_j'] !== null? 
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22):                         this.state.raceDetails['_j']['grid'][0]['name'] : 'loading...'}
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22): 							{this.state.raceDetails['_j'] !== null? 
+leaguemasterscreen.js (caleb kornegay on 11/20/2023 at 12:22):                             this.state.raceDetails['_j']['name'] : 'loading...'}
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14): async function buildcards(data) {
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     const ret = [];
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     ret.push(<BaseCard
@@ -79,7 +88,6 @@ driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         body={'Short n
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):               'Date of Birth: ' + data.dob + '\n' + 
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):               'Nationality: ' + data.nationality}
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         key={data.driverId}
-driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         bgcolor={'#ff0000'}
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     />);
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     for (let i = 0; i < data.results.length; ++i) {
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):         ret.push(<BaseCard 
@@ -90,7 +98,6 @@ driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             body={'Yea
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             '\nPosition: ' + data.results[i].position + '\nWins: ' + data.results[i].wins + 
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             '\nPoints: ' + data.results[i].points
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             }
-driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             bgcolor={'#ff0000'}
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             key={data.results[i].year}
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):             />);
 driverdetails.js (caleb kornegay on 11/13/2023 at 12:14):     }
@@ -127,14 +134,3 @@ racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         return JSON.pars
 racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     }).catch(error => {
 racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         console.warn(error);
 racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     });
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                     name={'home'}
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 // <View style={{
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     width: size,
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     height: size,
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     borderRadius: size / 2,
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     backgroundColor:'#fff', // solid background when not focused
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     justifyContent: 'center',
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 //     alignItems: 'center'
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 // }}>
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                 // </View>
-tab.js       (caleb kornegay on 11/13/2023 at 12:14):                                     name={'calendar-today'}
