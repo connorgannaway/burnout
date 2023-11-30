@@ -5,6 +5,7 @@
 #db.sqlite3
 .env
 !*.commits.txt
+.expo/
 
 /__pycache__
 *.pyc
