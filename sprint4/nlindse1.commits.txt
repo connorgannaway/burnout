@@ -1,0 +1,40 @@
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 19) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 20) ### Project Documentation
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 21) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 22) #### Requirements
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 23) - A computer running MacOS, Windows, or Linux.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 24) - A smartphone running iOS or Android for running the app using Expo Go.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 25) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 26) #### Installation Steps
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 27) 1. **Install Node.js and npm**: Download and install Node.js (which includes npm) from [https://nodejs.org/en/](https://nodejs.org/en/). If you are on Linux, you can install the nodejs and npm as packages.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 28) If you encounter any issues, make sure you have Python, NodeJS and jdk8 installed in your system if not, install them.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 29) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 30) 2. **Install React Native CLI**: Open a terminal and run `npm install -g react-native-cli`.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 31) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 32) 3. **Clone the GitHub Repository**:
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 33)    - Use `git clone https://github.com/[GitHub_Username]/RaceMob.git` to clone the repository to your machine.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 34) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 35) 4. **Navigate to the Project Directory**: 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 36)    - After cloning, navigate to this directory: `RaceMob/app/frontend/burnout`.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 37) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 38) 5. **Install Dependencies**: Run `npm install` to install all the required dependencies listed in the `package.json` file. You may need to install yarn, which you can do by running `npm install yarn`.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 39) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 40) 6. **Expo Go Installation**:
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 41)    - For iOS: Download the “Expo Go” app from the Apple App Store.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 42)    - For Android: Download the “Expo Go” app from the Google Play Store.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 43) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 44) 7. **Start the React Native Server**: Run `npx expo start` in the project directory. This will start the Metro Bundler.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 45) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 46) #### Running the App on Your Phone
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 47) 1. **Make Sure Your Phone and Computer Are On The Same Network**: This is necessary for the Expo Go app to access the React Native server running on your computer.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 48) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 49) 2. **Open Expo Go on Your Smartphone**: Once opened, you will see an option to scan a QR code.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 50) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 51) 3. **Scan the QR Code with Expo Go**:
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 52)    - A QR code will appear in the terminal or command prompt where you started the React Native server.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 53)    - Scan this QR code using the Expo Go app.
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 54) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 55) 4. **Open the Project in Expo Go**:
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 56)    - After scanning, the app should start building on your phone. 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 57) 
+6bd480be (nryanl        2023-11-29 21:18:54 -0500 58) 5. **View the App**: Once the build is complete, the app should automatically open on your phone. If not, you should be able to manually open it from a list of apps on Expo Go's home page.
