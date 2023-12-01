@@ -66,6 +66,7 @@ export default class LeagueMasterScreen extends React.Component{
 			isLoadingConstructors: true,
 			isLoadingDrivers: true,
 			isLoadingRace: true,
+            date: props.route.params?.raceId | null,
 			constructorDetails: getConstructorDetails(props.route.params.id, 
                 props.route.params?.raceId), // load constructors into screen state
 			driverDetails: getDriverDetails(props.route.params.id),	// load drivers into screen state
@@ -73,15 +74,14 @@ export default class LeagueMasterScreen extends React.Component{
 			numConstructorColumns: 1,
 			numDriverColumns: 1,
 			};
-
-		this.state.constructorDetails //check if the constructors have loaded
+        this.state.constructorDetails //check if the constructors have loaded
 			.catch(error => {
 				console.warn(error);
 			}).then(() => {
 				this.setState({isLoadingConstructors: false});
 			}).catch(error => {
 				console.warn(error);
-			});
+        });
 
 		this.state.driverDetails //check if the drivers have loaded
 			.catch(error => {
@@ -90,7 +90,7 @@ export default class LeagueMasterScreen extends React.Component{
 				this.setState({isLoadingDrivers: false});
 			}).catch(error => {
 				console.warn(error);
-			});
+        });
 
 		this.state.raceDetails // check if the races have loaded
 			.catch(error => {
@@ -99,18 +99,63 @@ export default class LeagueMasterScreen extends React.Component{
                 this.setState({isLoadingRace: false});
 			}).catch(error => {
 				console.warn(error);
-			});
+        });
 	}
 
 	shouldComponentUpdate(nextState){
-		if(this.state.constructorDetails != nextState.constructorDetails) return true;
-		if(this.state.driverDetails != nextState.driverDetails) return true;
+		if(this.state.constructorDetails !== nextState.constructorDetails) return true;
+		if(this.state.driverDetails !== nextState.driverDetails) return true;
+        if(this.state.raceDetails !== nextState.raceDetails) return true;
 		if(nextState.isLoadingConstructors === false && 
 			nextState.isLoadingDrivers === false &&
 			nextState.isLoadingRace === false) return true;
-
 		return false;
 	}
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if(nextProps.route.params?.raceId !== this.props.route.params?.raceId) {
+            this.updates(nextProps.route.params?.raceId);
+            return true;
+        }
+    }
+
+    updates(year) {
+        this.setState({isLoadingConstructors: true,
+			isLoadingDrivers: true,
+			isLoadingRace: true,
+        });
+		this.state.constructorDetails = getConstructorDetails(this.props.route.params.id, year); // load constructors into screen state
+        this.state.driverDetails = getDriverDetails(this.props.route.params.id);	// load drivers into screen state
+        this.state.raceDetails = getRace();	// load races into screen state
+
+		this.state.constructorDetails //check if the constructors have loaded
+			.catch(error => {
+				console.warn(error);
+			}).then((data) => {
+				this.setState({isLoadingConstructors: false});
+                console.log(data);
+			}).catch(error => {
+				console.warn(error);
+        });
+
+		this.state.driverDetails //check if the drivers have loaded
+			.catch(error => {
+				console.warn(error);
+			}).then(() => {
+				this.setState({isLoadingDrivers: false});
+			}).catch(error => {
+				console.warn(error);
+        });
+
+		this.state.raceDetails // check if the races have loaded
+			.catch(error => {
+				console.warn(error);
+			}).then(() => {
+                this.setState({isLoadingRace: false});
+			}).catch(error => {
+				console.warn(error);
+        });
+    }
 
 	put(data, loadCheck){
 		if(data != null){

@@ -134,3 +134,250 @@ racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         return JSON.pars
 racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     }).catch(error => {
 racedetails.js (caleb kornegay on 11/18/2023 at 13:57):         console.warn(error);
 racedetails.js (caleb kornegay on 11/18/2023 at 13:57):     });
+urls.js      (calebkornegay on 11/28/2023 at 16:16): export const V1MESSAGESJSON=BASEURL+'/v1/messages/?format=json';
+racescreen.js (calebkornegay on 11/28/2023 at 16:16): 		backgroundColor: '#d0d0d0',
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         navigation={this.props.navigation}
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         where={'DriverMasterScreen'}
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         id={result['driverId']}
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         bgcolor={result['color']}
+driverdetails.js (calebkornegay on 11/28/2023 at 17:15):         bgcolor={data['color']}
+driverdetails.js (calebkornegay on 11/28/2023 at 17:15):             bgcolor={data['color']}
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15): async function getLeagueData(id, year){
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):     return year !== undefined && year !== null ? await fetch(BASEURL+'/v1/leagues/'+id+'/?=format.json&year='+year)
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         .catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).then(response => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             return response.json();
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).then(json => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             return JSON.parse(JSON.stringify(json));
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).then(data => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             return data;
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }) : await fetch(BASEURL+'/v1/leagues/'+id+'/?=format.json')
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15): export async function getConstructorDetails(league, year){
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):     const data = await getLeagueData(league, year);
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16): import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing, Image } from 'react-native';
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 		super(props);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):             date: props.route.params?.raceId | null,
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 			constructorDetails: getConstructorDetails(props.route.params.id, 
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 props.route.params?.raceId), // load constructors into screen state
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 			driverDetails: getDriverDetails(props.route.params.id),	// load drivers into screen state
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 			raceDetails: getRace(),	// load races into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.state.constructorDetails //check if the constructors have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		if(this.state.constructorDetails !== nextState.constructorDetails) return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		if(this.state.driverDetails !== nextState.driverDetails) return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         if(this.state.raceDetails !== nextState.raceDetails) return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     UNSAFE_componentWillReceiveProps(nextProps) {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         if(nextProps.route.params?.raceId !== this.props.route.params?.raceId) {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):             this.updates(nextProps.route.params?.raceId);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):             return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         }
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     }
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     updates(year) {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.setState({isLoadingConstructors: true,
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			isLoadingDrivers: true,
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			isLoadingRace: true,
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.constructorDetails = getConstructorDetails(this.props.route.params.id, year); // load constructors into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.state.driverDetails = getDriverDetails(this.props.route.params.id);	// load drivers into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.state.raceDetails = getRace();	// load races into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.constructorDetails //check if the constructors have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			.catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).then((data) => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				this.setState({isLoadingConstructors: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):                 console.log(data);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.driverDetails //check if the drivers have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			.catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).then(() => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				this.setState({isLoadingDrivers: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.raceDetails // check if the races have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			.catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).then(() => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):                 this.setState({isLoadingRace: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     }
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16):         if (this.props.route.params?.id !== 1) {
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):             return (<View style={{
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 flex: 1,
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 backgroundColor: '#d0d0d0',
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 alignItems: 'center',
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 justifyContent: 'center',
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 }}>
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16):                 <Image 
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 source={require('../images/reid_eyes.jpg')}/>
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):             </View>);
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16):         }
+card.js      (calebkornegay on 11/28/2023 at 16:16): 			<View style={styles.cardStyle}>
+card.js      (calebkornegay on 11/28/2023 at 16:16): 					style={[styles.container, {borderLeftColor: bgcolor, borderLeftWidth: 20, backgroundColor: '#ffffff'}]} 
+testscreen.js (calebkornegay on 11/28/2023 at 15:28): import { StyleSheet, Text, View, Image } from 'react-native';
+testscreen.js (calebkornegay on 11/28/2023 at 16:16): 		backgroundColor: '#d0d0d0',
+testscreen.js (calebkornegay on 11/28/2023 at 15:28): 			<Text>DAVID!</Text>
+testscreen.js (calebkornegay on 11/28/2023 at 15:28):             <Image 
+testscreen.js (calebkornegay on 11/28/2023 at 15:28):             source={require('../images/reid.jpg')}/>
+homescreen.js (calebkornegay on 11/28/2023 at 16:16): 		backgroundColor: '#d0d0d0',
+homescreen.js (calebkornegay on 11/28/2023 at 15:28): 			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left'}}>
+tab.js       (calebkornegay on 11/28/2023 at 15:28):                                         color={focused ? '#f00' : '#000'}
+tab.js       (calebkornegay on 11/28/2023 at 15:28):                             title: 'Settings',
+tab.js       (calebkornegay on 11/28/2023 at 15:28):                                     name={'cog'}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                     body={'Origin: ' + data.nationality}
+teamdetails.js (calebkornegay on 11/28/2023 at 16:16):                     bgcolor={data['color']}
+teamdetails.js (calebkornegay on 11/28/2023 at 16:16):                         bgcolor={data['color']}
+teamdetails.js (calebkornegay on 11/28/2023 at 16:16):                         bgcolor={data['color']}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         where={'LeagueMasterScreen'}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         raceID={data.results[i].year}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         id={1}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         navigation={navigation}
+briefs.js    (calebkornegay on 11/28/2023 at 16:16):                 bgcolor={data['color']}
+messages.js  (calebkornegay on 11/28/2023 at 16:16):                         bgcolor={'#ff8700'}
+drivermasterscreen.js (calebkornegay on 11/15/2023 at 09:03): 		if(cards == null) return null;
+drivermasterscreen.js (calebkornegay on 11/15/2023 at 09:03):         else return <View>{cards}</View>;
+urls.js      (calebkornegay on 11/28/2023 at 16:16): export const V1MESSAGESJSON=BASEURL+'/v1/messages/?format=json';
+tab.js       (calebkornegay on 11/28/2023 at 15:28):                                         color={focused ? '#f00' : '#000'}
+tab.js       (calebkornegay on 11/28/2023 at 15:28):                             title: 'Settings',
+tab.js       (calebkornegay on 11/28/2023 at 15:28):                                     name={'cog'}
+briefs.js    (calebkornegay on 11/16/2023 at 15:24): async function grabcard(id, {navigation}){
+briefs.js    (calebkornegay on 11/16/2023 at 15:24):                 where={'RaceScreen'}
+briefs.js    (calebkornegay on 11/16/2023 at 15:24):                 navigation={navigation}
+briefs.js    (calebkornegay on 11/28/2023 at 16:16):                 bgcolor={data['color']}
+briefs.js    (calebkornegay on 11/16/2023 at 15:24):                 raceID={id}
+briefs.js    (calebkornegay on 11/16/2023 at 15:24): async function getdata(ids, {navigation}){
+briefs.js    (calebkornegay on 11/16/2023 at 15:24):         ret.push(grabcard(future[i], {navigation}));
+briefs.js    (calebkornegay on 11/16/2023 at 15:24):         ret.push(grabcard(today[i], {navigation}));
+briefs.js    (calebkornegay on 11/16/2023 at 15:24):         ret.push(grabcard(past[i], {navigation}));
+briefs.js    (calebkornegay on 11/16/2023 at 15:24): export default async function getbriefs(date, {navigation}){
+briefs.js    (calebkornegay on 11/16/2023 at 15:24): 	return await getdata(await getnearestraces(date), {navigation});
+testscreen.js (calebkornegay on 11/28/2023 at 15:28): import { StyleSheet, Text, View, Image } from 'react-native';
+testscreen.js (calebkornegay on 11/28/2023 at 16:16): 		backgroundColor: '#d0d0d0',
+testscreen.js (calebkornegay on 11/28/2023 at 15:28): 			<Text>DAVID!</Text>
+testscreen.js (calebkornegay on 11/28/2023 at 15:28):             <Image 
+testscreen.js (calebkornegay on 11/28/2023 at 15:28):             source={require('../images/reid.jpg')}/>
+messages.js  (calebkornegay on 11/28/2023 at 16:16):                         bgcolor={'#ff8700'}
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15): async function getLeagueData(id, year){
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):     return year !== undefined && year !== null ? await fetch(BASEURL+'/v1/leagues/'+id+'/?=format.json&year='+year)
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         .catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).then(response => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             return response.json();
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).then(json => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             return JSON.parse(JSON.stringify(json));
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).then(data => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             return data;
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }).catch(error => {
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):             console.warn(error);
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):         }) : await fetch(BASEURL+'/v1/leagues/'+id+'/?=format.json')
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15): export async function getConstructorDetails(league, year){
+leaguedetails.js (calebkornegay on 11/28/2023 at 17:15):     const data = await getLeagueData(league, year);
+card.js      (calebkornegay on 11/28/2023 at 16:16): 			<View style={styles.cardStyle}>
+card.js      (calebkornegay on 11/28/2023 at 16:16): 					style={[styles.container, {borderLeftColor: bgcolor, borderLeftWidth: 20, backgroundColor: '#ffffff'}]} 
+card.js      (calebkornegay on 11/16/2023 at 15:25):                     {newTitle: title, id: id, raceId: raceID}) : null}>
+homescreen.js (calebkornegay on 11/28/2023 at 16:16): 		backgroundColor: '#d0d0d0',
+homescreen.js (calebkornegay on 11/16/2023 at 15:26): 	constructor({navigation}){
+homescreen.js (calebkornegay on 11/16/2023 at 15:26): 		super();
+homescreen.js (calebkornegay on 11/16/2023 at 15:26): 			briefs: getbriefs(null, {navigation}),
+homescreen.js (calebkornegay on 11/16/2023 at 15:26):         const { navigation } = this.props;
+homescreen.js (calebkornegay on 11/16/2023 at 15:26):             getbriefs(formattedDate, {navigation})
+homescreen.js (calebkornegay on 11/28/2023 at 15:28): 			<SafeAreaView style={{ flex: 1, backgroundColor: '#fff', textAlign: 'left'}}>
+racescreen.js (calebkornegay on 11/28/2023 at 16:16): 		backgroundColor: '#d0d0d0',
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         navigation={this.props.navigation}
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         where={'DriverMasterScreen'}
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         id={result['driverId']}
+racescreen.js (calebkornegay on 11/28/2023 at 17:17):                         bgcolor={result['color']}
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16): import { ScrollView, View, Dimensions, StyleSheet, Text, Animated, Easing, Image } from 'react-native';
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 		super(props);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):             date: props.route.params?.raceId | null,
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 			constructorDetails: getConstructorDetails(props.route.params.id, 
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 props.route.params?.raceId), // load constructors into screen state
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 			driverDetails: getDriverDetails(props.route.params.id),	// load drivers into screen state
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18): 			raceDetails: getRace(),	// load races into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.state.constructorDetails //check if the constructors have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/15/2023 at 09:37):                 this.setState({isLoadingRace: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		if(this.state.constructorDetails !== nextState.constructorDetails) return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		if(this.state.driverDetails !== nextState.driverDetails) return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         if(this.state.raceDetails !== nextState.raceDetails) return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     UNSAFE_componentWillReceiveProps(nextProps) {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         if(nextProps.route.params?.raceId !== this.props.route.params?.raceId) {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):             this.updates(nextProps.route.params?.raceId);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):             return true;
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         }
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     }
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     updates(year) {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.setState({isLoadingConstructors: true,
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			isLoadingDrivers: true,
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			isLoadingRace: true,
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.constructorDetails = getConstructorDetails(this.props.route.params.id, year); // load constructors into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.state.driverDetails = getDriverDetails(this.props.route.params.id);	// load drivers into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         this.state.raceDetails = getRace();	// load races into screen state
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.constructorDetails //check if the constructors have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			.catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).then((data) => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				this.setState({isLoadingConstructors: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):                 console.log(data);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.driverDetails //check if the drivers have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			.catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).then(() => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				this.setState({isLoadingDrivers: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 		this.state.raceDetails // check if the races have loaded
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			.catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).then(() => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):                 this.setState({isLoadingRace: false});
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 			}).catch(error => {
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09): 				console.warn(error);
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):         });
+leaguemasterscreen.js (calebkornegay on 11/30/2023 at 10:09):     }
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16):         if (this.props.route.params?.id !== 1) {
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):             return (<View style={{
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 flex: 1,
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 backgroundColor: '#d0d0d0',
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 alignItems: 'center',
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 justifyContent: 'center',
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 }}>
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16):                 <Image 
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):                 source={require('../images/reid_eyes.jpg')}/>
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 17:18):             </View>);
+leaguemasterscreen.js (calebkornegay on 11/28/2023 at 16:16):         }
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                     body={'Origin: ' + data.nationality}
+teamdetails.js (calebkornegay on 11/28/2023 at 16:16):                     bgcolor={data['color']}
+teamdetails.js (calebkornegay on 11/28/2023 at 16:16):                         bgcolor={data['color']}
+teamdetails.js (calebkornegay on 11/28/2023 at 16:16):                         bgcolor={data['color']}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         where={'LeagueMasterScreen'}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         raceID={data.results[i].year}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         id={1}
+teamdetails.js (calebkornegay on 11/28/2023 at 17:16):                         navigation={navigation}
+driverdetails.js (calebkornegay on 11/28/2023 at 17:15):         bgcolor={data['color']}
+driverdetails.js (calebkornegay on 11/28/2023 at 17:15):             bgcolor={data['color']}
