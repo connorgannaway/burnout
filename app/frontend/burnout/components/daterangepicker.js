@@ -4,8 +4,10 @@ import { Calendar } from 'react-native-calendars';
 
 const styles = StyleSheet.create({
   calendarContainer: {
-    padding: 100,
-    paddingBottom: 50,
+    padding: 0,
+    borderColor: '#a0a0a0',
+    borderWidth: 10,
+    borderRadius: 10,
   },
 });
 
@@ -51,6 +53,8 @@ class DateRangePicker extends React.Component {
             dotColor: 'red',
             arrowColor: 'red',
             monthTextColor: 'red',
+            textMonthFontWeight: 'bold',
+            textDayFontWeight: 'bold',
           }}
           markingType='simple'
         />
