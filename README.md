@@ -3,8 +3,20 @@ Project for CS340 Fall 2023
 
 ### Project Name: 
 RaceMob
+
 ### Project Description: 
-A mobile app that aggregates info from different motorsport competitions. Basically a carbon copy of the Fotmob app for soccer but for racing.
+**THE ULTIMATE MOTORSPORTS APP** designed to *revolutionize* the way that fans get their motorsport data. RaceHub Pro is a comprehensive aggregator of motorsports data, seamlessly bringing together information from various racing series, 
+including Formula 1, NASCAR, MotoGP, IndyCar, and more. This user-friendly app provides a one-stop-shop for all things motorsports, offering an immersive and personalized experience for fans of high-octane excitement.
+
+**Key Features:**
+- Up-to-Date Race Schedules
+- The Latest Points Standings
+- Driver and Team profiles
+- State-of-the-Art Interface
+
+We hope that this app displays our commitment to giving you the greatest motorsports experience possible. Whether you are a longtime-fan or a newcomer. We guarantee you will enjoy our cutting-edge, comprehensive, racing coverage
+in our all-in-one-app.
+
 ### Group Members & GitHub ID's:
 - Nicholas Lindsey - nryanl
 - Aaron King - aaronpig9
