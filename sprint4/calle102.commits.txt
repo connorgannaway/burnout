@@ -1,0 +1,23 @@
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  26) 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  27)               shadowColor: 'black', 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  28)         shadowOffset: { 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  29)             width: 0, 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  30)             height: 4, 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  31)         }, 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  32)         shadowOpacity: 0.3, 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  33)         shadowRadius: 3, 
+443113b9 (codyallen9202    2023-11-28 16:26:42 -0500  34)         elevation: 5, 
+cd66a48d (codyallen9202    2023-11-28 12:20:53 -0500  40)               color: 'black',
+
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500   8) **THE ULTIMATE MOTORSPORTS APP** designed to *revolutionize* the way that fans get their motorsport data. RaceHub Pro is a comprehensive aggregator of motorsports data, seamlessly bringing together information from various racing series, 
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500   9) including Formula 1, NASCAR, MotoGP, IndyCar, and more. This user-friendly app provides a one-stop-shop for all things motorsports, offering an immersive and personalized experience for fans of high-octane excitement.
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  10) 
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  11) **Key Features:**
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  12) - Up-to-Date Race Schedules
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  13) - The Latest Points Standings
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  14) - Driver and Team profiles
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  15) - State-of-the-Art Interface
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  16) 
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  17) We hope that this app displays our commitment to giving you the greatest motorsports experience possible. Whether you are a longtime-fan or a newcomer. We guarantee you will enjoy our cutting-edge, comprehensive, racing coverage
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  18) in our all-in-one-app.
+eb05857f (Cody Allen      2023-11-30 19:11:01 -0500  19) 
