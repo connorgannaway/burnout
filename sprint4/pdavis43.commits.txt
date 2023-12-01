@@ -1,0 +1,8 @@
+2ac8eb32 app/frontend/burnout/components/daterangepicker.js (Peyton Davis 2023-12-01 14:19:02 -0500  7)     padding: 0,
+2ac8eb32 app/frontend/burnout/components/daterangepicker.js (Peyton Davis 2023-12-01 14:19:02 -0500  8)     borderColor: '#a0a0a0',
+2ac8eb32 app/frontend/burnout/components/daterangepicker.js (Peyton Davis 2023-12-01 14:19:02 -0500  9)     borderWidth: 10,
+2ac8eb32 app/frontend/burnout/components/daterangepicker.js (Peyton Davis 2023-12-01 14:19:02 -0500 10)     borderRadius: 10,
+2ac8eb32 app/frontend/burnout/components/daterangepicker.js (Peyton Davis 2023-12-01 14:19:02 -0500 56)             textMonthFontWeight: 'bold',
+2ac8eb32 app/frontend/burnout/components/daterangepicker.js (Peyton Davis 2023-12-01 14:19:02 -0500 57)             textDayFontWeight: 'bold',
+
+8b7657be app/frontend/burnout/components/stack.js (Peyton Davis     2023-11-28 15:53:20 -0500 108)               navigation.navigate('LeaguesScreen', { selectedDate: formattedDate });
