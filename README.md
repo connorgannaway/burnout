@@ -69,6 +69,15 @@ If you encounter any issues, make sure you have Python, NodeJS and jdk8 installe
 
 5. **View the App**: Once the build is complete, the app should automatically open on your phone. If not, you should be able to manually open it from a list of apps on Expo Go's home page.
 
+#### How to Use the App
+1. While on the Home Page, changing the date with the calendar in the top right will change the recent races displayed on the Home Page to show the most recent centered around the selected date. 
+
+2. Changing pages is easy, either clicking a card on the page will navigate to a page with more details, or changing the tab at the bottom of the screen will change to the Home Tab, Leagues Tab, or Settings Tab. Changing pages and then changing tabs, if the user decides to go back to the previous tab the page they were on will be saved. 
+
+3. On the Leagues Tab, the first page will be the Leagues Page. This is the page where you can select between F1, NASCAR, etc. Since currently the only league with data on the app is F1, the other pages are blank. However, clicking on the Formula 1 card will take you to the Formula 1 page. On this page you will see the most recent race and the top three finishers as well as a table that lists the teams in order of their points and the drivers in order of points. Clicking on any of the teams or drivers will take you to their respective screens.
+
+4. Team and Driver screens will show that specific team or drivers data. For Teams it will show you that teams data for all previous seasons that team has competed, as well as the drivers for this current season. If you click on the driver's card for that team it will take you to that driver's page where that drivers data will be displayed for this season as well as every previous season that driver has competed.
+
 #### Important Notice
 To run and use the app, this is all that is needed to be done. The app is configured to use our current staging API hosted at `https://pitwall.connorgannaway.net`.  If there are issues with the app loading, check the [Network Status](https://status.connorgannaway.net). To run your own backend server, follow the instructions below.
 
