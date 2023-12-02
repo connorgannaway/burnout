@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 const styles = StyleSheet.create({
@@ -37,6 +37,7 @@ class DateRangePicker extends React.Component {
 
   render() {
     return (
+    <SafeAreaView>
       <View style={styles.calendarContainer}>
         <Calendar
           onDayPress={this.onDayPress}
@@ -59,6 +60,7 @@ class DateRangePicker extends React.Component {
           markingType='simple'
         />
       </View>
+      </SafeAreaView>
     );
   }
 }
