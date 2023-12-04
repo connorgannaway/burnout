@@ -43,6 +43,7 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible,
 	headerStyle: {
 		backgroundColor: '#ff0000',
 	},
+    headerTransparent: false,
 	headerRight: () => (
 		<SafeAreaView>
 			<View style={{flexDirection:'row'}}>
@@ -64,7 +65,7 @@ const ScreenOptions = ( isPickerVisible, setIsPickerVisible,
 			{isPickerVisible && (
 				<Modal
 					animationType="slide"
-					transparent={true}
+					// transparent={true}
 					visible={isPickerVisible}
 					onRequestClose={() => {
 						setIsPickerVisible(false);
@@ -272,7 +273,7 @@ function HomeStack({ navigation }){
 			<Stack.Screen
 				name='HomeScreen'
 				component={HomeScreen}
-				initialParams={{ selectedDate: selectedDate }}
+				// initialParams={{ selectedDate: selectedDate }}
 				options={{
 					headerTitle: () => (
 						isSearchBarVisible
