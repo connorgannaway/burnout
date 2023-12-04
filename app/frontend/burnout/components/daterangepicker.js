@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 const styles = StyleSheet.create({
   calendarContainer: {
-    padding: 100,
-    paddingBottom: 50,
+    padding: 0,
+    borderColor: '#a0a0a0',
+    borderWidth: 10,
+    borderRadius: 10,
   },
 });
 
@@ -35,6 +37,7 @@ class DateRangePicker extends React.Component {
 
   render() {
     return (
+    <SafeAreaView>
       <View style={styles.calendarContainer}>
         <Calendar
           onDayPress={this.onDayPress}
@@ -51,10 +54,13 @@ class DateRangePicker extends React.Component {
             dotColor: 'red',
             arrowColor: 'red',
             monthTextColor: 'red',
+            textMonthFontWeight: 'bold',
+            textDayFontWeight: 'bold',
           }}
           markingType='simple'
         />
       </View>
+      </SafeAreaView>
     );
   }
 }

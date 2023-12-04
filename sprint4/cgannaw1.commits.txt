@@ -1,0 +1,193 @@
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500  10)     color = models.CharField(max_length=7, default="#C80815")
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500  24)     color = models.CharField(max_length=7, default="#C80815")
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500  36)     color = models.CharField(max_length=7, default="#C80815")
+ef998f94 (Connor Gannaway 2023-11-28 15:22:33 -0500  82)             "color": race.seasonId.disciplineId.color,
+a60835be (Connor Gannaway 2023-11-28 17:00:23 -0500  98)                     "driverId": finisher.driverId.driverId,
+a0f2c582 (Connor Gannaway 2023-11-28 16:25:23 -0500 102)                     "color": finisher.constructorId.color,
+a60835be (Connor Gannaway 2023-11-28 17:00:23 -0500 114)                     "driverId": finisher.driverId.driverId,
+a0f2c582 (Connor Gannaway 2023-11-28 16:25:23 -0500 118)                     "color": finisher.constructorId.color,
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 167)         colors = Constructors.objects.filter(constructorId__in=standings).order_by('constructorId').values_list('color', flat=True)
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 168)         data = [{'id' : id, 'team': team, 'points': points, 'color':color} for id,team,points,color in zip(standings,teams,points,colors)]
+ef998f94 (Connor Gannaway 2023-11-28 15:22:33 -0500 231)             "color": race.seasonId.disciplineId.color,
+78688016 (Connor Gannaway 2023-11-28 16:53:46 -0500 250)                         "driverId": finisher.driverId.driverId,
+a0f2c582 (Connor Gannaway 2023-11-28 16:25:23 -0500 259)                         "color": finisher.constructorId.color,
+78688016 (Connor Gannaway 2023-11-28 16:53:46 -0500 277)                     "driverId": finisher.driverId.driverId,
+a0f2c582 (Connor Gannaway 2023-11-28 16:25:23 -0500 281)                     "color": finisher.constructorId.color,
+78688016 (Connor Gannaway 2023-11-28 16:53:46 -0500 298)                     "driverId": finisher.driverId.driverId,
+a0f2c582 (Connor Gannaway 2023-11-28 16:25:23 -0500 307)                     "color": finisher.constructorId.color,
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 319)         disciplines = Disciplines.objects.all().order_by("disciplineId")
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 320)         #serializer = DisciplineSerializer(disciplines, many=True)
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 321)         data = [{
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 322)             "disciplineId": discipline.disciplineId,
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 323)             "name": discipline.name,
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 324)             "color": discipline.color,
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 325)         } for discipline in disciplines]
+7c18ab24 (Connor Gannaway 2023-11-28 15:41:32 -0500 326)         return Response(data=data, status=status.HTTP_200_OK)
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 398)         data = {
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 399)             'races': [],
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 400)             'color': season.disciplineId.color
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 401)         }
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 432)             'color': driver.driverId.color,
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 448)             'color': constructor.constructorId.color,
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 482)             "color": driver.color,
+0394392f (Connor Gannaway 2023-11-28 15:10:04 -0500 548)             "color": constructor.color,
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 20) ## Project Documentation
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 26) ### Installation Steps (Frontend)
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 33)    - Use `git clone https://github.com/utk-cs340-fall23/RaceMob.git` to clone the repository to your machine.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 49) 2. **Open Expo Go on Your Smartphone**: Once opened, you will see an option to scan a QR code. If on iPhone, open the camera app instead.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 58) 5. **View the App**: Once the build is complete, the app should automatically open on your phone. If not, you should be able to manually open it from a list of apps on Expo Go's home page.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 59) 
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 60) #### Important Notice
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 61) To run and use the app, this is all that is needed to be done. The app is configured to use our current staging API hosted at `https://pitwall.connorgannaway.net`.  If there are issues with the app loading, check the [Network Status](https://status.connorgannaway.net). To run your own backend server, follow the instructions below.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 62) 
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 63) ### Installation Steps (Backend)
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 64) 1. **Install Python**: Install Python >= 3.10 from https://www.python.org.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 65) 2. **Create a virtual environment**:
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 66)    - Navigate to `RaceMob/app/backend`.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 67)    - Run the command `python -m venv venv`. This will create a virtual envirionment using Python's venv package called venv.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 68)    - Activate this virtual environment by running `.\venv\Scripts\activate` on Windows or `. venv/bin/activate` on Linux.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 69) 3. **Install Packages**: To install necessary backend packages, run `pip install -r requirements.txt`.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 70) 4. **Setup Database**: This step is NOT NECESSARY if you are using the included sqlite3 file. For ease of use, we've included the development database to help mitigate errors in importing data.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 71)    - Run `python manage.py migrate`. This will create the database and tables.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 72)    - Import data from `Racemob/app/backend/csv`. The preferred tool for this is [DataGrip](https://www.jetbrains.com/datagrip/)
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 73) 5. **Run the Backend Server**: Run the server using `python manage.py runserver`
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 74) 
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 75) ### API Endpoints
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 76) The following endpoints are accessible when running your local backend server or at the [Staging API](https://pitwall.connorgannaway.net/version).
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 77) 
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 78) A note: Endpoints are returned as html, with styling for viewing on the web. adding the query parameter `?format=json` to any endpoint will cause it to return the raw json response. This is what is used in the application.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 79) 
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 80) - `verson/`: Returns API version information.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 81) - `v1/messages/`: Returns any enabled application messages, run with `?all=true` to return all messages
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 82) - `v1/messages/<pk>/`: Returns a specific message
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 83) - `v1/races/nearest/`: Returns a list of previous, ongoing, and upcoming race ids based off the current date. Takes an optional date parameter
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 84) - `v1/races/<pk>/`: Returns all details about a race.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 85) - `v1/races/<pk>/brief/`: Returns brief information about a race.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 86) - `v1/drivers/`: Returns a list of all drivers.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 87) - `v1/drivers/<pk>/`: Returns information about a driver and their past performances
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 88) - `v1/teams/`: Returns a list of teams in the current season. Takes an optional year parameter.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 89) - `v1/teams/<pk>/`: Returns information about a specific team and their previous performances.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 90) - `v1/leagues/`: Returns a list of all leagues.
+e916cadf (Connor Gannaway 2023-11-30 15:16:45 -0500 91) - `v1/leagues/<pk>/`: Returns information about the races and standings in a league's current season. Takes an optional year parameter.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   1) END USER LICENSE AGREEMENT
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   2) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   3) Last updated November 29, 2023
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   4) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   5) 1. THE APPLICATION
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   6) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   7) Burnout ("Licensed Application") is a piece of software created to Allow easy access to motorsport information — and customized for iOS and Android mobile devices ("Devices"). It is used to View motorsport statistics.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   8) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500   9) 2. SCOPE OF LICENSE
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  10) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  11) 2.1  You are given a non-transferable, non-exclusive, non-sublicensable license to install and use the Licensed Application on any Devices that You (End-User) own or control and as permitted by the Usage Rules, with the exception that such Licensed Application may be accessed and used by other accounts associated with You (End-User, The Purchaser) via Family Sharing or volume purchasing.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  12) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  13) 2.2  This license will also govern any updates of the Licensed Application provided by Licensor that replace, repair, and/or supplement the first Licensed Application, unless a separate license is provided for such update, in which case the terms of that new license will govern.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  14) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  15) 2.3  You may not share or make the Licensed Application available to third parties (unless to the degree allowed by the Usage Rules, and with Burnout's prior written consent), sell, rent, lend, lease or otherwise redistribute the Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  16) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  17) 2.4  You may not reverse engineer, translate, disassemble, integrate, decompile, remove, modify, combine, create derivative works or updates of, adapt, or attempt to derive the source code of the Licensed Application, or any part thereof (except with Burnout's prior written consent).
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  18) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  19) 2.5  You may not copy (excluding when expressly authorized by this license and the Usage Rules) or alter the Licensed Application or portions thereof. You may create and store copies only on devices that You own or control for backup keeping under the terms of this license, the Usage Rules, and any other terms and conditions that apply to the device or software used. You may not remove any intellectual property notices. You acknowledge that no unauthorized third parties may gain access to these copies at any time. If you sell your Devices to a third party, you must remove the Licensed Application from the Devices before doing so.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  20) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  21) 2.6  Violations of the obligations mentioned above, as well as the attempt of such infringement, may be subject to prosecution and damages.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  22) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  23) 2.7  Licensor reserves the right to modify the terms and conditions of licensing.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  24) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  25) 2.8  Nothing in this license should be interpreted to restrict third-party terms. When using the Licensed Application, You must ensure that You comply with applicable third-party terms and conditions.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  26) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  27) 3. TECHNICAL REQUIREMENTS
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  28) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  29) 3.1  Licensor attempts to keep the Licensed Application updated so that it complies with modified/new versions of the firmware and new hardware. You are not granted rights to claim such an update.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  30) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  31) 3.2  Licensor reserves the right to modify the technical specifications as it sees appropriate at any time.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  32) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  33) 4. MAINTENANCE AND SUPPORT
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  34) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  35) 4.1  The Licensor is solely responsible for providing any maintenance and support services for this Licensed Application. You can reach the Licensor at the email address listed in the App Store or Play Store Overview for this Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  36) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  37) 4.2  Burnout and the End-User acknowledge that the Services have no obligation whatsoever to furnish any maintenance and support services with respect to the Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  38) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  39) 5. USER-GENERATED CONTRIBUTIONS
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  40) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  41) The Licensed Application does not offer users to submit or post content. We may provide you with the opportunity to create, submit, post, display, transmit, perform, publish, distribute, or broadcast content and materials to us or in the Licensed Application, including but not limited to text, writings, video, audio, photographs, graphics, comments, suggestions, or personal information or other material (collectively, "Contributions"). Contributions may be viewable by other users of the Licensed Application and through third-party websites or applications. As such, any Contributions you transmit may be treated in accordance with the Licensed Application Privacy Policy. When you create or make available any Contributions, you thereby represent and warrant that:
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  42) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  43)     The creation, distribution, transmission, public display, or performance, and the accessing, downloading, or copying of your Contributions do not and will not infringe the proprietary rights, including but not limited to the copyright, patent, trademark, trade secret, or moral rights of any third party.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  44)     You are the creator and owner of or have the necessary licenses, rights, consents, releases, and permissions to use and to authorize us, the Licensed Application, and other users of the Licensed Application to use your Contributions in any manner contemplated by the Licensed Application and this License Agreement.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  45)     You have the written consent, release, and/or permission of each and every identifiable individual person in your Contributions to use the name or likeness or each and every such identifiable individual person to enable inclusion and use of your Contributions in any manner contemplated by the Licensed Application and this License Agreement.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  46)     Your Contributions are not false, inaccurate, or misleading.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  47)     Your Contributions are not unsolicited or unauthorized advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings, or other forms of solicitation.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  48)     Your Contributions are not obscene, lewd, lascivious, filthy, violent, harassing, libelous, slanderous, or otherwise objectionable (as determined by us).
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  49)     Your Contributions do not ridicule, mock, disparage, intimidate, or abuse anyone.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  50)     Your Contributions are not used to harass or threaten (in the legal sense of those terms) any other person and to promote violence against a specific person or class of people.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  51)     Your Contributions do not violate any applicable law, regulation, or rule.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  52)     Your Contributions do not violate the privacy or publicity rights of any third party.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  53)     Your Contributions do not violate any applicable law concerning child pornography, or otherwise intended to protect the health or well-being of minors.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  54)     Your Contributions do not include any offensive comments that are connected to race, national origin, gender, sexual preference, or physical handicap.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  55)     Your Contributions do not otherwise violate, or link to material that violates, any provision of this License Agreement, or any applicable law or regulation.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  56) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  57) Any use of the Licensed Application in violation of the foregoing violates this License Agreement and may result in, among other things, termination or suspension of your rights to use the Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  58) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  59) 6. CONTRIBUTION LICENSE
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  60) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  61) You agree that we may access, store, process, and use any information and personal data that you provide following the terms of the Privacy Policy and your choices (including settings).
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  62) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  63) By submitting suggestions or other feedback regarding the Licensed Application, you agree that we can use and share such feedback for any purpose without compensation to you.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  64) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  65) We do not assert any ownership over your Contributions. You retain full ownership of all of your Contributions and any intellectual property rights or other proprietary rights associated with your Contributions. We are not liable for any statements or representations in your Contributions provided by you in any area in the Licensed Application. You are solely responsible for your Contributions to the Licensed Application and you expressly agree to exonerate us from any and all responsibility and to refrain from any legal action against us regarding your Contributions.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  66) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  67) 7. LIABILITY
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  68) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  69) 7.1  Licensor's responsibility in the case of violation of obligations and tort shall be limited to intent and gross negligence. Only in case of a breach of essential contractual duties (cardinal obligations), Licensor shall also be liable in case of slight negligence. In any case, liability shall be limited to the foreseeable, contractually typical damages. The limitation mentioned above does not apply to injuries to life, limb, or health.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  70) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  71) 7.2  Licensor takes no accountability or responsibility for any damages caused due to a breach of duties according to Section 2 of this License Agreement. To avoid data loss, You are required to make use of backup functions of the Licensed Application to the extent allowed by applicable third-party terms and conditions of use. You are aware that in case of alterations or manipulations of the Licensed Application, You will not have access to the Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  72) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  73) 8. WARRANTY
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  74) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  75) 8.1  Licensor warrants that the Licensed Application is free of spyware, trojan horses, viruses, or any other malware at the time of Your download. Licensor warrants that the Licensed Application works as described in the user documentation.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  76) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  77) 8.2  No warranty is provided for the Licensed Application that is not executable on the device, that has been unauthorizedly modified, handled inappropriately or culpably, combined or installed with inappropriate hardware or software, used with inappropriate accessories, regardless if by Yourself or by third parties, or if there are any other reasons outside of Burnout's sphere of influence that affect the executability of the Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  78) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  79) 8.3  You are required to inspect the Licensed Application immediately after installing it and notify Burnout about issues discovered without delay by email provided in Contact Information. The defect report will be taken into consideration and further investigated if it has been emailed within a period of seven (7) days after discovery.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  80) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  81) 8.4  If we confirm that the Licensed Application is defective, Burnout reserves a choice to remedy the situation either by means of solving the defect or substitute delivery.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  82) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  83) 8.5  In the event of any failure of the Licensed Application to conform to any applicable warranty, You may notify the Services Store Operator, and Your Licensed Application purchase price will be refunded to You. To the maximum extent permitted by applicable law, the Services Store Operator will have no other warranty obligation whatsoever with respect to the Licensed Application, and any other losses, claims, damages, liabilities, expenses, and costs attributable to any negligence to adhere to any warranty.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  84) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  85) 8.6  If the user is an entrepreneur, any claim based on faults expires after a statutory period of limitation amounting to twelve (12) months after the Licensed Application was made available to the user. The statutory periods of limitation given by law apply for users who are consumers.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  86) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  87) 8. PRODUCT CLAIMS: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  88) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  89) Burnout and the End-User acknowledge that Burnout, and not the Services, is responsible for addressing any claims of the End-User or any third party relating to the Licensed Application or the End-User’s possession and/or use of that Licensed Application, including, but not limited to:
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  90)     
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  91)     (i)  product liability claims;
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  92)     
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  93)     (ii) any claim that the Licensed Application fails to conform to any applicable legal or regulatory requirement; and
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  94)     
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  95)     (iii) claims arising under consumer protection, privacy, or similar legislation, including in connection with Your Licensed Application’s use of the HealthKit and HomeKit.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  96) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  97) 10. LEGAL COMPLIANCE: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  98) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500  99) You represent and warrant that You are not located in a country that is subject to a US Government embargo, or that has been designated by the US Government as a "terrorist supporting" country; and that You are not listed on any US Government list of prohibited or restricted parties.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 100) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 101) 11. TERMINATION: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 102) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 103) The license is valid until terminated by Burnout or by You. Your rights under this license will terminate automatically and without notice from Burnout if You fail to adhere to any term(s) of this license. Upon License termination, You shall stop all use of the Licensed Application, and destroy all copies, full or partial, of the Licensed Application.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 104) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 105) 12. THIRD-PARTY TERMS OF AGREEMENTS AND BENEFICIARY: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 106) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 107) Burnout represents and warrants that Burnout will comply with applicable third-party terms of agreement when using Licensed Application. Both Apple and Google and their subsidiaries shall be third-party beneficiaries of this End User License Agreement and — upon Your acceptance of the terms and conditions of this License Agreement, both Apple and Google will have the right (and will be deemed to have accepted the right) to enforce this End User License Agreement against You as a third-party beneficiary thereof.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 108) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 109) 13. INTELLECTUAL PROPERTY RIGHTS: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 110) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 111) Burnout and the End-User acknowledge that, in the event of any third-party claim that the Licensed Application or the End-User's possession and use of that Licensed Application infringes on the third party's intellectual property rights, Burnout, and not the Services, will be solely responsible for the investigation, defense, settlement, and discharge or any such intellectual property infringement claims.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 112) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 113) 14. APPLICABLE LAW: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 114) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 115) This License Agreement is governed by the laws of the State of Tennessee excluding its conflicts of law rules.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 116) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 117) 15 MISCELLANEOUS: 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 118) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 119) 15.1  If any of the terms of this agreement should be or become invalid, the validity of the remaining provisions shall not be affected. Invalid terms will be replaced by valid ones formulated in a way that will achieve the primary purpose. 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 120) 
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 121) 15.2  Collateral agreements, changes and amendments are only valid if laid down in writing. The preceding clause can only be waived in writing.
+afef177f (Connor Gannaway 2023-11-29 22:13:39 -0500 122) 
