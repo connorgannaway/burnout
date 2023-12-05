@@ -110,3 +110,6 @@ A note: Endpoints are returned as html, with styling for viewing on the web. add
 - `v1/teams/<pk>/`: Returns information about a specific team and their previous performances.
 - `v1/leagues/`: Returns a list of all leagues.
 - `v1/leagues/<pk>/`: Returns information about the races and standings in a league's current season. Takes an optional year parameter.
+
+### License
+View [License.txt](https://github.com/utk-cs340-fall23/RaceMob/blob/main/License.txt) for more information.
