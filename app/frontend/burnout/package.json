@@ -1,6 +1,6 @@
 {
   "name": "burnout",
-  "version": "0.1.15",
+  "version": "0.1.999999-alpha2",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "lint": "lint.bat",
