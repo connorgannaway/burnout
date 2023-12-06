@@ -41,7 +41,7 @@ read bump
 # Check for semantic versioning (x.x.x)
 if [[ ! $bump =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo "Invalid version number format. Please use the format: X.X.X"
-    exit 1
+    echo "Confirm this is what you want. Continuing."
 fi
 
 # Update files
