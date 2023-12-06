@@ -5,6 +5,10 @@ Project for CS340 Fall 2023
 RaceMob
 
 ### Project Description: 
+<p align="center">
+    <img src="burnout-logo-1.png">
+</p>
+
 **THE ULTIMATE MOTORSPORTS APP** designed to *revolutionize* the way that fans get their motorsport data. RaceHub Pro is a comprehensive aggregator of motorsports data, seamlessly bringing together information from various racing series, 
 including Formula 1, NASCAR, MotoGP, IndyCar, and more. This user-friendly app provides a one-stop-shop for all things motorsports, offering an immersive and personalized experience for fans of high-octane excitement.
 
